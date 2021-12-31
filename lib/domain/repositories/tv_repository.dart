@@ -5,4 +5,5 @@ import 'package:ditonton/domain/entities/tv.dart';
 abstract class TvRepository {
   Future<Either<Failure, List<Tv>>> getOnTheAirTvs();
   Future<Either<Failure, List<Tv>>> getPopularTvs();
+  Future<Either<Failure, List<Tv>>> getTopRatedTvs();
 }

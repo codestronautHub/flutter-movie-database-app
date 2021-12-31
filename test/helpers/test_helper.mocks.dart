@@ -136,6 +136,12 @@ class MockTvRepository extends _i1.Mock implements _i10.TvRepository {
               returnValue: Future<_i2.Either<_i7.Failure, List<_i11.Tv>>>.value(
                   _FakeEither_0<_i7.Failure, List<_i11.Tv>>()))
           as _i6.Future<_i2.Either<_i7.Failure, List<_i11.Tv>>>);
+  @override
+  _i6.Future<_i2.Either<_i7.Failure, List<_i11.Tv>>> getTopRatedTvs() =>
+      (super.noSuchMethod(Invocation.method(#getTopRatedTvs, []),
+              returnValue: Future<_i2.Either<_i7.Failure, List<_i11.Tv>>>.value(
+                  _FakeEither_0<_i7.Failure, List<_i11.Tv>>()))
+          as _i6.Future<_i2.Either<_i7.Failure, List<_i11.Tv>>>);
 }
 
 /// A class which mocks [MovieRemoteDataSource].
