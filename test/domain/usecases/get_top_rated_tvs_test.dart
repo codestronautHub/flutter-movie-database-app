@@ -17,13 +17,18 @@ void main() {
 
   final tTvs = <Tv>[];
 
-  test("should get list of tvs from the repository", () async {
-    // arrange
-    when(mockTvRepository.getTopRatedTvs())
-        .thenAnswer((_) async => Right(tTvs));
-    // act
-    final result = await usecase.execute();
-    // assert
-    expect(result, Right(tTvs));
-  });
+  test(
+    "should get list of tvs from the repository",
+    () async {
+      // arrange
+      when(mockTvRepository.getTopRatedTvs())
+          .thenAnswer((_) async => Right(tTvs));
+
+      // act
+      final result = await usecase.execute();
+
+      // assert
+      expect(result, Right(tTvs));
+    },
+  );
 }
