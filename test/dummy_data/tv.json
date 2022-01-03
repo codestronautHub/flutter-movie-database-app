@@ -12,10 +12,6 @@
             ],
             "id": 1,
             "name": "Name",
-            "origin_country": [
-                "US"
-            ],
-            "original_language": "en",
             "original_name": "Original Name",
             "overview": "Overview",
             "popularity": 1.0,
