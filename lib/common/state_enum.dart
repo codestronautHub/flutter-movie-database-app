@@ -1,2 +1,2 @@
 enum RequestState { Empty, Loading, Loaded, Error }
-enum HomePageState { Movie, Tv }
+enum ContentType { Movie, Tv }
