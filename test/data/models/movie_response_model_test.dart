@@ -33,7 +33,7 @@ void main() {
       () async {
         // arrange
         final Map<String, dynamic> jsonMap = json.decode(
-          readJson('dummy_data/now_playing.json'),
+          readJson('dummy_data/now_playing_movie.json'),
         );
 
         // act
