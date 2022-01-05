@@ -2,21 +2,21 @@
   "adult": false,
   "backdrop_path": "/path.jpg",
   "belongs_to_collection": {
-    "id": 11,
-    "name": "Collection",
-    "poster_path": null,
-    "backdrop_path": null
+    "id": 1,
+    "name": "Collection Name",
+    "poster_path": "/path.jpg",
+    "backdrop_path": "/path.jpg"
   },
   "budget": 100,
   "genres": [
     {
       "id": 1,
-      "name": "Action"
+      "name": "Genre 1"
     }
   ],
-  "homepage": "https://google.com",
+  "homepage": "https://www.google.com",
   "id": 1,
-  "imdb_id": "imdb1",
+  "imdb_id": "IMDB 1",
   "original_language": "en",
   "original_title": "Original Title",
   "overview": "Overview",
@@ -25,8 +25,8 @@
   "production_companies": [
     {
       "id": 1,
-      "logo_path": null,
-      "name": "Company",
+      "logo_path": "/path.jpg",
+      "name": "Company Name",
       "origin_country": "US"
     }
   ],
@@ -36,24 +36,14 @@
       "name": "United States of America"
     }
   ],
-  "release_date": "2020-05-05",
-  "revenue": 12000,
-  "runtime": 120,
+  "release_date": "2022-01-01",
+  "revenue": 10000,
+  "runtime": 100,
   "spoken_languages": [
     {
       "english_name": "English",
       "iso_639_1": "en",
       "name": "English"
-    },
-    {
-      "english_name": "German",
-      "iso_639_1": "de",
-      "name": "Deutsch"
-    },
-    {
-      "english_name": "Spanish",
-      "iso_639_1": "es",
-      "name": "Español"
     }
   ],
   "status": "Status",

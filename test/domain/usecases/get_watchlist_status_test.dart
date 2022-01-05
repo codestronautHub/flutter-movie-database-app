@@ -5,21 +5,32 @@ import 'package:mockito/mockito.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetWatchListStatus usecase;
   late MockMovieRepository mockMovieRepository;
+  // TODO: Add MockTvRepository
+  late GetWatchListStatus usecase;
+  // TODO: Add GetWatchlistTvStatus
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
+    // TODO: Add MockTvRepository initialization
     usecase = GetWatchListStatus(mockMovieRepository);
+    // TODO: Add GetWatchlistTvStatus initialization
   });
 
-  test('should get watchlist status from repository', () async {
-    // arrange
-    when(mockMovieRepository.isAddedToWatchlist(1))
-        .thenAnswer((_) async => true);
-    // act
-    final result = await usecase.execute(1);
-    // assert
-    expect(result, true);
-  });
+  test(
+    'should get movie watchlist status from repository',
+    () async {
+      // arrange
+      when(mockMovieRepository.isAddedToWatchlist(1))
+          .thenAnswer((_) async => true);
+
+      // act
+      final result = await usecase.execute(1);
+
+      // assert
+      expect(result, true);
+    },
+  );
+
+  // TODO: Add get tv watchlist status test
 }

@@ -14,11 +14,11 @@ import 'tv_list_notifier_test.mocks.dart';
 
 @GenerateMocks([GetOnTheAirTvs, GetPopularTvs, GetTopRatedTvs])
 void main() {
-  late TvListNotifier provider;
+  late int listenerCallCount;
   late MockGetOnTheAirTvs mockGetOnTheAirTvs;
   late MockGetPopularTvs mockGetPopularTvs;
   late MockGetTopRatedTvs mockGetTopRatedTvs;
-  late int listenerCallCount;
+  late TvListNotifier provider;
 
   setUp(() {
     listenerCallCount = 0;
@@ -30,7 +30,7 @@ void main() {
       getPopularTvs: mockGetPopularTvs,
       getTopRatedTvs: mockGetTopRatedTvs,
     )..addListener(() {
-        listenerCallCount += 1;
+        listenerCallCount++;
       });
   });
 
@@ -52,14 +52,14 @@ void main() {
 
   group('on the air tvs', () {
     test(
-      'initialState should be empty',
+      'initial state should be empty',
       () {
         expect(provider.onTheAirTvsState, equals(RequestState.Empty));
       },
     );
 
     test(
-      'should get data from the usecase',
+      'should get tvs data from the usecase',
       () async {
         // arrange
         when(mockGetOnTheAirTvs.execute())
@@ -74,7 +74,7 @@ void main() {
     );
 
     test(
-      'should change state to Loading when usecase is called',
+      'should change state to loading when usecase is called',
       () async {
         // arrange
         when(mockGetOnTheAirTvs.execute())
@@ -84,7 +84,7 @@ void main() {
         provider.fetchOnTheAirTvs();
 
         // assert
-        expect(provider.onTheAirTvsState, RequestState.Loading);
+        expect(provider.onTheAirTvsState, equals(RequestState.Loading));
       },
     );
 
@@ -99,40 +99,40 @@ void main() {
         await provider.fetchOnTheAirTvs();
 
         // assert
-        expect(provider.onTheAirTvsState, RequestState.Loaded);
-        expect(provider.onTheAirTvs, tTvList);
-        expect(listenerCallCount, 2);
+        expect(provider.onTheAirTvsState, equals(RequestState.Loaded));
+        expect(provider.onTheAirTvs, equals(tTvList));
+        expect(listenerCallCount, equals(2));
       },
     );
 
     test(
-      'should return error when data is unsuccessful',
+      'should return server failure when error',
       () async {
         // arrange
         when(mockGetOnTheAirTvs.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchOnTheAirTvs();
 
         // assert
-        expect(provider.onTheAirTvsState, RequestState.Error);
-        expect(provider.message, 'Server Failure');
-        expect(listenerCallCount, 2);
+        expect(provider.onTheAirTvsState, equals(RequestState.Error));
+        expect(provider.message, equals('Server failure'));
+        expect(listenerCallCount, equals(2));
       },
     );
   });
 
   group('popular tvs', () {
     test(
-      'initialState should be empty',
+      'initial state should be empty',
       () {
         expect(provider.popularTvsState, equals(RequestState.Empty));
       },
     );
 
     test(
-      'should get data from the usecase',
+      'should get tvs data from the usecase',
       () async {
         // arrange
         when(mockGetPopularTvs.execute())
@@ -147,7 +147,7 @@ void main() {
     );
 
     test(
-      'should change state to Loading when usecase is called',
+      'should change state to loading when usecase is called',
       () async {
         // arrange
         when(mockGetPopularTvs.execute())
@@ -157,7 +157,7 @@ void main() {
         provider.fetchPopularTvs();
 
         // assert
-        expect(provider.popularTvsState, RequestState.Loading);
+        expect(provider.popularTvsState, equals(RequestState.Loading));
       },
     );
 
@@ -172,40 +172,40 @@ void main() {
         await provider.fetchPopularTvs();
 
         // assert
-        expect(provider.popularTvsState, RequestState.Loaded);
-        expect(provider.popularTvs, tTvList);
-        expect(listenerCallCount, 2);
+        expect(provider.popularTvsState, equals(RequestState.Loaded));
+        expect(provider.popularTvs, equals(tTvList));
+        expect(listenerCallCount, equals(2));
       },
     );
 
     test(
-      'should return error when data is unsuccessful',
+      'should return server failure when error',
       () async {
         // arrange
         when(mockGetPopularTvs.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchPopularTvs();
 
         // assert
-        expect(provider.popularTvsState, RequestState.Error);
-        expect(provider.message, 'Server Failure');
-        expect(listenerCallCount, 2);
+        expect(provider.popularTvsState, equals(RequestState.Error));
+        expect(provider.message, equals('Server failure'));
+        expect(listenerCallCount, equals(2));
       },
     );
   });
 
   group('top rated tvs', () {
     test(
-      'initialState should be empty',
+      'initial state should be empty',
       () {
         expect(provider.topRatedTvsState, equals(RequestState.Empty));
       },
     );
 
     test(
-      'should get data from the usecase',
+      'should get tvs data from the usecase',
       () async {
         // arrange
         when(mockGetTopRatedTvs.execute())
@@ -220,7 +220,7 @@ void main() {
     );
 
     test(
-      'should change state to Loading when usecase is called',
+      'should change state to loading when usecase is called',
       () async {
         // arrange
         when(mockGetTopRatedTvs.execute())
@@ -230,7 +230,7 @@ void main() {
         provider.fetchTopRatedTvs();
 
         // assert
-        expect(provider.topRatedTvsState, RequestState.Loading);
+        expect(provider.topRatedTvsState, equals(RequestState.Loading));
       },
     );
 
@@ -245,26 +245,26 @@ void main() {
         await provider.fetchTopRatedTvs();
 
         // assert
-        expect(provider.topRatedTvsState, RequestState.Loaded);
-        expect(provider.topRatedTvs, tTvList);
-        expect(listenerCallCount, 2);
+        expect(provider.topRatedTvsState, equals(RequestState.Loaded));
+        expect(provider.topRatedTvs, equals(tTvList));
+        expect(listenerCallCount, equals(2));
       },
     );
 
     test(
-      'should return error when data is unsuccessful',
+      'should return server failure when error',
       () async {
         // arrange
         when(mockGetTopRatedTvs.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchTopRatedTvs();
 
         // assert
-        expect(provider.topRatedTvsState, RequestState.Error);
-        expect(provider.message, 'Server Failure');
-        expect(listenerCallCount, 2);
+        expect(provider.topRatedTvsState, equals(RequestState.Error));
+        expect(provider.message, equals('Server failure'));
+        expect(listenerCallCount, equals(2));
       },
     );
   });

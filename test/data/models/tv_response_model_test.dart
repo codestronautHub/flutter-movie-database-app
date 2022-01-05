@@ -30,8 +30,9 @@ void main() {
       'should return a valid model from JSON',
       () async {
         // arrange
-        final Map<String, dynamic> jsonMap =
-            json.decode(readJson('dummy_data/tv.json'));
+        final Map<String, dynamic> jsonMap = json.decode(
+          readJson('dummy_data/tv.json'),
+        );
 
         // act
         final result = TvResponse.fromJson(jsonMap);

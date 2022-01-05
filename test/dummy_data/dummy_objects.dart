@@ -5,55 +5,55 @@ import 'package:ditonton/domain/entities/movie_detail.dart';
 
 final testMovie = Movie(
   adult: false,
-  backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-  genreIds: [14, 28],
-  id: 557,
-  originalTitle: 'Spider-Man',
+  backdropPath: '/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
+  genreIds: [28, 12, 878],
+  id: 634649,
+  originalTitle: 'Spider-Man: No Way Home',
   overview:
-      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
-  popularity: 60.441,
-  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
-  releaseDate: '2002-05-01',
-  title: 'Spider-Man',
+      'Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.',
+  popularity: 8817.063,
+  posterPath: '/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',
+  releaseDate: '2021-12-15',
+  title: 'Spider-Man: No Way Home',
   video: false,
-  voteAverage: 7.2,
-  voteCount: 13507,
+  voteAverage: 8.4,
+  voteCount: 3427,
 );
 
 final testMovieList = [testMovie];
 
 final testMovieDetail = MovieDetail(
   adult: false,
-  backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
+  backdropPath: '/path.jpg',
+  genres: [Genre(id: 1, name: 'Genre 1')],
   id: 1,
-  originalTitle: 'originalTitle',
-  overview: 'overview',
-  posterPath: 'posterPath',
-  releaseDate: 'releaseDate',
-  runtime: 120,
-  title: 'title',
-  voteAverage: 1,
+  originalTitle: 'Original Title',
+  overview: 'Overview',
+  posterPath: '/path.jpg',
+  releaseDate: '2022-01-01',
+  runtime: 100,
+  title: 'Title',
+  voteAverage: 1.0,
   voteCount: 1,
 );
 
 final testWatchlistMovie = Movie.watchlist(
   id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
+  overview: 'Overview',
+  posterPath: '/path.jpg',
+  title: 'Title',
 );
 
 final testMovieTable = MovieTable(
   id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
+  overview: 'Overview',
+  posterPath: '/path.jpg',
+  title: 'Title',
 );
 
 final testMovieMap = {
   'id': 1,
-  'overview': 'overview',
-  'posterPath': 'posterPath',
-  'title': 'title',
+  'overview': 'Overview',
+  'posterPath': '/path.jpg',
+  'title': 'Title',
 };

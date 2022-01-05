@@ -1,25 +1,25 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv.dart';
-import 'package:ditonton/presentation/pages/top_rated_tvs_page.dart';
-import 'package:ditonton/presentation/provider/top_rated_tvs_notifier.dart';
+import 'package:ditonton/presentation/pages/popular_tvs_page.dart';
+import 'package:ditonton/presentation/provider/popular_tvs_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
-import 'top_rated_tvs_page_test.mocks.dart';
+import 'popular_tvs_page_test.mocks.dart';
 
-@GenerateMocks([TopRatedTvsNotifier])
+@GenerateMocks([PopularTvsNotifier])
 void main() {
-  late MockTopRatedTvsNotifier mockNotifier;
+  late MockPopularTvsNotifier mockNotifier;
 
   setUp(() {
-    mockNotifier = MockTopRatedTvsNotifier();
+    mockNotifier = MockPopularTvsNotifier();
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TopRatedTvsNotifier>.value(
+    return ChangeNotifierProvider<PopularTvsNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
         home: body,
@@ -37,7 +37,7 @@ void main() {
       final centerFinder = find.byType(Center);
       final progressBarFinder = find.byType(CircularProgressIndicator);
 
-      await tester.pumpWidget(_makeTestableWidget(TopRatedTvsPage()));
+      await tester.pumpWidget(_makeTestableWidget(PopularTvsPage()));
 
       // assert
       expect(centerFinder, findsOneWidget);
@@ -55,7 +55,7 @@ void main() {
       // act
       final listViewFinder = find.byType(ListView);
 
-      await tester.pumpWidget(_makeTestableWidget(TopRatedTvsPage()));
+      await tester.pumpWidget(_makeTestableWidget(PopularTvsPage()));
 
       // assert
       expect(listViewFinder, findsOneWidget);
@@ -67,12 +67,12 @@ void main() {
     (WidgetTester tester) async {
       // arrange
       when(mockNotifier.state).thenReturn(RequestState.Error);
-      when(mockNotifier.message).thenReturn('error message');
+      when(mockNotifier.message).thenReturn('Error message');
 
       // act
       final textFinder = find.byKey(Key('error_message'));
 
-      await tester.pumpWidget(_makeTestableWidget(TopRatedTvsPage()));
+      await tester.pumpWidget(_makeTestableWidget(PopularTvsPage()));
 
       // assert
       expect(textFinder, findsOneWidget);
