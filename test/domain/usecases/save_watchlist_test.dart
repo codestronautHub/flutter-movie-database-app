@@ -7,22 +7,33 @@ import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late SaveWatchlist usecase;
   late MockMovieRepository mockMovieRepository;
+  // TODO: Add MockTvRepository
+  late SaveWatchlist usecase;
+  // TODO: Add SaveWatchlistTv
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
+    // TODO: Add MockTvRepository initialization
     usecase = SaveWatchlist(mockMovieRepository);
+    // TODO: Add SaveWatchlistTv initialization
   });
 
-  test('should save movie to the repository', () async {
-    // arrange
-    when(mockMovieRepository.saveWatchlist(testMovieDetail))
-        .thenAnswer((_) async => Right('Added to Watchlist'));
-    // act
-    final result = await usecase.execute(testMovieDetail);
-    // assert
-    verify(mockMovieRepository.saveWatchlist(testMovieDetail));
-    expect(result, Right('Added to Watchlist'));
-  });
+  test(
+    'should save a movie to the repository',
+    () async {
+      // arrange
+      when(mockMovieRepository.saveWatchlist(testMovieDetail))
+          .thenAnswer((_) async => Right('Added to watchlist'));
+
+      // act
+      final result = await usecase.execute(testMovieDetail);
+
+      // assert
+      verify(mockMovieRepository.saveWatchlist(testMovieDetail));
+      expect(result, Right('Added to watchlist'));
+    },
+  );
+
+  // TODO: Add save tv watchlist test
 }

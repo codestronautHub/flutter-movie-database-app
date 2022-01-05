@@ -12,9 +12,9 @@ import 'package:mockito/mockito.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late TvRepositoryImpl repository;
   late MockTvRemoteDataSource mockRemoteDataSource;
   // TODO: add MockTvLocalDataSource
+  late TvRepositoryImpl repository;
 
   setUp(() {
     mockRemoteDataSource = MockTvRemoteDataSource();
@@ -58,9 +58,9 @@ void main() {
   final tTvModelList = <TvModel>[tTvModel];
   final tTvList = <Tv>[tTv];
 
-  group('On The Air Tvs', () {
+  group('on the air tvs', () {
     test(
-      'should return tv list when call to remote data source is successful',
+      'should return tv list when a call to data source is successful',
       () async {
         // arrange
         when(mockRemoteDataSource.getOnTheAirTvs())
@@ -70,13 +70,18 @@ void main() {
         final result = await repository.getOnTheAirTvs();
 
         // assert
+        verify(mockRemoteDataSource.getOnTheAirTvs());
+        /* 
+          workaround to test List in Right.
+          Issue: https://github.com/spebbe/dartz/issues/80 
+        */
         final resultList = result.getOrElse(() => []);
-        expect(resultList, tTvList);
+        expect(resultList, equals(tTvList));
       },
     );
 
     test(
-      'should return server failure when the call to remote data source is unsuccessful',
+      'should return server failure when a call to data source is unsuccessful',
       () async {
         // arrange
         when(mockRemoteDataSource.getOnTheAirTvs())
@@ -92,7 +97,7 @@ void main() {
     );
 
     test(
-      'should return connection failure when the device is not connected to internet',
+      'should return connection failure when the device is not connected',
       () async {
         // arrange
         when(mockRemoteDataSource.getOnTheAirTvs())
@@ -104,16 +109,16 @@ void main() {
         // assert
         verify(mockRemoteDataSource.getOnTheAirTvs());
         expect(
-            result,
-            equals(
-                Left(ConnectionFailure('Failed to connect to the network'))));
+          result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))),
+        );
       },
     );
   });
 
   group('Popular Tvs', () {
     test(
-      'should return tv list when call to remote data source is successful',
+      'should return tv list when a call to data source is successful',
       () async {
         // arrange
         when(mockRemoteDataSource.getPopularTvs())
@@ -123,13 +128,18 @@ void main() {
         final result = await repository.getPopularTvs();
 
         // assert
+        verify(mockRemoteDataSource.getPopularTvs());
+        /* 
+          workaround to test List in Right.
+          Issue: https://github.com/spebbe/dartz/issues/80 
+        */
         final resultList = result.getOrElse(() => []);
-        expect(resultList, tTvList);
+        expect(resultList, equals(tTvList));
       },
     );
 
     test(
-      'should return server failure when the call to remote data source is unsuccessful',
+      'should return server failure when a call to data source is unsuccessful',
       () async {
         // arrange
         when(mockRemoteDataSource.getPopularTvs()).thenThrow(ServerException());
@@ -144,7 +154,7 @@ void main() {
     );
 
     test(
-      'should return connection failure when the device is not connected to internet',
+      'should return connection failure when the device is not connected',
       () async {
         // arrange
         when(mockRemoteDataSource.getPopularTvs())
@@ -156,16 +166,16 @@ void main() {
         // assert
         verify(mockRemoteDataSource.getPopularTvs());
         expect(
-            result,
-            equals(
-                Left(ConnectionFailure('Failed to connect to the network'))));
+          result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))),
+        );
       },
     );
   });
 
   group('Top Rated Tvs', () {
     test(
-      'should return tv list when call to remote data source is successful',
+      'should return tv list when a call to data source is successful',
       () async {
         // arrange
         when(mockRemoteDataSource.getTopRatedTvs())
@@ -175,13 +185,18 @@ void main() {
         final result = await repository.getTopRatedTvs();
 
         // assert
+        verify(mockRemoteDataSource.getTopRatedTvs());
+        /* 
+          workaround to test List in Right.
+          Issue: https://github.com/spebbe/dartz/issues/80 
+        */
         final resultList = result.getOrElse(() => []);
-        expect(resultList, tTvList);
+        expect(resultList, equals(tTvList));
       },
     );
 
     test(
-      'should return server failure when the call to remote data source is unsuccessful',
+      'should return server failure when a call to data source is unsuccessful',
       () async {
         // arrange
         when(mockRemoteDataSource.getTopRatedTvs())
@@ -197,7 +212,7 @@ void main() {
     );
 
     test(
-      'should return connection failure when the device is not connected to internet',
+      'should return connection failure when the device is not connected',
       () async {
         // arrange
         when(mockRemoteDataSource.getTopRatedTvs())
@@ -209,9 +224,9 @@ void main() {
         // assert
         verify(mockRemoteDataSource.getTopRatedTvs());
         expect(
-            result,
-            equals(
-                Left(ConnectionFailure('Failed to connect to the network'))));
+          result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))),
+        );
       },
     );
   });

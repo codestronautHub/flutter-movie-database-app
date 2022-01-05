@@ -4,11 +4,11 @@ import 'package:ditonton/domain/usecases/get_on_the_air_tvs.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../helpers/test_helper.mocks.dart';
+import '../../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetOnTheAirTvs usecase;
   late MockTvRepository mockTvRepository;
+  late GetOnTheAirTvs usecase;
 
   setUp(() {
     mockTvRepository = MockTvRepository();
@@ -18,7 +18,7 @@ void main() {
   final tTvs = <Tv>[];
 
   test(
-    "should get list of tvs from the repository",
+    "should get list of tv from the repository",
     () async {
       // arrange
       when(mockTvRepository.getOnTheAirTvs())

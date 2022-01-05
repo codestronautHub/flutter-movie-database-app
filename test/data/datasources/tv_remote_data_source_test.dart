@@ -12,8 +12,8 @@ import '../../helpers/test_helper.mocks.dart';
 import '../../json_reader.dart';
 
 void main() {
-  late TvRemoteDataSourceImpl dataSource;
   late MockHttpClient mockHttpClient;
+  late TvRemoteDataSourceImpl dataSource;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
@@ -24,9 +24,9 @@ void main() {
     json.decode(readJson('dummy_data/tv.json')),
   ).tvList;
 
-  group('get On The Air Tvs', () {
+  group('get on the air tvs', () {
     test(
-      'should return list of tvs when the response code is 200',
+      'should return list of tv model when the response code is 200',
       () async {
         // arrange
         when(mockHttpClient.get(Uri.parse(Urls.onTheAirTvs))).thenAnswer(
@@ -41,11 +41,11 @@ void main() {
     );
 
     test(
-      'should throw a ServerException when the response code is 404 or other',
+      'should throw a server exception when the response code is 404 or other',
       () async {
         // arrange
         when(mockHttpClient.get(Uri.parse(Urls.onTheAirTvs)))
-            .thenAnswer((_) async => http.Response('Not Found', 404));
+            .thenAnswer((_) async => http.Response('Not found', 404));
 
         // act
         final call = dataSource.getOnTheAirTvs();
@@ -56,9 +56,9 @@ void main() {
     );
   });
 
-  group('get Popular Tvs', () {
+  group('get popular tvs', () {
     test(
-      'should return list of tvs when the response code is 200',
+      'should return list of tv model when the response code is 200',
       () async {
         // arrange
         when(mockHttpClient.get(Uri.parse(Urls.popularTvs))).thenAnswer(
@@ -73,11 +73,11 @@ void main() {
     );
 
     test(
-      'should throw a ServerException when the response code is 404 or other',
+      'should throw a server exception when the response code is 404 or other',
       () async {
         // arrange
         when(mockHttpClient.get(Uri.parse(Urls.popularTvs)))
-            .thenAnswer((_) async => http.Response('Not Found', 404));
+            .thenAnswer((_) async => http.Response('Not found', 404));
 
         // act
         final call = dataSource.getPopularTvs();
@@ -88,9 +88,9 @@ void main() {
     );
   });
 
-  group('get Top Rated Tvs', () {
+  group('get top rated tvs', () {
     test(
-      'should return list of tvs when the response code is 200',
+      'should return list of tv model when the response code is 200',
       () async {
         // arrange
         when(mockHttpClient.get(Uri.parse(Urls.topRatedTvs))).thenAnswer(
@@ -105,11 +105,11 @@ void main() {
     );
 
     test(
-      'should throw a ServerException when the response code is 404 or other',
+      'should throw a server exception when the response code is 404 or other',
       () async {
         // arrange
         when(mockHttpClient.get(Uri.parse(Urls.topRatedTvs)))
-            .thenAnswer((_) async => http.Response('Not Found', 404));
+            .thenAnswer((_) async => http.Response('Not found', 404));
 
         // act
         final call = dataSource.getTopRatedTvs();

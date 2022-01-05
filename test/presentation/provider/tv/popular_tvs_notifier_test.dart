@@ -42,7 +42,7 @@ void main() {
   final tTvList = <Tv>[tTv];
 
   test(
-    'should change state to Loading when usecase is called',
+    'should change state to loading when usecase is called',
     () async {
       // arrange
       when(mockGetPopularTvs.execute()).thenAnswer((_) async => Right(tTvList));
@@ -51,13 +51,13 @@ void main() {
       notifier.fetchPopularTvs();
 
       // assert
-      expect(notifier.state, RequestState.Loading);
-      expect(listenerCallCount, 1);
+      expect(notifier.state, equals(RequestState.Loading));
+      expect(listenerCallCount, equals(1));
     },
   );
 
   test(
-    'should change tvs data when data is gotten successfully',
+    'should change tvs when data is gotten successfully',
     () async {
       // arrange
       when(mockGetPopularTvs.execute()).thenAnswer((_) async => Right(tTvList));
@@ -66,26 +66,26 @@ void main() {
       await notifier.fetchPopularTvs();
 
       // assert
-      expect(notifier.state, RequestState.Loaded);
-      expect(notifier.tvs, tTvList);
-      expect(listenerCallCount, 2);
+      expect(notifier.state, equals(RequestState.Loaded));
+      expect(notifier.tvs, equals(tTvList));
+      expect(listenerCallCount, equals(2));
     },
   );
 
   test(
-    'should return error when data is unsuccessful',
+    'should return server failure when error',
     () async {
       // arrange
       when(mockGetPopularTvs.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => Left(ServerFailure('Server failure')));
 
       // act
       await notifier.fetchPopularTvs();
 
       // assert
-      expect(notifier.state, RequestState.Error);
-      expect(notifier.message, 'Server Failure');
-      expect(listenerCallCount, 2);
+      expect(notifier.state, equals(RequestState.Error));
+      expect(notifier.message, equals('Server failure'));
+      expect(listenerCallCount, equals(2));
     },
   );
 }
