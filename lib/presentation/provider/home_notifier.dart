@@ -2,9 +2,9 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
 
 class HomeNotifier extends ChangeNotifier {
-  HomePageState _state = HomePageState.Movie;
-  HomePageState get state => _state;
-  void setState(HomePageState newState) {
+  ContentType _state = ContentType.Movie;
+  ContentType get state => _state;
+  void setState(ContentType newState) {
     _state = newState;
     notifyListeners();
   }

@@ -6,8 +6,10 @@ import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
+import 'package:ditonton/presentation/pages/popular_tvs_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_tvs_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/home_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
@@ -42,7 +44,7 @@ class _HomePageState extends State<HomePage> {
               title: Text('Movies'),
               onTap: () {
                 Provider.of<HomeNotifier>(context, listen: false)
-                    .setState(HomePageState.Movie);
+                    .setState(ContentType.Movie);
                 Navigator.pop(context);
               },
             ),
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               title: Text('Tv Show'),
               onTap: () {
                 Provider.of<HomeNotifier>(context, listen: false)
-                    .setState(HomePageState.Tv);
+                    .setState(ContentType.Tv);
                 Navigator.pop(context);
               },
             ),
@@ -85,7 +87,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Consumer<HomeNotifier>(builder: (context, data, child) {
         final state = data.state;
-        if (state == HomePageState.Movie) {
+        if (state == ContentType.Movie) {
           return MainMoviePage();
         } else {
           return MainTvPage();
@@ -151,7 +153,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return HorizontalItemList(
-                    state: HomePageState.Movie,
+                    type: ContentType.Movie,
                     movies: data.nowPlayingMovies,
                   );
                 } else {
@@ -173,7 +175,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return HorizontalItemList(
-                    state: HomePageState.Movie,
+                    type: ContentType.Movie,
                     movies: data.popularMovies,
                   );
                 } else {
@@ -195,7 +197,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return HorizontalItemList(
-                    state: HomePageState.Movie,
+                    type: ContentType.Movie,
                     movies: data.topRatedMovies,
                   );
                 } else {
@@ -266,7 +268,7 @@ class _MainTvPageState extends State<MainTvPage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return HorizontalItemList(
-                    state: HomePageState.Tv,
+                    type: ContentType.Tv,
                     tvs: data.onTheAirTvs,
                   );
                 } else {
@@ -277,7 +279,7 @@ class _MainTvPageState extends State<MainTvPage> {
                 title: 'Popular',
                 onTap: () => Navigator.pushNamed(
                   context,
-                  PopularMoviesPage.ROUTE_NAME,
+                  PopularTvsPage.ROUTE_NAME,
                 ),
               ),
               Consumer<TvListNotifier>(builder: (context, data, child) {
@@ -288,7 +290,7 @@ class _MainTvPageState extends State<MainTvPage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return HorizontalItemList(
-                    state: HomePageState.Tv,
+                    type: ContentType.Tv,
                     tvs: data.popularTvs,
                   );
                 } else {
@@ -299,7 +301,7 @@ class _MainTvPageState extends State<MainTvPage> {
                 title: 'Top Rated',
                 onTap: () => Navigator.pushNamed(
                   context,
-                  TopRatedMoviesPage.ROUTE_NAME,
+                  TopRatedTvsPage.ROUTE_NAME,
                 ),
               ),
               Consumer<TvListNotifier>(builder: (context, data, child) {
@@ -310,7 +312,7 @@ class _MainTvPageState extends State<MainTvPage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return HorizontalItemList(
-                    state: HomePageState.Tv,
+                    type: ContentType.Tv,
                     tvs: data.topRatedTvs,
                   );
                 } else {
@@ -326,16 +328,16 @@ class _MainTvPageState extends State<MainTvPage> {
 }
 
 class HorizontalItemList extends StatelessWidget {
-  final HomePageState state;
+  final ContentType type;
   final List<Movie>? movies;
   final List<Tv>? tvs;
 
-  HorizontalItemList({required this.state, this.movies, this.tvs});
+  HorizontalItemList({required this.type, this.movies, this.tvs});
 
   @override
   Widget build(BuildContext context) {
-    switch (state) {
-      case HomePageState.Movie:
+    switch (type) {
+      case ContentType.Movie:
         return Container(
           height: 200.0,
           child: ListView.builder(
@@ -368,7 +370,7 @@ class HorizontalItemList extends StatelessWidget {
             },
           ),
         );
-      case HomePageState.Tv:
+      case ContentType.Tv:
         return Container(
           height: 200.0,
           child: ListView.builder(
