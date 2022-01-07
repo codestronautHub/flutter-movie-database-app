@@ -76,8 +76,11 @@ class ItemCard extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 child: CachedNetworkImage(
                   width: 80.0,
-                  imageUrl:
-                      '${Urls.baseImageUrl}${type == ContentType.Movie ? movie!.posterPath : tv!.posterPath}',
+                  imageUrl: Urls.imageUrl(
+                    type == ContentType.Movie
+                        ? movie!.posterPath!
+                        : tv!.posterPath!,
+                  ),
                   placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),
                   ),
