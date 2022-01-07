@@ -17,7 +17,7 @@ class AboutPage extends StatelessWidget {
                   child: Center(
                     child: Image.asset(
                       'assets/circle-g.png',
-                      width: 128,
+                      width: 128.0,
                     ),
                   ),
                 ),
@@ -28,7 +28,7 @@ class AboutPage extends StatelessWidget {
                   color: kMikadoYellow,
                   child: Text(
                     'Ditonton merupakan sebuah aplikasi katalog film yang dikembangkan oleh Dicoding Indonesia sebagai contoh proyek aplikasi untuk kelas Menjadi Flutter Developer Expert.',
-                    style: TextStyle(color: Colors.black87, fontSize: 16),
+                    style: TextStyle(color: Colors.black87, fontSize: 16.0),
                     textAlign: TextAlign.justify,
                   ),
                 ),

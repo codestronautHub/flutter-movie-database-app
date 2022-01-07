@@ -8,7 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
-import '../../../dummy_data/dummy_objects.dart';
+import '../../dummy_data/dummy_objects.dart';
 import 'movie_detail_page_test.mocks.dart';
 
 @GenerateMocks([MovieDetailNotifier])
@@ -77,7 +77,7 @@ void main() {
       when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
       when(mockNotifier.movieRecommendations).thenReturn(<Movie>[]);
       when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-      when(mockNotifier.watchlistMessage).thenReturn('Added to Watchlist');
+      when(mockNotifier.watchlistMessage).thenReturn('Added to watchlist');
 
       // act
       final watchlistButton = find.byType(ElevatedButton);
@@ -93,7 +93,7 @@ void main() {
 
       // assert
       expect(find.byType(SnackBar), findsOneWidget);
-      expect(find.text('Added to Watchlist'), findsOneWidget);
+      expect(find.text('Added to watchlist'), findsOneWidget);
     },
   );
 

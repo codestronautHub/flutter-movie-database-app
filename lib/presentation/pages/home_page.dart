@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  static const ROUTE_NAME = '/home';
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -358,7 +358,7 @@ class HorizontalItemList extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(16.0)),
                     child: CachedNetworkImage(
-                      imageUrl: '${Urls.baseImageUrl}${movie.posterPath}',
+                      imageUrl: Urls.imageUrl(movie.posterPath!),
                       placeholder: (context, url) => Center(
                         child: CircularProgressIndicator(),
                       ),
@@ -391,7 +391,7 @@ class HorizontalItemList extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     child: CachedNetworkImage(
-                      imageUrl: '${Urls.baseImageUrl}${tv.posterPath}',
+                      imageUrl: Urls.imageUrl(tv.posterPath!),
                       placeholder: (context, url) => Center(
                         child: CircularProgressIndicator(),
                       ),

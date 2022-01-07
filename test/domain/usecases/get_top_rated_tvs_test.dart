@@ -1,18 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/domain/entities/tv.dart';
-import 'package:ditonton/domain/usecases/get_popular_tvs.dart';
+import 'package:ditonton/domain/usecases/get_top_rated_tvs.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../helpers/test_helper.mocks.dart';
+import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockTvRepository mockTvRepository;
-  late GetPopularTvs usecase;
+  late GetTopRatedTvs usecase;
 
   setUp(() {
     mockTvRepository = MockTvRepository();
-    usecase = GetPopularTvs(mockTvRepository);
+    usecase = GetTopRatedTvs(mockTvRepository);
   });
 
   final tTvs = <Tv>[];
@@ -21,7 +21,7 @@ void main() {
     "should get list of tv from the repository",
     () async {
       // arrange
-      when(mockTvRepository.getPopularTvs())
+      when(mockTvRepository.getTopRatedTvs())
           .thenAnswer((_) async => Right(tTvs));
 
       // act
