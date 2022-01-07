@@ -119,4 +119,42 @@ void main() {
       },
     );
   });
+
+  group('search a tv', () {
+    final tQuery = 'Arcane';
+    final tSearchResult = TvResponse.fromJson(
+      json.decode(readJson('dummy_data/search_tv.json')),
+    ).tvList;
+
+    test(
+      'should return list of tv model when the response code is 200',
+      () async {
+        // arrange
+        when(mockHttpClient.get(Uri.parse(Urls.searchTvs(tQuery)))).thenAnswer(
+            (_) async =>
+                http.Response(readJson('dummy_data/search_tv.json'), 200));
+
+        // act
+        final result = await dataSource.searchTvs(tQuery);
+
+        // assert
+        expect(result, equals(tSearchResult));
+      },
+    );
+
+    test(
+      'should throw a server exception when the response code is 404 or other',
+      () async {
+        // arrange
+        when(mockHttpClient.get(Uri.parse(Urls.searchTvs(tQuery))))
+            .thenAnswer((_) async => http.Response('Not found', 404));
+
+        // act
+        final call = dataSource.searchTvs(tQuery);
+
+        // assert
+        expect(() => call, throwsA(isA<ServerException>()));
+      },
+    );
+  });
 }
