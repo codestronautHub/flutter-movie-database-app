@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class SearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
 
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
 
   Future<void> _showFilterSearchDialog({
     required BuildContext context,
@@ -58,7 +58,7 @@ class SearchPage extends StatelessWidget {
             final result = data.searchResult;
             return Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.all(8),
+                itemCount: result.length,
                 itemBuilder: (context, index) {
                   final movie = data.searchResult[index];
                   return ItemCard(
@@ -66,7 +66,6 @@ class SearchPage extends StatelessWidget {
                     movie: movie,
                   );
                 },
-                itemCount: result.length,
               ),
             );
           } else {
@@ -88,6 +87,7 @@ class SearchPage extends StatelessWidget {
             return Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.all(8),
+                itemCount: result.length,
                 itemBuilder: (context, index) {
                   final tv = data.searchResult[index];
                   print(tv.id);
@@ -96,7 +96,6 @@ class SearchPage extends StatelessWidget {
                     tv: tv,
                   );
                 },
-                itemCount: result.length,
               ),
             );
           } else {
@@ -156,11 +155,19 @@ class SearchPage extends StatelessWidget {
                             onMovieFilterSelected: (SearchFilter? newValue) {
                               data.setFilter(newValue!);
                               _textEditingController.clear();
+                              Provider.of<MovieSearchNotifier>(context,
+                                      listen: false)
+                                  .searchResult
+                                  .clear();
                               Navigator.pop(context);
                             },
                             onTvFilterSelected: (SearchFilter? newValue) {
                               data.setFilter(newValue!);
                               _textEditingController.clear();
+                              Provider.of<TvSearchNotifier>(context,
+                                      listen: false)
+                                  .searchResult
+                                  .clear();
                               Navigator.pop(context);
                             },
                           );
@@ -171,7 +178,7 @@ class SearchPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 16.0),
                 Text('Search Result', style: kHeading6),
                 _buildSearchResults(context, data.filter),
               ],
