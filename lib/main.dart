@@ -75,6 +75,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Movie Database App',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
           primaryColor: kRichBlack,
           scaffoldBackgroundColor: kRichBlack,
