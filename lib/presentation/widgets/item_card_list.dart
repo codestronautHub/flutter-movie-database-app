@@ -43,7 +43,7 @@ class ItemCard extends StatelessWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(8.0),
                 child: CachedNetworkImage(
                   imageUrl: Urls.imageUrl(
                     type == ContentType.Movie
@@ -94,8 +94,8 @@ class ItemCard extends StatelessWidget {
                       SizedBox(width: 4.0),
                       Text(
                         type == ContentType.Movie
-                            ? '${(movie!.voteAverage! / 2).toStringAsFixed(1)}'
-                            : '${(tv!.voteAverage! / 2).toStringAsFixed(1)}',
+                            ? (movie!.voteAverage! / 2).toStringAsFixed(1)
+                            : (tv!.voteAverage! / 2).toStringAsFixed(1),
                       ),
                     ],
                   ),

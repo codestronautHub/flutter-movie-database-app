@@ -23,8 +23,11 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text('Top Rated Movies'),
+        backgroundColor: Colors.black.withOpacity(0.6),
+        elevation: 0.0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
