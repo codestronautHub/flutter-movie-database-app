@@ -11,6 +11,8 @@ class Urls {
   static String movieDetail(int id) => '$baseUrl/movie/$id?$apiKey';
   static String movieRecommendations(int id) =>
       '$baseUrl/movie/$id/recommendations?$apiKey';
+  static String movieImages(int id) =>
+      '$baseUrl/movie/$id/images?$apiKey&language=en-US&include_image_language=en';
 
   // Tvs
   static const String onTheAirTvs = '$baseUrl/tv/on_the_air?$apiKey';
