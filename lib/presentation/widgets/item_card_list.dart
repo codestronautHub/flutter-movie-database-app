@@ -20,62 +20,31 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4.0),
-      child: InkWell(
-        onTap: () {
-          if (type == ContentType.Movie) {
-            Navigator.pushNamed(
-              context,
-              MovieDetailPage.ROUTE_NAME,
-              arguments: movie!.id,
-            );
-          } else {
-            // TODO: Go to tv detail page
-          }
-        },
-        child: Stack(
-          alignment: Alignment.bottomLeft,
+    return GestureDetector(
+      onTap: () {
+        if (type == ContentType.Movie) {
+          Navigator.pushNamed(
+            context,
+            MovieDetailPage.ROUTE_NAME,
+            arguments: movie!.id,
+          );
+        } else {
+          // TODO: Go to tv detail page
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        margin: EdgeInsets.only(bottom: 16.0),
+        decoration: BoxDecoration(
+          color: Colors.grey[850],
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Row(
           children: [
-            Card(
-              child: Container(
-                margin: const EdgeInsets.only(
-                  left: 16.0 + 80.0 + 16.0,
-                  bottom: 8.0,
-                  right: 8.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      type == ContentType.Movie
-                          ? movie!.title ?? '-'
-                          : tv!.name ?? '-',
-                      overflow: TextOverflow.ellipsis,
-                      style: kHeading6,
-                      maxLines: 1,
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      type == ContentType.Movie
-                          ? movie!.overview ?? '-'
-                          : tv!.overview ?? '-',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                left: 16.0,
-                bottom: 16.0,
-              ),
+            Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderRadius: BorderRadius.circular(8.0),
                 child: CachedNetworkImage(
-                  width: 80.0,
                   imageUrl: Urls.imageUrl(
                     type == ContentType.Movie
                         ? movie!.posterPath!
@@ -88,6 +57,59 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(width: 16.0),
+            Expanded(
+              flex: 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    type == ContentType.Movie
+                        ? movie!.title ?? '-'
+                        : tv!.name ?? '-',
+                    overflow: TextOverflow.ellipsis,
+                    style: kHeading6,
+                    maxLines: 1,
+                  ),
+                  SizedBox(height: 4.0),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 2.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: Text(movie!.releaseDate!.split('-')[0]),
+                      ),
+                      SizedBox(width: 16.0),
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 18.0,
+                      ),
+                      SizedBox(width: 4.0),
+                      Text(
+                        type == ContentType.Movie
+                            ? (movie!.voteAverage! / 2).toStringAsFixed(1)
+                            : (tv!.voteAverage! / 2).toStringAsFixed(1),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16.0),
+                  Text(
+                    type == ContentType.Movie
+                        ? movie!.overview ?? '-'
+                        : tv!.overview ?? '-',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

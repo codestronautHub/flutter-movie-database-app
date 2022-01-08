@@ -378,8 +378,8 @@ void main() {
     );
   });
 
-  group('seach a movie', () {
-    final tQuery = 'spiderman';
+  group('search a movie', () {
+    final tQuery = 'Spiderman';
 
     test(
       'should return movie list when a call to data source is successful',

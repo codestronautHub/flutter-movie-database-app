@@ -26,33 +26,33 @@ void main() {
   });
 
   final tTvModel = TvModel(
-    backdropPath: '/35SS0nlBhu28cSe7TiO3ZiywZhl.jpg',
-    firstAirDate: '2018-05-02',
-    genreIds: [10759, 18],
-    id: 77169,
-    name: 'Cobra Kai',
-    originalName: 'Cobra Kai',
+    backdropPath: '/rkB4LyZHo1NHXFEDHl9vSD9r1lI.jpg',
+    firstAirDate: '2021-11-06',
+    genreIds: [16, 10765, 10759, 18],
+    id: 94605,
+    name: 'Arcane',
+    originalName: 'Arcane',
     overview:
-        'This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.',
-    popularity: 3389.158,
-    posterPath: '/6POBWybSBDBKjSs1VAQcnQC1qyt.jpg',
-    voteAverage: 8.1,
-    voteCount: 3752,
+        'Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.',
+    popularity: 663.141,
+    posterPath: '/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg',
+    voteAverage: 9.1,
+    voteCount: 1451,
   );
 
   final tTv = Tv(
-    backdropPath: '/35SS0nlBhu28cSe7TiO3ZiywZhl.jpg',
-    firstAirDate: '2018-05-02',
-    genreIds: [10759, 18],
-    id: 77169,
-    name: 'Cobra Kai',
-    originalName: 'Cobra Kai',
+    backdropPath: '/rkB4LyZHo1NHXFEDHl9vSD9r1lI.jpg',
+    firstAirDate: '2021-11-06',
+    genreIds: [16, 10765, 10759, 18],
+    id: 94605,
+    name: 'Arcane',
+    originalName: 'Arcane',
     overview:
-        'This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.',
-    popularity: 3389.158,
-    posterPath: '/6POBWybSBDBKjSs1VAQcnQC1qyt.jpg',
-    voteAverage: 8.1,
-    voteCount: 3752,
+        'Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.',
+    popularity: 663.141,
+    posterPath: '/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg',
+    voteAverage: 9.1,
+    voteCount: 1451,
   );
 
   final tTvModelList = <TvModel>[tTvModel];
@@ -223,6 +223,66 @@ void main() {
 
         // assert
         verify(mockRemoteDataSource.getTopRatedTvs());
+        expect(
+          result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))),
+        );
+      },
+    );
+  });
+
+  group('search a movie', () {
+    final tQuery = 'Arcane';
+
+    test(
+      'should return tv list when a call to data source is successful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.searchTvs(tQuery))
+            .thenAnswer((_) async => tTvModelList);
+
+        // act
+        final result = await repository.searchTvs(tQuery);
+
+        // assert
+        verify(mockRemoteDataSource.searchTvs(tQuery));
+        /* 
+          workaround to test List in Right.
+          Issue: https://github.com/spebbe/dartz/issues/80 
+        */
+        final resultList = result.getOrElse(() => []);
+        expect(resultList, equals(tTvList));
+      },
+    );
+
+    test(
+      'should return server failure when a call to data source is unsuccessful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.searchTvs(tQuery))
+            .thenThrow(ServerException());
+
+        // act
+        final result = await repository.searchTvs(tQuery);
+
+        // assert
+        verify(mockRemoteDataSource.searchTvs(tQuery));
+        expect(result, equals(Left(ServerFailure(''))));
+      },
+    );
+
+    test(
+      'should return connection failure when the device is not connected',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.searchTvs(tQuery))
+            .thenThrow(SocketException('Failed to connect to the network'));
+
+        // act
+        final result = await repository.searchTvs(tQuery);
+
+        // assert
+        verify(mockRemoteDataSource.searchTvs(tQuery));
         expect(
           result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))),

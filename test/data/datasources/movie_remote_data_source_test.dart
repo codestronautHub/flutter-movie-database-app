@@ -206,7 +206,7 @@ void main() {
     );
   });
 
-  group('search movies', () {
+  group('search a movie', () {
     final tQuery = 'Spiderman';
     final tSearchResult = MovieResponse.fromJson(
       json.decode(readJson('dummy_data/search_movie.json')),
@@ -216,7 +216,7 @@ void main() {
       'should return list of movie model when the response code is 200',
       () async {
         // arrange
-        when(mockHttpClient.get(Uri.parse(Urls.searchMovie(tQuery))))
+        when(mockHttpClient.get(Uri.parse(Urls.searchMovies(tQuery))))
             .thenAnswer((_) async =>
                 http.Response(readJson('dummy_data/search_movie.json'), 200));
 
@@ -224,7 +224,7 @@ void main() {
         final result = await dataSource.searchMovies(tQuery);
 
         // assert
-        expect(result, tSearchResult);
+        expect(result, equals(tSearchResult));
       },
     );
 
@@ -232,7 +232,7 @@ void main() {
       'should throw a server exception when the response code is 404 or other',
       () async {
         // arrange
-        when(mockHttpClient.get(Uri.parse(Urls.searchMovie(tQuery))))
+        when(mockHttpClient.get(Uri.parse(Urls.searchMovies(tQuery))))
             .thenAnswer((_) async => http.Response('Not found', 404));
 
         // act

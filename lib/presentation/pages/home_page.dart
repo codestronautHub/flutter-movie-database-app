@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/domain/entities/movie.dart';
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       drawer: Drawer(
         child: Column(
           children: [
@@ -75,7 +77,15 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       appBar: AppBar(
-        title: Text('Ditonton'),
+        title: Text(
+          'MDB',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20.0,
+          ),
+        ),
+        backgroundColor: Colors.black.withOpacity(0.0),
+        elevation: 0.0,
         actions: [
           IconButton(
             icon: Icon(Icons.search),
@@ -138,74 +148,144 @@ class _MainMoviePageState extends State<MainMoviePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Now Playing', style: kHeading6),
-              Consumer<MovieListNotifier>(builder: (context, data, child) {
-                final state = data.nowPlayingState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return HorizontalItemList(
-                    type: ContentType.Movie,
-                    movies: data.nowPlayingMovies,
-                  );
-                } else {
-                  return Text('Failed');
-                }
-              }),
-              _buildSubHeading(
-                title: 'Popular',
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  PopularMoviesPage.ROUTE_NAME,
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Consumer<MovieListNotifier>(builder: (context, data, child) {
+              final state = data.nowPlayingState;
+              if (state == RequestState.Loading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state == RequestState.Loaded) {
+                return CarouselSlider(
+                  options: CarouselOptions(
+                    height: 520.0,
+                    autoPlay: true,
+                    viewportFraction: 1.0,
+                  ),
+                  items: data.nowPlayingMovies.map(
+                    (item) {
+                      return Stack(
+                        children: [
+                          ShaderMask(
+                            shaderCallback: (rect) {
+                              return LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black,
+                                  Colors.black,
+                                  Colors.transparent,
+                                ],
+                                stops: [0, 0.3, 0.5, 1],
+                              ).createShader(
+                                Rect.fromLTRB(0, 0, rect.width, rect.height),
+                              );
+                            },
+                            blendMode: BlendMode.dstIn,
+                            child: CachedNetworkImage(
+                              height: 560.0,
+                              imageUrl: Urls.imageUrl(item.backdropPath!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'Now Playing'.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                Text(
+                                  item.title!,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: 16.0),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('Detail'),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.white,
+                                    minimumSize: Size(
+                                      100.0,
+                                      36.0,
+                                    ),
+                                    textStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ).toList(),
+                );
+              } else {
+                return Text('Failed');
+              }
+            }),
+            SizedBox(height: 32.0),
+            _buildSubHeading(
+              title: 'Popular',
+              onTap: () => Navigator.pushNamed(
+                context,
+                PopularMoviesPage.ROUTE_NAME,
               ),
-              Consumer<MovieListNotifier>(builder: (context, data, child) {
-                final state = data.popularMoviesState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return HorizontalItemList(
-                    type: ContentType.Movie,
-                    movies: data.popularMovies,
-                  );
-                } else {
-                  return Text('Failed');
-                }
-              }),
-              _buildSubHeading(
-                title: 'Top Rated',
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  TopRatedMoviesPage.ROUTE_NAME,
-                ),
+            ),
+            Consumer<MovieListNotifier>(builder: (context, data, child) {
+              final state = data.popularMoviesState;
+              if (state == RequestState.Loading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state == RequestState.Loaded) {
+                return HorizontalItemList(
+                  type: ContentType.Movie,
+                  movies: data.popularMovies,
+                );
+              } else {
+                return Text('Failed');
+              }
+            }),
+            _buildSubHeading(
+              title: 'Top Rated',
+              onTap: () => Navigator.pushNamed(
+                context,
+                TopRatedMoviesPage.ROUTE_NAME,
               ),
-              Consumer<MovieListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedMoviesState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return HorizontalItemList(
-                    type: ContentType.Movie,
-                    movies: data.topRatedMovies,
-                  );
-                } else {
-                  return Text('Failed');
-                }
-              }),
-            ],
-          ),
+            ),
+            Consumer<MovieListNotifier>(builder: (context, data, child) {
+              final state = data.topRatedMoviesState;
+              if (state == RequestState.Loading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state == RequestState.Loaded) {
+                return HorizontalItemList(
+                  type: ContentType.Movie,
+                  movies: data.topRatedMovies,
+                );
+              } else {
+                return Text('Failed');
+              }
+            }),
+          ],
         ),
       ),
     );
@@ -339,14 +419,14 @@ class HorizontalItemList extends StatelessWidget {
     switch (type) {
       case ContentType.Movie:
         return Container(
-          height: 200.0,
+          height: 170.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: movies!.length,
             itemBuilder: (context, index) {
               final movie = movies![index];
               return Container(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(right: 8.0),
                 child: InkWell(
                   onTap: () {
                     Navigator.pushNamed(
@@ -356,7 +436,7 @@ class HorizontalItemList extends StatelessWidget {
                     );
                   },
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
                     child: CachedNetworkImage(
                       imageUrl: Urls.imageUrl(movie.posterPath!),
                       placeholder: (context, url) => Center(
