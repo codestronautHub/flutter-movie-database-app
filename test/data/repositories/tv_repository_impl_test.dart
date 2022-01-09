@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
+import 'package:ditonton/data/models/media_image_model.dart';
 import 'package:ditonton/data/models/tv_model.dart';
 import 'package:ditonton/data/repositories/tv_repository_impl.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
@@ -223,6 +225,67 @@ void main() {
 
         // assert
         verify(mockRemoteDataSource.getTopRatedTvs());
+        expect(
+          result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))),
+        );
+      },
+    );
+  });
+
+  group('get tv images', () {
+    final tId = 1;
+    final tTvImages = MediaImageModel(
+      id: 1,
+      backdropPaths: ['/path.jpg'],
+      logoPaths: ['/path.jpg'],
+      posterPaths: ['/path.jpg'],
+    );
+
+    test(
+      'should return tv images when a call to data source is successful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getTvImages(tId))
+            .thenAnswer((_) async => tTvImages);
+
+        // act
+        final result = await repository.getTvImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getTvImages(tId));
+        expect(result, equals(Right(testImages)));
+      },
+    );
+
+    test(
+      'should return server failure when a call to data source is unsuccessful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getTvImages(tId))
+            .thenThrow(ServerException());
+
+        // act
+        final result = await repository.getTvImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getTvImages(tId));
+        expect(result, equals(Left(ServerFailure(''))));
+      },
+    );
+
+    test(
+      'should return connection failure when the device is not connected',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getTvImages(tId))
+            .thenThrow(SocketException('Failed to connect to the network'));
+
+        // act
+        final result = await repository.getTvImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getTvImages(tId));
         expect(
           result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))),

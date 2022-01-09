@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
+import 'package:ditonton/data/models/media_image_model.dart';
 import 'package:ditonton/data/models/tv_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -113,6 +114,44 @@ void main() {
 
         // act
         final call = dataSource.getTopRatedTvs();
+
+        // assert
+        expect(() => call, throwsA(isA<ServerException>()));
+      },
+    );
+  });
+
+  group('get tv images', () {
+    final tId = 1;
+    final tTvImages = MediaImageModel.fromJson(
+      json.decode(readJson('dummy_data/images.json')),
+    );
+
+    test(
+      'should return tv images when the response code is 200',
+      () async {
+        // arrange
+        when(mockHttpClient.get(Uri.parse(Urls.tvImages(tId)))).thenAnswer(
+            (_) async =>
+                http.Response(readJson('dummy_data/images.json'), 200));
+
+        // act
+        final result = await dataSource.getTvImages(tId);
+
+        // assert
+        expect(result, equals(tTvImages));
+      },
+    );
+
+    test(
+      'should throw a server exception when the response code is 404 or other',
+      () async {
+        // arrange
+        when(mockHttpClient.get(Uri.parse(Urls.tvImages(tId))))
+            .thenAnswer((_) async => http.Response('Not found', 404));
+
+        // act
+        final call = dataSource.getTvImages(tId);
 
         // assert
         expect(() => call, throwsA(isA<ServerException>()));

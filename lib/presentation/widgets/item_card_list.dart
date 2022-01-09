@@ -83,7 +83,9 @@ class ItemCard extends StatelessWidget {
                           color: Colors.redAccent,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text(movie!.releaseDate!.split('-')[0]),
+                        child: Text(type == ContentType.Movie
+                            ? movie!.releaseDate!.split('-')[0]
+                            : tv!.firstAirDate!.split('-')[0]),
                       ),
                       SizedBox(width: 16.0),
                       Icon(

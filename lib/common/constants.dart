@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // colors
-const Color kRichBlack = Color(0xFF000814);
+const Color kRichBlack = Color(0xFF1E1E29);
+const Color kSpaceGrey = Color(0xFF26262F);
 const Color kOxfordBlue = Color(0xFF001D3D);
-const Color kPrussianBlue = Color(0xFF003566);
 const Color kMikadoYellow = Color(0xFFffc300);
-const Color kDavysGrey = Color(0xFF4B5358);
-const Color kGrey = Color(0xFF303030);
 
 // text style
 final TextStyle kHeading5 =
@@ -30,11 +28,11 @@ final kTextTheme = TextTheme(
 const kColorScheme = ColorScheme(
   primary: kMikadoYellow,
   primaryVariant: kMikadoYellow,
-  secondary: kPrussianBlue,
-  secondaryVariant: kPrussianBlue,
+  secondary: kSpaceGrey,
+  secondaryVariant: kSpaceGrey,
   surface: kRichBlack,
   background: kRichBlack,
-  error: Colors.red,
+  error: Colors.redAccent,
   onPrimary: kRichBlack,
   onSecondary: Colors.white,
   onSurface: Colors.white,

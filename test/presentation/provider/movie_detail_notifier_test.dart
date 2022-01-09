@@ -138,7 +138,7 @@ void main() {
       },
     );
 
-    test('should return server expeception when error', () async {
+    test('should return server failure when error', () async {
       // arrange
       when(mockGetMovieDetail.execute(tId))
           .thenAnswer((_) async => Left(ServerFailure('Server failure')));
