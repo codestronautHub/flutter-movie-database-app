@@ -7,17 +7,24 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('About'),
+      ),
       body: Stack(
         children: [
           Column(
             children: [
               Expanded(
                 child: Container(
-                  color: kPrussianBlue,
+                  color: kRichBlack,
                   child: Center(
-                    child: Image.asset(
-                      'assets/circle-g.png',
-                      width: 128.0,
+                    child: Text(
+                      'MDB',
+                      style: TextStyle(
+                        fontSize: 64.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.redAccent,
+                      ),
                     ),
                   ),
                 ),
@@ -25,22 +32,16 @@ class AboutPage extends StatelessWidget {
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(32.0),
-                  color: kMikadoYellow,
+                  color: kRichBlack,
                   child: Text(
-                    'Ditonton merupakan sebuah aplikasi katalog film yang dikembangkan oleh Dicoding Indonesia sebagai contoh proyek aplikasi untuk kelas Menjadi Flutter Developer Expert.',
-                    style: TextStyle(color: Colors.black87, fontSize: 16.0),
+                    'Movie Database (MDB) is a movie and tv series catalog app developed by Aditya Rohman sebagai as a project submission for Flutter Developer Expert course on Dicoding Indonesia.',
+                    style: TextStyle(fontSize: 16.0),
                     textAlign: TextAlign.justify,
                   ),
                 ),
               ),
             ],
           ),
-          SafeArea(
-            child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back),
-            ),
-          )
         ],
       ),
     );

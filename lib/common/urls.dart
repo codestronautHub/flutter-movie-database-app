@@ -12,7 +12,7 @@ class Urls {
   static String movieRecommendations(int id) =>
       '$baseUrl/movie/$id/recommendations?$apiKey';
   static String movieImages(int id) =>
-      '$baseUrl/movie/$id/images?$apiKey&language=en-US&include_image_language=en';
+      '$baseUrl/movie/$id/images?$apiKey&language=en-US&include_image_language=en,null';
 
   // Tvs
   static const String onTheAirTvs = '$baseUrl/tv/on_the_air?$apiKey';
@@ -20,6 +20,8 @@ class Urls {
   static const String topRatedTvs = '$baseUrl/tv/top_rated?$apiKey';
   static String searchTvs(String query) =>
       '$baseUrl/search/tv?$apiKey&query=$query';
+  static String tvImages(int id) =>
+      '$baseUrl/tv/$id/images?$apiKey&language=en-US&include_image_language=en,null';
 
   // Image
   static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';

@@ -1,5 +1,5 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/image.dart';
+import 'package:ditonton/domain/entities/media_image.dart';
 import 'package:ditonton/domain/usecases/get_movie_images.dart';
 import 'package:flutter/material.dart' hide Image;
 
@@ -8,8 +8,8 @@ class MovieImagesNotifier extends ChangeNotifier {
 
   MovieImagesNotifier({required this.getMovieImages});
 
-  late Image _movieImages;
-  Image get movieImages => _movieImages;
+  late MediaImage _movieImages;
+  MediaImage get movieImages => _movieImages;
 
   RequestState _movieImagesState = RequestState.Empty;
   RequestState get movieImagesState => _movieImagesState;

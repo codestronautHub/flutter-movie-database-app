@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/entities/media_image.dart';
-import 'package:ditonton/domain/repositories/movie_repository.dart';
+import 'package:ditonton/domain/repositories/tv_repository.dart';
 
-class GetMovieImages {
-  final MovieRepository repository;
+class GetTvImages {
+  final TvRepository repository;
 
-  GetMovieImages(this.repository);
+  GetTvImages(this.repository);
 
   Future<Either<Failure, MediaImage>> execute(int id) {
-    return repository.getMovieImages(id);
+    return repository.getTvImages(id);
   }
 }

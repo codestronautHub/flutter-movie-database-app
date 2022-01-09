@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class Image extends Equatable {
+class MediaImage extends Equatable {
   final int id;
   final List<String> backdropPaths;
   final List<String> logoPaths;
   final List<String> posterPaths;
 
-  Image({
+  MediaImage({
     required this.id,
     required this.backdropPaths,
     required this.logoPaths,

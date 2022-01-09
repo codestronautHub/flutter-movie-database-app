@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/datasources/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
-import 'package:ditonton/domain/entities/image.dart';
+import 'package:ditonton/domain/entities/media_image.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
@@ -57,7 +57,7 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, Image>> getMovieImages(int id) async {
+  Future<Either<Failure, MediaImage>> getMovieImages(int id) async {
     try {
       final result = await remoteDataSource.getMovieImages(id);
       return Right(result.toEntity());

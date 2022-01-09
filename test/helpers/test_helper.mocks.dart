@@ -13,12 +13,12 @@ import 'package:ditonton/data/datasources/movie_local_data_source.dart' as _i18;
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart'
     as _i14;
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart' as _i16;
-import 'package:ditonton/data/models/image_model.dart' as _i3;
+import 'package:ditonton/data/models/media_image_model.dart' as _i3;
 import 'package:ditonton/data/models/movie_detail_model.dart' as _i4;
 import 'package:ditonton/data/models/movie_model.dart' as _i15;
 import 'package:ditonton/data/models/movie_table.dart' as _i19;
 import 'package:ditonton/data/models/tv_model.dart' as _i17;
-import 'package:ditonton/domain/entities/image.dart' as _i10;
+import 'package:ditonton/domain/entities/media_image.dart' as _i10;
 import 'package:ditonton/domain/entities/movie.dart' as _i9;
 import 'package:ditonton/domain/entities/movie_detail.dart' as _i11;
 import 'package:ditonton/domain/entities/tv.dart' as _i13;
@@ -39,7 +39,7 @@ import 'package:sqflite/sqflite.dart' as _i21;
 
 class _FakeEither_0<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
-class _FakeImageModel_1 extends _i1.Fake implements _i3.ImageModel {}
+class _FakeMediaImageModel_1 extends _i1.Fake implements _i3.MediaImageModel {}
 
 class _FakeMovieDetailResponse_2 extends _i1.Fake
     implements _i4.MovieDetailResponse {}
@@ -76,11 +76,12 @@ class MockMovieRepository extends _i1.Mock implements _i6.MovieRepository {
               _FakeEither_0<_i8.Failure, List<_i9.Movie>>())) as _i7
           .Future<_i2.Either<_i8.Failure, List<_i9.Movie>>>);
   @override
-  _i7.Future<_i2.Either<_i8.Failure, _i10.Image>> getMovieImages(int? id) =>
+  _i7.Future<_i2.Either<_i8.Failure, _i10.MediaImage>> getMovieImages(
+          int? id) =>
       (super.noSuchMethod(Invocation.method(#getMovieImages, [id]),
-              returnValue: Future<_i2.Either<_i8.Failure, _i10.Image>>.value(
-                  _FakeEither_0<_i8.Failure, _i10.Image>()))
-          as _i7.Future<_i2.Either<_i8.Failure, _i10.Image>>);
+          returnValue: Future<_i2.Either<_i8.Failure, _i10.MediaImage>>.value(
+              _FakeEither_0<_i8.Failure, _i10.MediaImage>())) as _i7
+          .Future<_i2.Either<_i8.Failure, _i10.MediaImage>>);
   @override
   _i7.Future<_i2.Either<_i8.Failure, _i11.MovieDetail>> getMovieDetail(
           int? id) =>
@@ -155,6 +156,12 @@ class MockTvRepository extends _i1.Mock implements _i12.TvRepository {
                   _FakeEither_0<_i8.Failure, List<_i13.Tv>>()))
           as _i7.Future<_i2.Either<_i8.Failure, List<_i13.Tv>>>);
   @override
+  _i7.Future<_i2.Either<_i8.Failure, _i10.MediaImage>> getTvImages(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getTvImages, [id]),
+          returnValue: Future<_i2.Either<_i8.Failure, _i10.MediaImage>>.value(
+              _FakeEither_0<_i8.Failure, _i10.MediaImage>())) as _i7
+          .Future<_i2.Either<_i8.Failure, _i10.MediaImage>>);
+  @override
   _i7.Future<_i2.Either<_i8.Failure, List<_i13.Tv>>> searchTvs(String? query) =>
       (super.noSuchMethod(Invocation.method(#searchTvs, [query]),
               returnValue: Future<_i2.Either<_i8.Failure, List<_i13.Tv>>>.value(
@@ -188,10 +195,11 @@ class MockMovieRemoteDataSource extends _i1.Mock
           returnValue: Future<List<_i15.MovieModel>>.value(<_i15.MovieModel>[]))
       as _i7.Future<List<_i15.MovieModel>>);
   @override
-  _i7.Future<_i3.ImageModel> getMovieImages(int? id) =>
+  _i7.Future<_i3.MediaImageModel> getMovieImages(int? id) =>
       (super.noSuchMethod(Invocation.method(#getMovieImages, [id]),
-              returnValue: Future<_i3.ImageModel>.value(_FakeImageModel_1()))
-          as _i7.Future<_i3.ImageModel>);
+              returnValue:
+                  Future<_i3.MediaImageModel>.value(_FakeMediaImageModel_1()))
+          as _i7.Future<_i3.MediaImageModel>);
   @override
   _i7.Future<_i4.MovieDetailResponse> getMovieDetail(int? id) =>
       (super.noSuchMethod(Invocation.method(#getMovieDetail, [id]),
@@ -236,6 +244,12 @@ class MockTvRemoteDataSource extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#getTopRatedTvs, []),
               returnValue: Future<List<_i17.TvModel>>.value(<_i17.TvModel>[]))
           as _i7.Future<List<_i17.TvModel>>);
+  @override
+  _i7.Future<_i3.MediaImageModel> getTvImages(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getTvImages, [id]),
+              returnValue:
+                  Future<_i3.MediaImageModel>.value(_FakeMediaImageModel_1()))
+          as _i7.Future<_i3.MediaImageModel>);
   @override
   _i7.Future<List<_i17.TvModel>> searchTvs(String? query) =>
       (super.noSuchMethod(Invocation.method(#searchTvs, [query]),

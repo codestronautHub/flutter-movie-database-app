@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/image.dart';
 import 'package:ditonton/domain/usecases/get_movie_images.dart';
 import 'package:ditonton/presentation/provider/movie_images_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -28,20 +27,20 @@ void main() {
 
   final tId = 1;
 
-  final tMovieImages = Image(
-    id: 1,
-    backdropPaths: ['/path.jpg'],
-    logoPaths: ['/path.jpg'],
-    posterPaths: ['/path.jpg'],
-  );
-
   group('movie images', () {
+    test(
+      'initial state should be empty',
+      () {
+        expect(provider.movieImagesState, equals(RequestState.Empty));
+      },
+    );
+
     test(
       'should get movie images data from the usecase',
       () async {
         // arrange
         when(mockGetMovieImages.execute(tId))
-            .thenAnswer((_) async => Right(testMovieImages));
+            .thenAnswer((_) async => Right(testImages));
 
         // act
         await provider.fetchMovieImages(tId);
@@ -56,7 +55,7 @@ void main() {
       () {
         // arrange
         when(mockGetMovieImages.execute(tId))
-            .thenAnswer((_) async => Right(testMovieImages));
+            .thenAnswer((_) async => Right(testImages));
 
         // act
         provider.fetchMovieImages(tId);
@@ -72,14 +71,14 @@ void main() {
       () async {
         // arrange
         when(mockGetMovieImages.execute(tId))
-            .thenAnswer((_) async => Right(testMovieImages));
+            .thenAnswer((_) async => Right(testImages));
 
         // act
         await provider.fetchMovieImages(tId);
 
         // assert
         expect(provider.movieImagesState, equals(RequestState.Loaded));
-        expect(provider.movieImages, equals(testMovieImages));
+        expect(provider.movieImages, equals(testImages));
         expect(listenerCallCount, equals(2));
       },
     );

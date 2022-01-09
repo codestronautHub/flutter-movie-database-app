@@ -1,20 +1,21 @@
-import 'package:ditonton/domain/entities/image.dart';
+import 'package:ditonton/domain/entities/media_image.dart';
 import 'package:equatable/equatable.dart';
 
-class ImageModel extends Equatable {
+class MediaImageModel extends Equatable {
   final int id;
   final List<String> backdropPaths;
   final List<String> logoPaths;
   final List<String> posterPaths;
 
-  ImageModel({
+  MediaImageModel({
     required this.id,
     required this.backdropPaths,
     required this.logoPaths,
     required this.posterPaths,
   });
 
-  factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
+  factory MediaImageModel.fromJson(Map<String, dynamic> json) =>
+      MediaImageModel(
         id: json['id'],
         backdropPaths: List<String>.from(
           json['backdrops'].map((x) => x['file_path']),
@@ -27,7 +28,7 @@ class ImageModel extends Equatable {
         ),
       );
 
-  Image toEntity() => Image(
+  MediaImage toEntity() => MediaImage(
         id: this.id,
         backdropPaths: this.backdropPaths,
         logoPaths: this.logoPaths,

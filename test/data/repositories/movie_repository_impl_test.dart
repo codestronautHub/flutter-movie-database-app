@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/models/genre_model.dart';
-import 'package:ditonton/data/models/image_model.dart';
+import 'package:ditonton/data/models/media_image_model.dart';
 import 'package:ditonton/data/models/movie_detail_model.dart';
 import 'package:ditonton/data/models/movie_model.dart';
 import 'package:ditonton/data/repositories/movie_repository_impl.dart';
@@ -242,7 +242,7 @@ void main() {
 
   group('get movie images', () {
     final tId = 1;
-    final tMovieImages = ImageModel(
+    final tMovieImages = MediaImageModel(
       id: 1,
       backdropPaths: ['/path.jpg'],
       logoPaths: ['/path.jpg'],
@@ -261,7 +261,7 @@ void main() {
 
         // assert
         verify(mockRemoteDataSource.getMovieImages(tId));
-        expect(result, equals(Right(testMovieImages)));
+        expect(result, equals(Right(testImages)));
       },
     );
 
