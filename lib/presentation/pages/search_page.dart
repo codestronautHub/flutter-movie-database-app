@@ -151,12 +151,20 @@ class SearchPage extends StatelessWidget {
                           },
                           decoration: InputDecoration(
                             hintText: 'Search title',
-                            prefixIcon: Icon(Icons.search),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.white70,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
                           ),
                           textInputAction: TextInputAction.search,
+                          cursorColor: Colors.white,
                         ),
                       ),
                       SizedBox(width: 16.0),
