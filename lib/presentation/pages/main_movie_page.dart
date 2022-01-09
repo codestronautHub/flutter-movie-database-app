@@ -24,7 +24,13 @@ class _MainMoviePageState extends State<MainMoviePage> {
       () => Provider.of<MovieListNotifier>(context, listen: false)
         ..fetchNowPlayingMovies()
         ..fetchPopularMovies()
-        ..fetchTopRatedMovies(),
+        ..fetchTopRatedMovies().whenComplete(
+          () => Provider.of<MovieImagesNotifier>(context, listen: false)
+              .fetchMovieImages(
+                  Provider.of<MovieListNotifier>(context, listen: false)
+                      .nowPlayingMovies[0]
+                      .id),
+        ),
     );
   }
 
@@ -39,17 +45,12 @@ class _MainMoviePageState extends State<MainMoviePage> {
               if (data.nowPlayingState == RequestState.Loading) {
                 return Center(child: CircularProgressIndicator());
               } else if (data.nowPlayingState == RequestState.Loaded) {
-                WidgetsBinding.instance!.addPostFrameCallback((_) {
-                  Provider.of<MovieImagesNotifier>(context, listen: false)
-                      .fetchMovieImages(data.nowPlayingMovies[0].id);
-                });
-
                 return CarouselSlider(
                   options: CarouselOptions(
                     height: 520.0,
                     autoPlay: false,
                     viewportFraction: 1.0,
-                    onPageChanged: (index, _) {
+                    onPageChanged: (index, reason) {
                       Provider.of<MovieImagesNotifier>(context, listen: false)
                           .fetchMovieImages(data.nowPlayingMovies[index].id);
                     },

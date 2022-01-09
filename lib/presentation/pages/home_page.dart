@@ -32,6 +32,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       vsync: this,
       duration: Duration(milliseconds: 0),
     );
+    _colorTween = ColorTween(
+      begin: Colors.transparent,
+      end: Colors.black.withOpacity(0.7),
+    ).animate(_colorAnimationController);
   }
 
   @override
@@ -55,11 +59,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _colorTween = ColorTween(
-      begin: Colors.transparent,
-      end: Colors.black.withOpacity(0.7),
-    ).animate(_colorAnimationController);
-
     return Material(
       color: kSpaceGrey,
       child: AnimatedBuilder(
