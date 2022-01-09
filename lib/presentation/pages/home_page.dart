@@ -13,9 +13,11 @@ import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_tvs_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/home_notifier.dart';
+import 'package:ditonton/presentation/provider/movie_images_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/tv_list_notifier.dart';
+import 'package:ditonton/presentation/widgets/sub_heading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,8 +40,8 @@ class _HomePageState extends State<HomePage> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/circle-g.png'),
               ),
-              accountName: Text('Ditonton'),
-              accountEmail: Text('ditonton@dicoding.com'),
+              accountName: Text('Aditya'),
+              accountEmail: Text('aditya@mail.co'),
             ),
             ListTile(
               leading: Icon(Icons.movie),
@@ -84,16 +86,17 @@ class _HomePageState extends State<HomePage> {
             fontSize: 20.0,
           ),
         ),
-        backgroundColor: Colors.black.withOpacity(0.0),
-        elevation: 0.0,
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
-            },
+            onPressed: () => Navigator.pushNamed(
+              context,
+              SearchPage.ROUTE_NAME,
+            ),
           )
         ],
+        backgroundColor: Colors.black.withOpacity(0.0),
+        elevation: 0.0,
       ),
       body: Consumer<HomeNotifier>(builder: (context, data, child) {
         final state = data.state;
@@ -124,27 +127,6 @@ class _MainMoviePageState extends State<MainMoviePage> {
     );
   }
 
-  Row _buildSubHeading({required String title, required Function() onTap}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(title, style: kHeading6),
-        InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text('See More'),
-                Icon(Icons.arrow_forward_ios, size: 16.0)
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,17 +135,18 @@ class _MainMoviePageState extends State<MainMoviePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Consumer<MovieListNotifier>(builder: (context, data, child) {
-              final state = data.nowPlayingState;
-              if (state == RequestState.Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state == RequestState.Loaded) {
+              if (data.nowPlayingState == RequestState.Loading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (data.nowPlayingState == RequestState.Loaded) {
                 return CarouselSlider(
                   options: CarouselOptions(
                     height: 520.0,
-                    autoPlay: true,
+                    autoPlay: false,
                     viewportFraction: 1.0,
+                    onPageChanged: (index, _) {
+                      Provider.of<MovieImagesNotifier>(context, listen: false)
+                          .fetchMovieImages(data.nowPlayingMovies[index].id);
+                    },
                   ),
                   items: data.nowPlayingMovies.map(
                     (item) {
@@ -197,35 +180,47 @@ class _MainMoviePageState extends State<MainMoviePage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(
-                                  'Now Playing'.toUpperCase(),
-                                  style: TextStyle(
-                                    fontSize: 16.0,
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 16.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle,
+                                        color: Colors.redAccent,
+                                        size: 16.0,
+                                      ),
+                                      SizedBox(width: 4.0),
+                                      Text(
+                                        'Now Playing'.toUpperCase(),
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  item.title!,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                SizedBox(height: 16.0),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('Detail'),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    minimumSize: Size(
-                                      100.0,
-                                      36.0,
-                                    ),
-                                    textStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 16.0),
+                                  child: Consumer<MovieImagesNotifier>(
+                                    builder: (context, data, child) {
+                                      if (data.movieImagesState ==
+                                          RequestState.Loading) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      } else if (data.movieImagesState ==
+                                          RequestState.Loaded) {
+                                        return CachedNetworkImage(
+                                          width: 200.0,
+                                          imageUrl: Urls.imageUrl(
+                                            data.movieImages.logoPaths[0],
+                                          ),
+                                        );
+                                      } else {
+                                        return Text('Failed');
+                                      }
+                                    },
                                   ),
                                 ),
                               ],
@@ -241,20 +236,17 @@ class _MainMoviePageState extends State<MainMoviePage> {
               }
             }),
             SizedBox(height: 32.0),
-            _buildSubHeading(
-              title: 'Popular',
-              onTap: () => Navigator.pushNamed(
+            SubHeading(
+              text: 'Popular',
+              onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
                 PopularMoviesPage.ROUTE_NAME,
               ),
             ),
-            Consumer<MovieListNotifier>(builder: (context, data, child) {
-              final state = data.popularMoviesState;
-              if (state == RequestState.Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state == RequestState.Loaded) {
+            Consumer<MovieListNotifier>(builder: (context, data, _) {
+              if (data.popularMoviesState == RequestState.Loading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (data.popularMoviesState == RequestState.Loaded) {
                 return HorizontalItemList(
                   type: ContentType.Movie,
                   movies: data.popularMovies,
@@ -263,20 +255,17 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 return Text('Failed');
               }
             }),
-            _buildSubHeading(
-              title: 'Top Rated',
-              onTap: () => Navigator.pushNamed(
+            SubHeading(
+              text: 'Top Rated',
+              onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
                 TopRatedMoviesPage.ROUTE_NAME,
               ),
             ),
             Consumer<MovieListNotifier>(builder: (context, data, child) {
-              final state = data.topRatedMoviesState;
-              if (state == RequestState.Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state == RequestState.Loaded) {
+              if (data.topRatedMoviesState == RequestState.Loading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (data.topRatedMoviesState == RequestState.Loaded) {
                 return HorizontalItemList(
                   type: ContentType.Movie,
                   movies: data.topRatedMovies,
@@ -285,6 +274,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 return Text('Failed');
               }
             }),
+            SizedBox(height: 50.0),
           ],
         ),
       ),
@@ -422,6 +412,7 @@ class HorizontalItemList extends StatelessWidget {
           height: 170.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             itemCount: movies!.length,
             itemBuilder: (context, index) {
               final movie = movies![index];
@@ -452,9 +443,10 @@ class HorizontalItemList extends StatelessWidget {
         );
       case ContentType.Tv:
         return Container(
-          height: 200.0,
+          height: 170.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             itemCount: tvs!.length,
             itemBuilder: (context, index) {
               final tv = tvs![index];

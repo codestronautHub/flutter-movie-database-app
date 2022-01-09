@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
+import 'package:ditonton/data/models/image_model.dart';
 import 'package:ditonton/data/models/movie_detail_model.dart';
 import 'package:ditonton/data/models/movie_response.dart';
 import 'package:ditonton/common/exception.dart';
+import 'package:ditonton/domain/entities/image.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
@@ -123,6 +125,44 @@ void main() {
 
         // act
         final call = dataSource.getTopRatedMovies();
+
+        // assert
+        expect(() => call, throwsA(isA<ServerException>()));
+      },
+    );
+  });
+
+  group('get movie images', () {
+    final tId = 1;
+    final tMovieImages = ImageModel.fromJson(
+      json.decode(readJson('dummy_data/images.json')),
+    );
+
+    test(
+      'should return movie images when the response is 200',
+      () async {
+        // arrange
+        when(mockHttpClient.get(Uri.parse(Urls.movieImages(tId)))).thenAnswer(
+            (_) async =>
+                http.Response(readJson('dummy_data/images.json'), 200));
+
+        // act
+        final result = await dataSource.getMovieImages(tId);
+
+        // assert
+        expect(result, equals(tMovieImages));
+      },
+    );
+
+    test(
+      'should throw a server exception when the response code is 404 or other',
+      () async {
+        // arrange
+        when(mockHttpClient.get(Uri.parse(Urls.movieImages(tId))))
+            .thenAnswer((_) async => http.Response('Not found', 404));
+
+        // act
+        final call = dataSource.getMovieImages(tId);
 
         // assert
         expect(() => call, throwsA(isA<ServerException>()));

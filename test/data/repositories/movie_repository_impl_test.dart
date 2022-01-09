@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/models/genre_model.dart';
+import 'package:ditonton/data/models/image_model.dart';
 import 'package:ditonton/data/models/movie_detail_model.dart';
 import 'package:ditonton/data/models/movie_model.dart';
 import 'package:ditonton/data/repositories/movie_repository_impl.dart';
@@ -231,6 +232,67 @@ void main() {
 
         // assert
         verify(mockRemoteDataSource.getTopRatedMovies());
+        expect(
+          result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))),
+        );
+      },
+    );
+  });
+
+  group('get movie images', () {
+    final tId = 1;
+    final tMovieImages = ImageModel(
+      id: 1,
+      backdropPaths: ['/path.jpg'],
+      logoPaths: ['/path.jpg'],
+      posterPaths: ['/path.jpg'],
+    );
+
+    test(
+      'should return movie images when a call to data source is successful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getMovieImages(tId))
+            .thenAnswer((_) async => tMovieImages);
+
+        // act
+        final result = await repository.getMovieImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getMovieImages(tId));
+        expect(result, equals(Right(testMovieImages)));
+      },
+    );
+
+    test(
+      'should return server failure when a call to data source is unsuccessful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getMovieImages(tId))
+            .thenThrow(ServerException());
+
+        // act
+        final result = await repository.getMovieImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getMovieImages(tId));
+        expect(result, equals(Left(ServerFailure(''))));
+      },
+    );
+
+    test(
+      'should return connection failure when the device is not connected',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getMovieImages(tId))
+            .thenThrow(SocketException('Failed to connect to the network'));
+
+        // act
+        final result = await repository.getMovieImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getMovieImages(tId));
         expect(
           result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))),

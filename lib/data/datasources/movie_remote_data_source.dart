@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ditonton/common/urls.dart';
+import 'package:ditonton/data/models/image_model.dart';
 import 'package:ditonton/data/models/movie_detail_model.dart';
 import 'package:ditonton/data/models/movie_model.dart';
 import 'package:ditonton/data/models/movie_response.dart';
@@ -11,6 +12,7 @@ abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getNowPlayingMovies();
   Future<List<MovieModel>> getPopularMovies();
   Future<List<MovieModel>> getTopRatedMovies();
+  Future<ImageModel> getMovieImages(int id);
   Future<MovieDetailResponse> getMovieDetail(int id);
   Future<List<MovieModel>> getMovieRecommendations(int id);
   Future<List<MovieModel>> searchMovies(String query);
@@ -49,6 +51,17 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
     if (response.statusCode == 200) {
       return MovieResponse.fromJson(json.decode(response.body)).movieList;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<ImageModel> getMovieImages(int id) async {
+    final response = await client.get(Uri.parse(Urls.movieImages(id)));
+
+    if (response.statusCode == 200) {
+      return ImageModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }

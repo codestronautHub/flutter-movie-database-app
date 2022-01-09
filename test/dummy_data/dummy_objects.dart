@@ -1,5 +1,6 @@
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/image.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 
@@ -35,6 +36,13 @@ final testMovieDetail = MovieDetail(
   title: 'Title',
   voteAverage: 1.0,
   voteCount: 1,
+);
+
+final testMovieImages = Image(
+  id: 1,
+  backdropPaths: ['/path.jpg'],
+  logoPaths: ['/path.jpg'],
+  posterPaths: ['/path.jpg'],
 );
 
 final testWatchlistMovie = Movie.watchlist(

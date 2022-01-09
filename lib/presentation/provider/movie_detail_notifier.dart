@@ -48,6 +48,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   Future<void> fetchMovieDetail(int id) async {
     _movieState = RequestState.Loading;
     notifyListeners();
+
     final detailResult = await getMovieDetail.execute(id);
     final recommendationResult = await getMovieRecommendations.execute(id);
     detailResult.fold(
