@@ -24,13 +24,12 @@ class _MainMoviePageState extends State<MainMoviePage> {
       () => Provider.of<MovieListNotifier>(context, listen: false)
         ..fetchNowPlayingMovies()
         ..fetchPopularMovies()
-        ..fetchTopRatedMovies().whenComplete(
-          () => Provider.of<MovieImagesNotifier>(context, listen: false)
-              .fetchMovieImages(
-                  Provider.of<MovieListNotifier>(context, listen: false)
-                      .nowPlayingMovies[0]
-                      .id),
-        ),
+        ..fetchTopRatedMovies().then((_) =>
+            Provider.of<MovieImagesNotifier>(context, listen: false)
+                .fetchMovieImages(
+                    Provider.of<MovieListNotifier>(context, listen: false)
+                        .nowPlayingMovies[0]
+                        .id)),
     );
   }
 
@@ -47,7 +46,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
               } else if (data.nowPlayingState == RequestState.Loaded) {
                 return CarouselSlider(
                   options: CarouselOptions(
-                    height: 520.0,
+                    height: 575.0,
                     autoPlay: false,
                     viewportFraction: 1.0,
                     onPageChanged: (index, reason) {
@@ -118,6 +117,10 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                         );
                                       } else if (data.movieImagesState ==
                                           RequestState.Loaded) {
+                                        if (data
+                                            .movieImages.logoPaths.isEmpty) {
+                                          return Text(item.title!);
+                                        }
                                         return CachedNetworkImage(
                                           width: 200.0,
                                           imageUrl: Urls.imageUrl(

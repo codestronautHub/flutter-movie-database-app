@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
+import 'package:ditonton/presentation/widgets/minimal_detail.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalItemList extends StatelessWidget {
@@ -29,11 +31,26 @@ class HorizontalItemList extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8.0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      MovieDetailPage.ROUTE_NAME,
-                      arguments: movie.id,
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) {
+                        return MinimalDetail(
+                          type: type,
+                          movie: movie,
+                        );
+                      },
                     );
+                    // Navigator.pushNamed(
+                    //   context,
+                    //   MovieDetailPage.ROUTE_NAME,
+                    //   arguments: movie.id,
+                    // );
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(8.0)),
