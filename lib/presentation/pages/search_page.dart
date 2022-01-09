@@ -59,6 +59,7 @@ class SearchPage extends StatelessWidget {
             return Expanded(
               child: ListView.builder(
                 itemCount: result.length,
+                padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   final movie = data.searchResult[index];
                   return ItemCard(
@@ -86,11 +87,10 @@ class SearchPage extends StatelessWidget {
             final result = data.searchResult;
             return Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.all(8),
                 itemCount: result.length,
+                padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   final tv = data.searchResult[index];
-                  print(tv.id);
                   return ItemCard(
                     type: ContentType.Tv,
                     tv: tv,
@@ -110,81 +110,115 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Search'),
-      ),
-      body: Consumer<SearchFilterNotifier>(
-        builder: (context, data, child) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: TextField(
-                        controller: _textEditingController,
-                        onSubmitted: (query) {
-                          if (data.filter == SearchFilter.movie) {
-                            Provider.of<MovieSearchNotifier>(context,
-                                    listen: false)
-                                .fetchMovieSearch(query);
-                          } else {
-                            Provider.of<TvSearchNotifier>(context,
-                                    listen: false)
-                                .fetchTvSearch(query);
-                          }
-                        },
-                        decoration: InputDecoration(
-                          hintText: 'Search title',
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(),
-                        ),
-                        textInputAction: TextInputAction.search,
-                      ),
-                    ),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {
-                          _showFilterSearchDialog(
-                            context: context,
-                            onMovieFilterSelected: (SearchFilter? newValue) {
-                              data.setFilter(newValue!);
-                              _textEditingController.clear();
+    return WillPopScope(
+      onWillPop: () async {
+        _textEditingController.clear();
+        Provider.of<MovieSearchNotifier>(context, listen: false)
+            .searchResult
+            .clear();
+        Provider.of<TvSearchNotifier>(context, listen: false)
+            .searchResult
+            .clear();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Search'),
+        ),
+        body: Consumer<SearchFilterNotifier>(
+          builder: (context, data, child) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: TextField(
+                          controller: _textEditingController,
+                          onSubmitted: (query) {
+                            if (data.filter == SearchFilter.movie) {
                               Provider.of<MovieSearchNotifier>(context,
                                       listen: false)
-                                  .searchResult
-                                  .clear();
-                              Navigator.pop(context);
-                            },
-                            onTvFilterSelected: (SearchFilter? newValue) {
-                              data.setFilter(newValue!);
-                              _textEditingController.clear();
+                                  .fetchMovieSearch(query);
+                            } else {
                               Provider.of<TvSearchNotifier>(context,
                                       listen: false)
-                                  .searchResult
-                                  .clear();
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                        icon: Icon(Icons.filter_alt_outlined),
-                        splashRadius: 20.0,
+                                  .fetchTvSearch(query);
+                            }
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Search title',
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          textInputAction: TextInputAction.search,
+                        ),
                       ),
+                      SizedBox(width: 16.0),
+                      Expanded(
+                        child: IconButton(
+                          onPressed: () {
+                            _showFilterSearchDialog(
+                              context: context,
+                              onMovieFilterSelected: (SearchFilter? newValue) {
+                                data.setFilter(newValue!);
+                                _textEditingController.clear();
+                                Provider.of<MovieSearchNotifier>(context,
+                                        listen: false)
+                                    .searchResult
+                                    .clear();
+                                Navigator.pop(context);
+                              },
+                              onTvFilterSelected: (SearchFilter? newValue) {
+                                data.setFilter(newValue!);
+                                _textEditingController.clear();
+                                Provider.of<TvSearchNotifier>(context,
+                                        listen: false)
+                                    .searchResult
+                                    .clear();
+                                Navigator.pop(context);
+                              },
+                            );
+                          },
+                          icon: Icon(Icons.filter_alt_outlined),
+                          splashRadius: 20.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Search Result for ',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        Text(
+                          data.filter == SearchFilter.movie
+                              ? 'Movie'
+                              : 'Tv Shows',
+                          style: kHeading6.copyWith(
+                            color: Colors.redAccent,
+                          ),
+                        )
+                      ],
                     ),
-                  ],
-                ),
-                SizedBox(height: 16.0),
-                Text('Search Result', style: kHeading6),
-                _buildSearchResults(context, data.filter),
-              ],
-            ),
-          );
-        },
+                  ),
+                  _buildSearchResults(context, data.filter),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

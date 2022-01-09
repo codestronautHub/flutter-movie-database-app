@@ -68,7 +68,6 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   Future<List<TvModel>> searchTvs(String query) async {
     final response = await client.get(Uri.parse(Urls.searchTvs(query)));
 
-    print(response.body);
     if (response.statusCode == 200) {
       return TvResponse.fromJson(json.decode(response.body)).tvList;
     } else {
