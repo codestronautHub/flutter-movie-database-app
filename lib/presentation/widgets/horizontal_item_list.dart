@@ -4,7 +4,6 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/tv.dart';
-import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/widgets/minimal_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -46,11 +45,6 @@ class HorizontalItemList extends StatelessWidget {
                         );
                       },
                     );
-                    // Navigator.pushNamed(
-                    //   context,
-                    //   MovieDetailPage.ROUTE_NAME,
-                    //   arguments: movie.id,
-                    // );
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(8.0)),

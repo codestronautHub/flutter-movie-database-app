@@ -24,7 +24,7 @@ class _MainTvPageState extends State<MainTvPage> {
       () => Provider.of<TvListNotifier>(context, listen: false)
         ..fetchOnTheAirTvs()
         ..fetchPopularTvs()
-        ..fetchTopRatedTvs().then((value) =>
+        ..fetchTopRatedTvs().whenComplete(() =>
             Provider.of<TvImagesNotifier>(context, listen: false).fetchTvImages(
                 Provider.of<TvListNotifier>(context, listen: false)
                     .onTheAirTvs[0]
@@ -48,7 +48,7 @@ class _MainTvPageState extends State<MainTvPage> {
                   return CarouselSlider(
                     options: CarouselOptions(
                       height: 575.0,
-                      autoPlay: false,
+                      autoPlay: true,
                       viewportFraction: 1.0,
                       onPageChanged: (index, _) {
                         Provider.of<TvImagesNotifier>(context, listen: false)
