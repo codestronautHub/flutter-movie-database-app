@@ -74,7 +74,21 @@ class HorizontalItemList extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8.0),
                 child: InkWell(
                   onTap: () {
-                    // TODO: Navigate to detail tv page
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) {
+                        return MinimalDetail(
+                          type: type,
+                          tv: tv,
+                        );
+                      },
+                    );
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(16)),

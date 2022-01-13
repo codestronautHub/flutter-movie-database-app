@@ -68,15 +68,13 @@ class DetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         CachedNetworkImage(
           imageUrl: Urls.imageUrl(movie.posterPath),
-          width: screenWidth,
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(),
-          ),
+          width: MediaQuery.of(context).size.width,
+          placeholder: (context, url) =>
+              Center(child: CircularProgressIndicator()),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
         Container(
@@ -283,14 +281,14 @@ class DetailContent extends StatelessWidget {
   String _showGenres(List<Genre> genres) {
     String result = '';
     for (var genre in genres) {
-      result += genre.name + ', ';
+      result += genre.name + '\t • \t';
     }
 
     if (result.isEmpty) {
       return result;
     }
 
-    return result.substring(0, result.length - 2);
+    return result.substring(0, result.length - 3);
   }
 
   String _showDuration(int runtime) {
