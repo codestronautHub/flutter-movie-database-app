@@ -160,11 +160,18 @@ class MockTvRepository extends _i1.Mock implements _i13.TvRepository {
                   _FakeEither_0<_i9.Failure, List<_i14.Tv>>()))
           as _i8.Future<_i2.Either<_i9.Failure, List<_i14.Tv>>>);
   @override
-  _i8.Future<_i2.Either<_i9.Failure, _i11.MediaImage>> getTvImages(int? id) =>
-      (super.noSuchMethod(Invocation.method(#getTvImages, [id]),
-          returnValue: Future<_i2.Either<_i9.Failure, _i11.MediaImage>>.value(
-              _FakeEither_0<_i9.Failure, _i11.MediaImage>())) as _i8
-          .Future<_i2.Either<_i9.Failure, _i11.MediaImage>>);
+  _i8.Future<_i2.Either<_i9.Failure, List<_i14.Tv>>> searchTvs(String? query) =>
+      (super.noSuchMethod(Invocation.method(#searchTvs, [query]),
+              returnValue: Future<_i2.Either<_i9.Failure, List<_i14.Tv>>>.value(
+                  _FakeEither_0<_i9.Failure, List<_i14.Tv>>()))
+          as _i8.Future<_i2.Either<_i9.Failure, List<_i14.Tv>>>);
+  @override
+  _i8.Future<_i2.Either<_i9.Failure, List<_i14.Tv>>> getTvRecommendations(
+          int? id) =>
+      (super.noSuchMethod(Invocation.method(#getTvRecommendations, [id]),
+              returnValue: Future<_i2.Either<_i9.Failure, List<_i14.Tv>>>.value(
+                  _FakeEither_0<_i9.Failure, List<_i14.Tv>>()))
+          as _i8.Future<_i2.Either<_i9.Failure, List<_i14.Tv>>>);
   @override
   _i8.Future<_i2.Either<_i9.Failure, _i15.TvDetail>> getTvDetail(int? id) =>
       (super.noSuchMethod(Invocation.method(#getTvDetail, [id]),
@@ -172,11 +179,11 @@ class MockTvRepository extends _i1.Mock implements _i13.TvRepository {
                   _FakeEither_0<_i9.Failure, _i15.TvDetail>()))
           as _i8.Future<_i2.Either<_i9.Failure, _i15.TvDetail>>);
   @override
-  _i8.Future<_i2.Either<_i9.Failure, List<_i14.Tv>>> searchTvs(String? query) =>
-      (super.noSuchMethod(Invocation.method(#searchTvs, [query]),
-              returnValue: Future<_i2.Either<_i9.Failure, List<_i14.Tv>>>.value(
-                  _FakeEither_0<_i9.Failure, List<_i14.Tv>>()))
-          as _i8.Future<_i2.Either<_i9.Failure, List<_i14.Tv>>>);
+  _i8.Future<_i2.Either<_i9.Failure, _i11.MediaImage>> getTvImages(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getTvImages, [id]),
+          returnValue: Future<_i2.Either<_i9.Failure, _i11.MediaImage>>.value(
+              _FakeEither_0<_i9.Failure, _i11.MediaImage>())) as _i8
+          .Future<_i2.Either<_i9.Failure, _i11.MediaImage>>);
 }
 
 /// A class which mocks [MovieRemoteDataSource].
@@ -255,21 +262,26 @@ class MockTvRemoteDataSource extends _i1.Mock
               returnValue: Future<List<_i19.TvModel>>.value(<_i19.TvModel>[]))
           as _i8.Future<List<_i19.TvModel>>);
   @override
-  _i8.Future<_i3.MediaImageModel> getTvImages(int? id) =>
-      (super.noSuchMethod(Invocation.method(#getTvImages, [id]),
-              returnValue:
-                  Future<_i3.MediaImageModel>.value(_FakeMediaImageModel_1()))
-          as _i8.Future<_i3.MediaImageModel>);
-  @override
   _i8.Future<_i5.TvDetailModel> getTvDetail(int? id) => (super.noSuchMethod(
           Invocation.method(#getTvDetail, [id]),
           returnValue: Future<_i5.TvDetailModel>.value(_FakeTvDetailModel_3()))
       as _i8.Future<_i5.TvDetailModel>);
   @override
+  _i8.Future<List<_i19.TvModel>> getTvRecommendations(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getTvRecommendations, [id]),
+              returnValue: Future<List<_i19.TvModel>>.value(<_i19.TvModel>[]))
+          as _i8.Future<List<_i19.TvModel>>);
+  @override
   _i8.Future<List<_i19.TvModel>> searchTvs(String? query) =>
       (super.noSuchMethod(Invocation.method(#searchTvs, [query]),
               returnValue: Future<List<_i19.TvModel>>.value(<_i19.TvModel>[]))
           as _i8.Future<List<_i19.TvModel>>);
+  @override
+  _i8.Future<_i3.MediaImageModel> getTvImages(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getTvImages, [id]),
+              returnValue:
+                  Future<_i3.MediaImageModel>.value(_FakeMediaImageModel_1()))
+          as _i8.Future<_i3.MediaImageModel>);
 }
 
 /// A class which mocks [MovieLocalDataSource].
