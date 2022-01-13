@@ -3,8 +3,10 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
+import 'package:ditonton/presentation/widgets/horizontal_item_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +39,10 @@ class _TvDetailPageState extends State<TvDetailPage> {
             return Center(child: CircularProgressIndicator());
           } else if (provider.tvState == RequestState.Loaded) {
             final tv = provider.tv;
-            return TvDetailContent(tv: tv);
+            return TvDetailContent(
+              tv: tv,
+              recommendations: provider.tvRecommendations,
+            );
           } else {
             return Text(provider.message);
           }
@@ -47,9 +52,24 @@ class _TvDetailPageState extends State<TvDetailPage> {
   }
 }
 
-class TvDetailContent extends StatelessWidget {
+class TvDetailContent extends StatefulWidget {
   final TvDetail tv;
-  const TvDetailContent({required this.tv});
+  final List<Tv> recommendations;
+  const TvDetailContent({required this.tv, required this.recommendations});
+
+  @override
+  State<TvDetailContent> createState() => _TvDetailContentState();
+}
+
+class _TvDetailContentState extends State<TvDetailContent>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +95,7 @@ class TvDetailContent extends StatelessWidget {
           child: CachedNetworkImage(
             height: 560.0,
             width: MediaQuery.of(context).size.width,
-            imageUrl: Urls.imageUrl(tv.posterPath!),
+            imageUrl: Urls.imageUrl(widget.tv.posterPath!),
             fit: BoxFit.cover,
           ),
         ),
@@ -100,9 +120,10 @@ class TvDetailContent extends StatelessWidget {
                           controller: controller,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                tv.name,
+                                widget.tv.name,
                                 style: kHeading5.copyWith(
                                   fontWeight: FontWeight.w700,
                                   letterSpacing: 1.2,
@@ -121,7 +142,7 @@ class TvDetailContent extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Text(
-                                      tv.firstAirDate.split('-')[0],
+                                      widget.tv.firstAirDate.split('-')[0],
                                       style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500,
@@ -138,7 +159,8 @@ class TvDetailContent extends StatelessWidget {
                                       ),
                                       SizedBox(width: 4.0),
                                       Text(
-                                        (tv.voteAverage / 2).toStringAsFixed(1),
+                                        (widget.tv.voteAverage / 2)
+                                            .toStringAsFixed(1),
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
@@ -149,7 +171,7 @@ class TvDetailContent extends StatelessWidget {
                                   ),
                                   SizedBox(width: 16.0),
                                   Text(
-                                    '${tv.numberOfSeasons} Seasons',
+                                    '${widget.tv.numberOfSeasons} Seasons',
                                     style: TextStyle(
                                       color: Colors.white70,
                                       fontSize: 16.0,
@@ -159,7 +181,8 @@ class TvDetailContent extends StatelessWidget {
                                   ),
                                   SizedBox(width: 16.0),
                                   Text(
-                                    _showEpisodeDuration(tv.episodeRunTime[0]),
+                                    _showEpisodeDuration(
+                                        widget.tv.episodeRunTime[0]),
                                     style: TextStyle(
                                       color: Colors.white70,
                                       fontSize: 16.0,
@@ -183,7 +206,7 @@ class TvDetailContent extends StatelessWidget {
                               ),
                               SizedBox(height: 16.0),
                               Text(
-                                tv.overview,
+                                widget.tv.overview,
                                 style: TextStyle(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w400,
@@ -192,12 +215,44 @@ class TvDetailContent extends StatelessWidget {
                               ),
                               SizedBox(height: 8.0),
                               Text(
-                                'Genres: ${_showGenres(tv.genres)}',
+                                'Genres: ${_showGenres(widget.tv.genres)}',
                                 style: TextStyle(
                                   color: Colors.white70,
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: 1.2,
+                                ),
+                              ),
+                              SizedBox(height: 16.0),
+                              Container(
+                                child: TabBar(
+                                  controller: _tabController,
+                                  padding: EdgeInsets.zero,
+                                  indicator: BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                        color: Colors.redAccent,
+                                        style: BorderStyle.solid,
+                                        width: 4.0,
+                                      ),
+                                    ),
+                                  ),
+                                  tabs: [
+                                    Tab(text: 'Episodes'.toUpperCase()),
+                                    Tab(text: 'More like this'.toUpperCase()),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 170.0,
+                                child: TabBarView(
+                                  controller: _tabController,
+                                  children: [
+                                    Center(child: Text('Episodes')),
+                                    Container(
+                                      child: _showRecommendations(),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -264,5 +319,24 @@ class TvDetailContent extends StatelessWidget {
     } else {
       return '${minutes}m';
     }
+  }
+
+  Widget _showRecommendations() {
+    return Consumer<TvDetailNotifier>(
+      builder: (context, data, child) {
+        if (data.recommendationsState == RequestState.Loading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (data.recommendationsState == RequestState.Error) {
+          return Text(data.message);
+        } else if (data.recommendationsState == RequestState.Loaded) {
+          return HorizontalItemList(
+            type: ContentType.Tv,
+            tvs: widget.recommendations,
+          );
+        } else {
+          return SizedBox();
+        }
+      },
+    );
   }
 }

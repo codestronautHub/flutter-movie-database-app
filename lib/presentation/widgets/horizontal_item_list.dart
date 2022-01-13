@@ -20,6 +20,7 @@ class HorizontalItemList extends StatelessWidget {
         return Container(
           height: 170.0,
           child: ListView.builder(
+            shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             itemCount: movies!.length,

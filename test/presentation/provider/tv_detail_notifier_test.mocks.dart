@@ -6,9 +6,11 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:ditonton/common/failure.dart' as _i6;
+import 'package:ditonton/domain/entities/tv.dart' as _i9;
 import 'package:ditonton/domain/entities/tv_detail.dart' as _i7;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;
 import 'package:ditonton/domain/usecases/get_tv_detail.dart' as _i4;
+import 'package:ditonton/domain/usecases/get_tv_recommendations.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -42,4 +44,25 @@ class MockGetTvDetail extends _i1.Mock implements _i4.GetTvDetail {
               returnValue: Future<_i3.Either<_i6.Failure, _i7.TvDetail>>.value(
                   _FakeEither_1<_i6.Failure, _i7.TvDetail>()))
           as _i5.Future<_i3.Either<_i6.Failure, _i7.TvDetail>>);
+}
+
+/// A class which mocks [GetTvRecommendations].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetTvRecommendations extends _i1.Mock
+    implements _i8.GetTvRecommendations {
+  MockGetTvRecommendations() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.TvRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeTvRepository_0()) as _i2.TvRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i9.Tv>>> execute(dynamic id) =>
+      (super.noSuchMethod(Invocation.method(#execute, [id]),
+              returnValue: Future<_i3.Either<_i6.Failure, List<_i9.Tv>>>.value(
+                  _FakeEither_1<_i6.Failure, List<_i9.Tv>>()))
+          as _i5.Future<_i3.Either<_i6.Failure, List<_i9.Tv>>>);
 }
