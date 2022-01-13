@@ -15,7 +15,7 @@ class SubHeading extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(
         16.0,
-        16.0,
+        24.0,
         16.0,
         8.0,
       ),

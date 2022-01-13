@@ -8,6 +8,7 @@ import 'package:ditonton/presentation/pages/popular_tvs_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_tvs_page.dart';
+import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/home_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
@@ -17,6 +18,7 @@ import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/search_filter_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_images_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_search_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
@@ -69,6 +71,9 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieDetailNotifier>(),
         ),
         ChangeNotifierProvider(
+          create: (_) => di.locator<TvDetailNotifier>(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => di.locator<SearchFilterNotifier>(),
         ),
         ChangeNotifierProvider(
@@ -109,6 +114,11 @@ class MyApp extends StatelessWidget {
             case MovieDetailPage.ROUTE_NAME:
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: settings.arguments as int),
+                settings: settings,
+              );
+            case TvDetailPage.ROUTE_NAME:
+              return MaterialPageRoute(
+                builder: (_) => TvDetailPage(id: settings.arguments as int),
                 settings: settings,
               );
             case SearchPage.ROUTE_NAME:

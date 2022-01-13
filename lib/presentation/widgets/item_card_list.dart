@@ -5,6 +5,7 @@ import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
+import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
@@ -29,7 +30,11 @@ class ItemCard extends StatelessWidget {
             arguments: movie!.id,
           );
         } else {
-          // TODO: Go to tv detail page
+          Navigator.pushNamed(
+            context,
+            TvDetailPage.ROUTE_NAME,
+            arguments: tv!.id,
+          );
         }
       },
       child: Container(

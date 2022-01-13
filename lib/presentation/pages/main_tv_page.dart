@@ -24,7 +24,11 @@ class _MainTvPageState extends State<MainTvPage> {
       () => Provider.of<TvListNotifier>(context, listen: false)
         ..fetchOnTheAirTvs()
         ..fetchPopularTvs()
-        ..fetchTopRatedTvs(),
+        ..fetchTopRatedTvs().whenComplete(() =>
+            Provider.of<TvImagesNotifier>(context, listen: false).fetchTvImages(
+                Provider.of<TvListNotifier>(context, listen: false)
+                    .onTheAirTvs[0]
+                    .id)),
     );
   }
 
@@ -41,15 +45,10 @@ class _MainTvPageState extends State<MainTvPage> {
                 if (data.onTheAirTvsState == RequestState.Loading) {
                   return Center(child: CircularProgressIndicator());
                 } else if (data.onTheAirTvsState == RequestState.Loaded) {
-                  WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    Provider.of<TvImagesNotifier>(context, listen: false)
-                        .fetchTvImages(data.onTheAirTvs[0].id);
-                  });
-
                   return CarouselSlider(
                     options: CarouselOptions(
-                      height: 520.0,
-                      autoPlay: false,
+                      height: 575.0,
+                      autoPlay: true,
                       viewportFraction: 1.0,
                       onPageChanged: (index, _) {
                         Provider.of<TvImagesNotifier>(context, listen: false)

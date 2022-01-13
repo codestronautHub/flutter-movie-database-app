@@ -17,17 +17,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late AnimationController _animationController;
+  late AnimationController _drawerAnimationController;
+  late Animation _drawerTween;
+
   late AnimationController _colorAnimationController;
   late Animation _colorTween;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
+    _drawerAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 250),
+      duration: Duration(milliseconds: 300),
     );
+    _drawerTween = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _drawerAnimationController,
+        curve: Curves.easeInOutCirc,
+      ),
+    );
+
     _colorAnimationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 0),
@@ -40,14 +49,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _drawerAnimationController.dispose();
     _colorAnimationController.dispose();
     super.dispose();
   }
 
-  void toggle() => _animationController.isDismissed
-      ? _animationController.forward()
-      : _animationController.reverse();
+  void toggle() => _drawerAnimationController.isDismissed
+      ? _drawerAnimationController.forward()
+      : _drawerAnimationController.reverse();
 
   bool _scrollListener(ScrollNotification scrollInfo) {
     if (scrollInfo.metrics.axis == Axis.vertical) {
@@ -62,13 +71,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Material(
       color: kSpaceGrey,
       child: AnimatedBuilder(
-        animation: _animationController,
+        animation: _drawerTween,
         builder: (context, child) {
-          double slide = 300.0 * _animationController.value;
-          double scale = 1.0 - (_animationController.value * 0.25);
-          double radius = _animationController.value * 30.0;
-          double rotate = _animationController.value * -0.139626;
-          double toolbarOpacity = 1.0 - _animationController.value;
+          double slide = 300.0 * _drawerTween.value;
+          double scale = 1.0 - (_drawerTween.value * 0.25);
+          double radius = _drawerTween.value * 30.0;
+          double rotate = _drawerTween.value * -0.139626;
+          double toolbarOpacity = 1.0 - _drawerTween.value;
 
           return Stack(
             children: [
