@@ -7,6 +7,7 @@ import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
+import 'package:ditonton/domain/entities/tv_episode.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
@@ -100,5 +101,12 @@ class TvRepositoryImpl implements TvRepository {
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
     }
+  }
+
+  @override
+  Future<Either<Failure, List<TvEpisode>>> getTvSeasons(
+      int id, int seasonNumber) {
+    // TODO: implement getTvSeasons
+    throw UnimplementedError();
   }
 }

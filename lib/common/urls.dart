@@ -25,8 +25,8 @@ class Urls {
       '$baseUrl/search/tv?$apiKey&query=$query';
   static String tvImages(int id) =>
       '$baseUrl/tv/$id/images?$apiKey&language=en-US&include_image_language=en,null';
-  static String tvEpisodes(int id, int seasonNumber, int episodeNumber) =>
-      '$baseUrl/tv/$id/season/$seasonNumber/episode/$episodeNumber?$apiKey';
+  static String tvSeasons(int id, int seasonNumber) =>
+      '$baseUrl/tv/$id/season/$seasonNumber?$apiKey';
 
   // Image
   static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
