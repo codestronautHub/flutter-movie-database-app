@@ -3,7 +3,6 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:flutter/material.dart';
@@ -151,6 +150,16 @@ class TvDetailContent extends StatelessWidget {
                                   SizedBox(width: 16.0),
                                   Text(
                                     '${tv.numberOfSeasons} Seasons',
+                                    style: TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 1.2,
+                                    ),
+                                  ),
+                                  SizedBox(width: 16.0),
+                                  Text(
+                                    _showEpisodeDuration(tv.episodeRunTime[0]),
                                     style: TextStyle(
                                       color: Colors.white70,
                                       fontSize: 16.0,
