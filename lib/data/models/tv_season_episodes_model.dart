@@ -11,7 +11,8 @@ class TvSeasonEpisodesModel extends Equatable {
   factory TvSeasonEpisodesModel.fromJson(Map<String, dynamic> json) =>
       TvSeasonEpisodesModel(
         tvEpisodes: List<TvSeasonEpisodeModel>.from((json['episodes'] as List)
-            .map((x) => TvSeasonEpisodeModel.fromJson(x))),
+            .map((x) => TvSeasonEpisodeModel.fromJson(x))
+            .where((element) => element.stillPath != null)),
       );
 
   Map<String, dynamic> toJson() => {
