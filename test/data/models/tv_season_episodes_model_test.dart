@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:ditonton/data/models/tv_episode_model.dart';
-import 'package:ditonton/data/models/tv_season_model.dart';
+import 'package:ditonton/data/models/tv_season_episode_model.dart';
+import 'package:ditonton/data/models/tv_season_episodes_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../json_reader.dart';
 
 void main() {
-  final tTvEpisodeModel = TvEpisodeModel(
+  final tTvEpisodeModel = TvSeasonEpisodeModel(
     airDate: '2022-01-01',
     episodeNumber: 1,
     id: 1,
@@ -19,8 +19,8 @@ void main() {
     voteCount: 1,
   );
 
-  final tTvSeasonModel = TvSeasonModel(
-    tvEpisodes: <TvEpisodeModel>[tTvEpisodeModel],
+  final tTvSeasonModel = TvSeasonEpisodesModel(
+    tvEpisodes: <TvSeasonEpisodeModel>[tTvEpisodeModel],
   );
 
   group('from json', () {
@@ -33,7 +33,7 @@ void main() {
         );
 
         // act
-        final result = TvSeasonModel.fromJson(jsonMap);
+        final result = TvSeasonEpisodesModel.fromJson(jsonMap);
 
         // assert
         expect(result, tTvSeasonModel);

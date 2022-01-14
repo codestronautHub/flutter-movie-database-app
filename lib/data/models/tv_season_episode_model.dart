@@ -1,7 +1,7 @@
-import 'package:ditonton/domain/entities/tv_episode.dart';
+import 'package:ditonton/domain/entities/tv_season_episode.dart';
 import 'package:equatable/equatable.dart';
 
-class TvEpisodeModel extends Equatable {
+class TvSeasonEpisodeModel extends Equatable {
   final String airDate;
   final int episodeNumber;
   final int id;
@@ -12,7 +12,7 @@ class TvEpisodeModel extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  TvEpisodeModel({
+  TvSeasonEpisodeModel({
     required this.airDate,
     required this.episodeNumber,
     required this.id,
@@ -24,7 +24,8 @@ class TvEpisodeModel extends Equatable {
     required this.voteCount,
   });
 
-  factory TvEpisodeModel.fromJson(Map<String, dynamic> json) => TvEpisodeModel(
+  factory TvSeasonEpisodeModel.fromJson(Map<String, dynamic> json) =>
+      TvSeasonEpisodeModel(
         airDate: json['air_date'],
         episodeNumber: json['episode_number'],
         id: json['id'],
@@ -48,7 +49,7 @@ class TvEpisodeModel extends Equatable {
         'vote_count': voteCount,
       };
 
-  TvEpisode toEntity() => TvEpisode(
+  TvSeasonEpisode toEntity() => TvSeasonEpisode(
         airDate: this.airDate,
         episodeNumber: this.episodeNumber,
         id: this.id,

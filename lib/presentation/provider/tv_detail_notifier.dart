@@ -20,8 +20,8 @@ class TvDetailNotifier extends ChangeNotifier {
   RequestState _tvState = RequestState.Empty;
   RequestState get tvState => _tvState;
 
-  List<Tv> _tvRecommendations = [];
-  List<Tv> get tvRecommendations => _tvRecommendations;
+  List<Tv> _recommendations = [];
+  List<Tv> get recommendations => _recommendations;
 
   RequestState _recommendationsState = RequestState.Empty;
   RequestState get recommendationsState => _recommendationsState;
@@ -35,6 +35,7 @@ class TvDetailNotifier extends ChangeNotifier {
 
     final detailResult = await getTvDetail.execute(id);
     final recommendationsResult = await getTvRecommendations.execute(id);
+
     detailResult.fold(
       (failure) {
         _tvState = RequestState.Error;
@@ -53,7 +54,7 @@ class TvDetailNotifier extends ChangeNotifier {
           },
           (tvs) {
             _recommendationsState = RequestState.Loaded;
-            _tvRecommendations = tvs;
+            _recommendations = tvs;
           },
         );
         notifyListeners();

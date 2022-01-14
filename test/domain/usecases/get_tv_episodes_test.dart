@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/domain/entities/tv_episode.dart';
-import 'package:ditonton/domain/usecases/get_tv_seasons.dart';
+import 'package:ditonton/domain/entities/tv_season_episode.dart';
+import 'package:ditonton/domain/usecases/get_tv_season_episodes.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -8,19 +8,19 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockTvRepository mockTvRepository;
-  late GetTvSeasons usecase;
+  late GetTvSeasonEpisodes usecase;
 
   setUp(() {
     mockTvRepository = MockTvRepository();
-    usecase = GetTvSeasons(mockTvRepository);
+    usecase = GetTvSeasonEpisodes(mockTvRepository);
   });
 
   final tId = 1;
   final tSeasonNumber = 1;
-  final tTvEpisodes = <TvEpisode>[];
+  final tTvEpisodes = <TvSeasonEpisode>[];
 
   test(
-    'should get list of tv episodes from the repository',
+    'should get list of tv season episodes from the repository',
     () async {
       // arrange
       when(mockTvRepository.getTvSeasonEpisodes(tId, tSeasonNumber))

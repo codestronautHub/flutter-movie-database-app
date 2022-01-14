@@ -1,9 +1,9 @@
-import 'package:ditonton/data/models/tv_episode_model.dart';
-import 'package:ditonton/domain/entities/tv_episode.dart';
+import 'package:ditonton/data/models/tv_season_episode_model.dart';
+import 'package:ditonton/domain/entities/tv_season_episode.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final tTvEpisodeModel = TvEpisodeModel(
+  final tTvEpisodeModel = TvSeasonEpisodeModel(
     airDate: '2022-01-01',
     episodeNumber: 1,
     id: 1,
@@ -15,7 +15,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tTvEpisode = TvEpisode(
+  final tTvEpisode = TvSeasonEpisode(
     airDate: '2022-01-01',
     episodeNumber: 1,
     id: 1,

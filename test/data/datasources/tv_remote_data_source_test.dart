@@ -6,7 +6,7 @@ import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/models/media_image_model.dart';
 import 'package:ditonton/data/models/tv_detail_model.dart';
 import 'package:ditonton/data/models/tv_response.dart';
-import 'package:ditonton/data/models/tv_season_model.dart';
+import 'package:ditonton/data/models/tv_season_episodes_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
@@ -202,7 +202,7 @@ void main() {
   group('get tv season episodes', () {
     final tId = 1;
     final tSeasonNumber = 1;
-    final tTvSeasonEpisodes = TvSeasonModel.fromJson(
+    final tTvSeasonEpisodes = TvSeasonEpisodesModel.fromJson(
       json.decode(readJson('dummy_data/tv_season.json')),
     ).tvEpisodes;
 

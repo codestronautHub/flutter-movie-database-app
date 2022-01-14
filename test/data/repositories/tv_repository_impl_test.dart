@@ -6,7 +6,7 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/models/genre_model.dart';
 import 'package:ditonton/data/models/media_image_model.dart';
 import 'package:ditonton/data/models/tv_detail_model.dart';
-import 'package:ditonton/data/models/tv_episode_model.dart';
+import 'package:ditonton/data/models/tv_season_episode_model.dart';
 import 'package:ditonton/data/models/tv_model.dart';
 import 'package:ditonton/data/repositories/tv_repository_impl.dart';
 import 'package:ditonton/domain/entities/tv.dart';
@@ -369,7 +369,7 @@ void main() {
   group('get tv season episodes', () {
     final tId = 1;
     final tSeasonNumber = 1;
-    final tTvSeasonEpisodes = <TvEpisodeModel>[];
+    final tTvSeasonEpisodes = <TvSeasonEpisodeModel>[];
 
     test(
       'should return tv season episodes when a call to data source is successful',

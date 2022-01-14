@@ -53,8 +53,8 @@ class MockTvDetailNotifier extends _i1.Mock implements _i5.TvDetailNotifier {
       (super.noSuchMethod(Invocation.getter(#tvState),
           returnValue: _i6.RequestState.Empty) as _i6.RequestState);
   @override
-  List<_i7.Tv> get tvRecommendations =>
-      (super.noSuchMethod(Invocation.getter(#tvRecommendations),
+  List<_i7.Tv> get recommendations =>
+      (super.noSuchMethod(Invocation.getter(#recommendations),
           returnValue: <_i7.Tv>[]) as List<_i7.Tv>);
   @override
   _i6.RequestState get recommendationsState =>

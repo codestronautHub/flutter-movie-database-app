@@ -7,7 +7,7 @@ import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
-import 'package:ditonton/domain/entities/tv_episode.dart';
+import 'package:ditonton/domain/entities/tv_season_episode.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
@@ -104,8 +104,10 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<TvEpisode>>> getTvSeasonEpisodes(
-      int id, int seasonNumber) async {
+  Future<Either<Failure, List<TvSeasonEpisode>>> getTvSeasonEpisodes(
+    int id,
+    int seasonNumber,
+  ) async {
     try {
       final result =
           await remoteDataSource.getTvSeasonEpisodes(id, seasonNumber);

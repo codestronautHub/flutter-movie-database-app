@@ -41,7 +41,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
             final tv = provider.tv;
             return TvDetailContent(
               tv: tv,
-              recommendations: provider.tvRecommendations,
+              recommendations: provider.recommendations,
             );
           } else {
             return Text(provider.message);

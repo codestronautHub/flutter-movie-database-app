@@ -3,7 +3,7 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/entities/media_image.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
-import 'package:ditonton/domain/entities/tv_episode.dart';
+import 'package:ditonton/domain/entities/tv_season_episode.dart';
 
 abstract class TvRepository {
   Future<Either<Failure, List<Tv>>> getOnTheAirTvs();
@@ -11,7 +11,7 @@ abstract class TvRepository {
   Future<Either<Failure, List<Tv>>> getTopRatedTvs();
   Future<Either<Failure, List<Tv>>> searchTvs(String query);
   Future<Either<Failure, List<Tv>>> getTvRecommendations(int id);
-  Future<Either<Failure, List<TvEpisode>>> getTvSeasonEpisodes(
+  Future<Either<Failure, List<TvSeasonEpisode>>> getTvSeasonEpisodes(
     int id,
     int seasonNumber,
   );

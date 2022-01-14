@@ -113,7 +113,7 @@ void main() {
 
         // assert
         expect(provider.tvState, equals(RequestState.Loaded));
-        expect(provider.tvRecommendations, equals(tTvs));
+        expect(provider.recommendations, equals(tTvs));
       },
     );
 
@@ -149,7 +149,7 @@ void main() {
 
         // assert
         verify(mockGetTvRecommendations.execute(tId));
-        expect(provider.tvRecommendations, equals(tTvs));
+        expect(provider.recommendations, equals(tTvs));
       },
     );
 
@@ -164,7 +164,7 @@ void main() {
 
         // assert
         expect(provider.recommendationsState, equals(RequestState.Loaded));
-        expect(provider.tvRecommendations, equals(tTvs));
+        expect(provider.recommendations, equals(tTvs));
       },
     );
 

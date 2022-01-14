@@ -5,6 +5,7 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
+import 'package:ditonton/domain/entities/tv_season_episode.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -99,3 +100,17 @@ final testTvDetail = TvDetail(
   voteAverage: 1.0,
   voteCount: 1,
 );
+
+final testTvSeasonEpisode = TvSeasonEpisode(
+  airDate: '2022-01-01',
+  episodeNumber: 1,
+  id: 1,
+  name: 'Name',
+  overview: 'Overview',
+  seasonNumber: 1,
+  stillPath: '/path.jpg',
+  voteAverage: 1.0,
+  voteCount: 1,
+);
+
+final testTvSeasonEpisodes = [testTvSeasonEpisode];
