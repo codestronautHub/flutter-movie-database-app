@@ -9,6 +9,6 @@ class GetTvSeasons {
   GetTvSeasons(this.repository);
 
   Future<Either<Failure, List<TvEpisode>>> execute(id, seasonNumber) {
-    return repository.getTvSeasons(id, seasonNumber);
+    return repository.getTvSeasonEpisodes(id, seasonNumber);
   }
 }

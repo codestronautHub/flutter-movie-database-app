@@ -23,7 +23,7 @@ void main() {
     'should get list of tv episodes from the repository',
     () async {
       // arrange
-      when(mockTvRepository.getTvSeasons(tId, tSeasonNumber))
+      when(mockTvRepository.getTvSeasonEpisodes(tId, tSeasonNumber))
           .thenAnswer((_) async => Right(tTvEpisodes));
 
       // act

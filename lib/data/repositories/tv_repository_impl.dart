@@ -104,9 +104,16 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<TvEpisode>>> getTvSeasons(
-      int id, int seasonNumber) {
-    // TODO: implement getTvSeasons
-    throw UnimplementedError();
+  Future<Either<Failure, List<TvEpisode>>> getTvSeasonEpisodes(
+      int id, int seasonNumber) async {
+    try {
+      final result =
+          await remoteDataSource.getTvSeasonEpisodes(id, seasonNumber);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
   }
 }

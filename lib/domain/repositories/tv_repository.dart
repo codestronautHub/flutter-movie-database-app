@@ -11,8 +11,10 @@ abstract class TvRepository {
   Future<Either<Failure, List<Tv>>> getTopRatedTvs();
   Future<Either<Failure, List<Tv>>> searchTvs(String query);
   Future<Either<Failure, List<Tv>>> getTvRecommendations(int id);
-  Future<Either<Failure, List<TvEpisode>>> getTvSeasons(
-      int id, int seasonNumber);
+  Future<Either<Failure, List<TvEpisode>>> getTvSeasonEpisodes(
+    int id,
+    int seasonNumber,
+  );
   Future<Either<Failure, TvDetail>> getTvDetail(int id);
   Future<Either<Failure, MediaImage>> getTvImages(int id);
 }
