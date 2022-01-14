@@ -6,23 +6,27 @@ class Urls {
   static const String nowPlayingMovies = '$baseUrl/movie/now_playing?$apiKey';
   static const String popularMovies = '$baseUrl/movie/popular?$apiKey';
   static const String topRatedMovies = '$baseUrl/movie/top_rated?$apiKey';
-  static String movieImages(int id) =>
-      '$baseUrl/movie/$id/images?$apiKey&language=en-US&include_image_language=en,null';
-  static String searchMovies(String query) =>
-      '$baseUrl/search/movie?$apiKey&query=$query';
   static String movieDetail(int id) => '$baseUrl/movie/$id?$apiKey';
   static String movieRecommendations(int id) =>
       '$baseUrl/movie/$id/recommendations?$apiKey';
+  static String searchMovies(String query) =>
+      '$baseUrl/search/movie?$apiKey&query=$query';
+  static String movieImages(int id) =>
+      '$baseUrl/movie/$id/images?$apiKey&language=en-US&include_image_language=en,null';
 
   // Tvs
   static const String onTheAirTvs = '$baseUrl/tv/on_the_air?$apiKey';
   static const String popularTvs = '$baseUrl/tv/popular?$apiKey';
   static const String topRatedTvs = '$baseUrl/tv/top_rated?$apiKey';
-  static String tvImages(int id) =>
-      '$baseUrl/tv/$id/images?$apiKey&language=en-US&include_image_language=en,null';
+  static String tvDetail(int id) => '$baseUrl/tv/$id?$apiKey';
+  static String tvRecommendations(int id) =>
+      '$baseUrl/tv/$id/recommendations?$apiKey';
   static String searchTvs(String query) =>
       '$baseUrl/search/tv?$apiKey&query=$query';
-  static String tvDetail(int id) => '$baseUrl/tv/$id?$apiKey';
+  static String tvImages(int id) =>
+      '$baseUrl/tv/$id/images?$apiKey&language=en-US&include_image_language=en,null';
+  static String tvSeasons(int id, int seasonNumber) =>
+      '$baseUrl/tv/$id/season/$seasonNumber?$apiKey';
 
   // Image
   static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';

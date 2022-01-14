@@ -20,6 +20,7 @@ dependencies:
   get_it: ^7.2.0
   google_fonts: ^2.2.0
   http: ^0.13.4
+  intl: ^0.17.0
   path_provider: ^2.0.8
   provider: ^6.0.2
   sqflite: ^2.0.1
