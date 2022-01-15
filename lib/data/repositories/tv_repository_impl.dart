@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:ditonton/common/exception.dart';
+import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
+import 'package:ditonton/data/models/tv_table.dart';
 import 'package:ditonton/domain/entities/media_image.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/common/failure.dart';
@@ -12,11 +14,11 @@ import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
   final TvRemoteDataSource remoteDataSource;
-  // TODO: add TvLocalDataSource
+  final TvLocalDataSource localDataSource;
 
   TvRepositoryImpl({
     required this.remoteDataSource,
-    // TODO: add TvLocalDataSource dependency
+    required this.localDataSource,
   });
 
   @override
@@ -120,26 +122,40 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<Tv>>> getWatchlistTvs() {
-    // TODO: implement getWatchlistTvs
-    throw UnimplementedError();
+  Future<Either<Failure, String>> saveWatchlist(TvDetail tv) async {
+    try {
+      final result =
+          await localDataSource.insertWatchlist(TvTable.fromEntity(tv));
+      return Right(result);
+    } on DatabaseException catch (e) {
+      return Left(DatabaseFailure(e.message));
+    } catch (e) {
+      throw e;
+    }
   }
 
   @override
-  Future<bool> isAddedToWatchlist(int id) {
-    // TODO: implement isAddedToWatchlist
-    throw UnimplementedError();
+  Future<Either<Failure, String>> removeWatchlist(TvDetail tv) async {
+    try {
+      final result =
+          await localDataSource.removeWatchlist(TvTable.fromEntity(tv));
+      return Right(result);
+    } on DatabaseException catch (e) {
+      return Left(DatabaseFailure(e.message));
+    } catch (e) {
+      throw e;
+    }
   }
 
   @override
-  Future<Either<Failure, String>> removeWatchlist(TvDetail tv) {
-    // TODO: implement removeWatchlist
-    throw UnimplementedError();
+  Future<bool> isAddedToWatchlist(int id) async {
+    final result = await localDataSource.getTvById(id);
+    return result != null;
   }
 
   @override
-  Future<Either<Failure, String>> saveWatchlist(TvDetail tv) {
-    // TODO: implement saveWatchlist
-    throw UnimplementedError();
+  Future<Either<Failure, List<Tv>>> getWatchlistTvs() async {
+    final result = await localDataSource.getWatchlistTvs();
+    return Right(result.map((data) => data.toEntity()).toList());
   }
 }
