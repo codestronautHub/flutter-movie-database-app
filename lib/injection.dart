@@ -147,7 +147,12 @@ void init() {
   locator.registerLazySingleton(() => SearchMovies(locator()));
   locator.registerLazySingleton(() => SearchTvs(locator()));
   locator.registerLazySingleton(() => GetWatchListStatus(locator()));
-  locator.registerLazySingleton(() => SaveWatchlist(locator()));
+  locator.registerLazySingleton(
+    () => SaveWatchlist(
+      movieRepository: locator(),
+      tvRepository: locator(),
+    ),
+  );
   locator.registerLazySingleton(() => RemoveWatchlist(locator()));
   locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
 

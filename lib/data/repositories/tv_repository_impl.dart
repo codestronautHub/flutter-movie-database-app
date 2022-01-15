@@ -118,4 +118,28 @@ class TvRepositoryImpl implements TvRepository {
       return Left(ConnectionFailure('Failed to connect to the network'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Tv>>> getWatchlistTvs() {
+    // TODO: implement getWatchlistTvs
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> isAddedToWatchlist(int id) {
+    // TODO: implement isAddedToWatchlist
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, String>> removeWatchlist(TvDetail tv) {
+    // TODO: implement removeWatchlist
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, String>> saveWatchlist(TvDetail tv) {
+    // TODO: implement saveWatchlist
+    throw UnimplementedError();
+  }
 }

@@ -224,7 +224,7 @@ void main() {
       'should execute save watchlist when function called',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testMovieDetail))
+        when(mockSaveWatchlist.executeMovie(testMovieDetail))
             .thenAnswer((_) async => Right('Success'));
         when(mockGetWatchlistStatus.execute(testMovieDetail.id))
             .thenAnswer((_) async => true);
@@ -233,7 +233,7 @@ void main() {
         await provider.addWatchlist(testMovieDetail);
 
         // assert
-        verify(mockSaveWatchlist.execute(testMovieDetail));
+        verify(mockSaveWatchlist.executeMovie(testMovieDetail));
       },
     );
 
@@ -258,7 +258,7 @@ void main() {
       'should change watchlist status when adding watchlist success',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testMovieDetail))
+        when(mockSaveWatchlist.executeMovie(testMovieDetail))
             .thenAnswer((_) async => Right('Added to watchlist'));
         when(mockGetWatchlistStatus.execute(testMovieDetail.id))
             .thenAnswer((_) async => true);
@@ -278,7 +278,7 @@ void main() {
       'should change watchlist message when adding watchlist failed',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testMovieDetail))
+        when(mockSaveWatchlist.executeMovie(testMovieDetail))
             .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
         when(mockGetWatchlistStatus.execute(testMovieDetail.id))
             .thenAnswer((_) async => false);
