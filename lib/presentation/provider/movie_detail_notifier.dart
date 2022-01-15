@@ -111,7 +111,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.execute(id);
+    final result = await getWatchListStatus.executeMovie(id);
     _isAddedtoWatchlist = result;
     notifyListeners();
   }

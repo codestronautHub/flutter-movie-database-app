@@ -96,10 +96,33 @@ class DatabaseHelper {
     }
   }
 
+  Future<Map<String, dynamic>?> getTvById(int id) async {
+    final db = await database;
+    final results = await db!.query(
+      _tvWatchlistTable,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (results.isNotEmpty) {
+      return results.first;
+    } else {
+      return null;
+    }
+  }
+
   Future<List<Map<String, dynamic>>> getWatchlistMovies() async {
     final db = await database;
     final List<Map<String, dynamic>> results =
         await db!.query(_movieWatchlistTable);
+
+    return results;
+  }
+
+  Future<List<Map<String, dynamic>>> getWatchlistTvs() async {
+    final db = await database;
+    final List<Map<String, dynamic>> results =
+        await db!.query(_tvWatchlistTable);
 
     return results;
   }

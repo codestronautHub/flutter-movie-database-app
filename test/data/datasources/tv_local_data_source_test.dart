@@ -59,7 +59,7 @@ void main() {
         final result = await dataSource.removeWatchlist(testTvTable);
 
         // assert
-        expect(result, 'Removed from watchlist');
+        expect(result, equals('Removed from watchlist'));
       },
     );
 
@@ -75,6 +75,56 @@ void main() {
 
         // assert
         expect(() => call, throwsA(isA<DatabaseException>()));
+      },
+    );
+  });
+
+  group('get watchlist tvs', () {
+    test(
+      'should return list of tv table from database',
+      () async {
+        // arrange
+        when(mockDatabaseHelper.getWatchlistTvs())
+            .thenAnswer((_) async => [testTvMap]);
+
+        // act
+        final result = await dataSource.getWatchlistTvs();
+
+        // assert
+        expect(result, equals([testTvTable]));
+      },
+    );
+  });
+
+  group('get tv detail by id', () {
+    final tId = 1;
+
+    test(
+      'should return tv detail table when data is found',
+      () async {
+        // arrange
+        when(mockDatabaseHelper.getTvById(tId))
+            .thenAnswer((_) async => testTvMap);
+
+        // act
+        final result = await dataSource.getTvById(tId);
+
+        // assert
+        expect(result, equals(testTvTable));
+      },
+    );
+
+    test(
+      'should return null when data is not found',
+      () async {
+        // arrange
+        when(mockDatabaseHelper.getTvById(tId)).thenAnswer((_) async => null);
+
+        // act
+        final result = await dataSource.getTvById(tId);
+
+        // assert
+        expect(result, equals(null));
       },
     );
   });

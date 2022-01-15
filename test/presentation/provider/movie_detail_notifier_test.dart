@@ -210,7 +210,8 @@ void main() {
       'should get the watchlist status',
       () async {
         // arrange
-        when(mockGetWatchlistStatus.execute(1)).thenAnswer((_) async => true);
+        when(mockGetWatchlistStatus.executeMovie(1))
+            .thenAnswer((_) async => true);
 
         // act
         await provider.loadWatchlistStatus(1);
@@ -226,7 +227,7 @@ void main() {
         // arrange
         when(mockSaveWatchlist.executeMovie(testMovieDetail))
             .thenAnswer((_) async => Right('Success'));
-        when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+        when(mockGetWatchlistStatus.executeMovie(testMovieDetail.id))
             .thenAnswer((_) async => true);
 
         // act
@@ -243,7 +244,7 @@ void main() {
         // arrange
         when(mockRemoveWatchlist.executeMovie(testMovieDetail))
             .thenAnswer((_) async => Right('Removed'));
-        when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+        when(mockGetWatchlistStatus.executeMovie(testMovieDetail.id))
             .thenAnswer((_) async => false);
 
         // act
@@ -260,14 +261,14 @@ void main() {
         // arrange
         when(mockSaveWatchlist.executeMovie(testMovieDetail))
             .thenAnswer((_) async => Right('Added to watchlist'));
-        when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+        when(mockGetWatchlistStatus.executeMovie(testMovieDetail.id))
             .thenAnswer((_) async => true);
 
         // act
         await provider.addWatchlist(testMovieDetail);
 
         // assert
-        verify(mockGetWatchlistStatus.execute(testMovieDetail.id));
+        verify(mockGetWatchlistStatus.executeMovie(testMovieDetail.id));
         expect(provider.isAddedToWatchlist, equals(true));
         expect(provider.watchlistMessage, equals('Added to watchlist'));
         expect(listenerCallCount, equals(1));
@@ -280,7 +281,7 @@ void main() {
         // arrange
         when(mockSaveWatchlist.executeMovie(testMovieDetail))
             .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
-        when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+        when(mockGetWatchlistStatus.executeMovie(testMovieDetail.id))
             .thenAnswer((_) async => false);
 
         // act
