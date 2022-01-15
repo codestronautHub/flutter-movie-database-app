@@ -241,7 +241,7 @@ void main() {
       'should execute remove watchlist when function called',
       () async {
         // arrange
-        when(mockRemoveWatchlist.execute(testMovieDetail))
+        when(mockRemoveWatchlist.executeMovie(testMovieDetail))
             .thenAnswer((_) async => Right('Removed'));
         when(mockGetWatchlistStatus.execute(testMovieDetail.id))
             .thenAnswer((_) async => false);
@@ -250,7 +250,7 @@ void main() {
         await provider.removeFromWatchlist(testMovieDetail);
 
         // assert
-        verify(mockRemoveWatchlist.execute(testMovieDetail));
+        verify(mockRemoveWatchlist.executeMovie(testMovieDetail));
       },
     );
 

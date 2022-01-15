@@ -1,4 +1,5 @@
 import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/tv_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/media_image.dart';
 import 'package:ditonton/domain/entities/movie.dart';
@@ -62,13 +63,6 @@ final testMovieMap = {
   'title': 'Title',
 };
 
-final testImages = MediaImage(
-  id: 1,
-  backdropPaths: ['/path.jpg'],
-  logoPaths: ['/path.jpg'],
-  posterPaths: ['/path.jpg'],
-);
-
 final testTv = Tv(
   backdropPath: '/rkB4LyZHo1NHXFEDHl9vSD9r1lI.jpg',
   firstAirDate: '2021-11-06',
@@ -114,3 +108,37 @@ final testTvSeasonEpisode = TvSeasonEpisode(
 );
 
 final testTvSeasonEpisodes = [testTvSeasonEpisode];
+
+final testWatchlistTv = Tv.watchList(
+  firstAirDate: '2022-01-01',
+  id: 1,
+  name: 'Name',
+  overview: 'Overview',
+  posterPath: '/path.jpg',
+  voteAverage: 1.0,
+);
+
+final testTvTable = TvTable(
+  firstAirDate: '2022-01-01',
+  id: 1,
+  name: 'Name',
+  overview: 'Overview',
+  posterPath: '/path.jpg',
+  voteAverage: 1.0,
+);
+
+final testTvMap = {
+  'firstAirDate': '2022-01-01',
+  'id': 1,
+  'name': 'Name',
+  'overview': 'Overview',
+  'posterPath': '/path.jpg',
+  'voteAverage': 1.0,
+};
+
+final testImages = MediaImage(
+  id: 1,
+  backdropPaths: ['/path.jpg'],
+  logoPaths: ['/path.jpg'],
+  posterPaths: ['/path.jpg'],
+);

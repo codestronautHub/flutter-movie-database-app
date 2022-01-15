@@ -96,7 +96,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> removeFromWatchlist(MovieDetail movie) async {
-    final result = await removeWatchlist.execute(movie);
+    final result = await removeWatchlist.executeMovie(movie);
 
     await result.fold(
       (failure) async {

@@ -29,10 +29,12 @@ class Tv extends Equatable {
   });
 
   Tv.watchList({
+    required this.firstAirDate,
     required this.id,
     required this.name,
     required this.overview,
     required this.posterPath,
+    required this.voteAverage,
   });
 
   @override

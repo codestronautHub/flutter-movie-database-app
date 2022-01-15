@@ -153,7 +153,12 @@ void init() {
       tvRepository: locator(),
     ),
   );
-  locator.registerLazySingleton(() => RemoveWatchlist(locator()));
+  locator.registerLazySingleton(
+    () => RemoveWatchlist(
+      movieRepository: locator(),
+      tvRepository: locator(),
+    ),
+  );
   locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
 
   // repository

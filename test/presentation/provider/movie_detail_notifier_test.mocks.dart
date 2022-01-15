@@ -133,12 +133,23 @@ class MockRemoveWatchlist extends _i1.Mock implements _i14.RemoveWatchlist {
   }
 
   @override
-  _i2.MovieRepository get repository =>
-      (super.noSuchMethod(Invocation.getter(#repository),
+  _i2.MovieRepository get movieRepository =>
+      (super.noSuchMethod(Invocation.getter(#movieRepository),
           returnValue: _FakeMovieRepository_0()) as _i2.MovieRepository);
   @override
-  _i6.Future<_i3.Either<_i7.Failure, String>> execute(_i8.MovieDetail? movie) =>
-      (super.noSuchMethod(Invocation.method(#execute, [movie]),
+  _i4.TvRepository get tvRepository =>
+      (super.noSuchMethod(Invocation.getter(#tvRepository),
+          returnValue: _FakeTvRepository_2()) as _i4.TvRepository);
+  @override
+  _i6.Future<_i3.Either<_i7.Failure, String>> executeMovie(
+          _i8.MovieDetail? movie) =>
+      (super.noSuchMethod(Invocation.method(#executeMovie, [movie]),
+              returnValue: Future<_i3.Either<_i7.Failure, String>>.value(
+                  _FakeEither_1<_i7.Failure, String>()))
+          as _i6.Future<_i3.Either<_i7.Failure, String>>);
+  @override
+  _i6.Future<_i3.Either<_i7.Failure, String>> executeTv(_i13.TvDetail? tv) =>
+      (super.noSuchMethod(Invocation.method(#executeTv, [tv]),
               returnValue: Future<_i3.Either<_i7.Failure, String>>.value(
                   _FakeEither_1<_i7.Failure, String>()))
           as _i6.Future<_i3.Either<_i7.Failure, String>>);
