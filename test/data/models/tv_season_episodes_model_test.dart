@@ -36,7 +36,7 @@ void main() {
         final result = TvSeasonEpisodesModel.fromJson(jsonMap);
 
         // assert
-        expect(result, tTvSeasonModel);
+        expect(result, equals(tTvSeasonModel));
       },
     );
   });

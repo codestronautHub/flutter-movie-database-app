@@ -42,7 +42,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
                   return ItemCard(
-                    type: ContentType.Movie,
+                    type: MdbContentType.Movie,
                     movie: movie,
                   );
                 },

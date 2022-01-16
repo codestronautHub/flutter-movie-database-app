@@ -7,9 +7,7 @@ class Tv extends Equatable {
   List<int>? genreIds;
   int id;
   String? name;
-  String? originalName;
   String? overview;
-  double? popularity;
   String? posterPath;
   double? voteAverage;
   int? voteCount;
@@ -20,19 +18,19 @@ class Tv extends Equatable {
     required this.genreIds,
     required this.id,
     required this.name,
-    required this.originalName,
     required this.overview,
-    required this.popularity,
     required this.posterPath,
     required this.voteAverage,
     required this.voteCount,
   });
 
   Tv.watchList({
+    required this.firstAirDate,
     required this.id,
     required this.name,
     required this.overview,
     required this.posterPath,
+    required this.voteAverage,
   });
 
   @override
@@ -42,9 +40,7 @@ class Tv extends Equatable {
         genreIds,
         id,
         name,
-        originalName,
         overview,
-        popularity,
         posterPath,
         voteAverage,
         voteCount,

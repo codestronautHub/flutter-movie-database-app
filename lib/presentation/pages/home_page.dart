@@ -130,12 +130,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               onTap: () {
                                 Provider.of<HomeNotifier>(context,
                                         listen: false)
-                                    .setState(ContentType.Movie);
+                                    .setState(MdbContentType.Movie);
                                 toggle();
                               },
                               leading: Icon(Icons.movie),
                               title: Text('Movies'),
-                              selected: data.state == ContentType.Movie,
+                              selected: data.state == MdbContentType.Movie,
                               style: ListTileStyle.drawer,
                               iconColor: Colors.white70,
                               textColor: Colors.white70,
@@ -149,12 +149,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               onTap: () {
                                 Provider.of<HomeNotifier>(context,
                                         listen: false)
-                                    .setState(ContentType.Tv);
+                                    .setState(MdbContentType.Tv);
                                 toggle();
                               },
                               leading: Icon(Icons.tv),
                               title: Text('Tv Show'),
-                              selected: data.state == ContentType.Tv,
+                              selected: data.state == MdbContentType.Tv,
                               style: ListTileStyle.drawer,
                               iconColor: Colors.white70,
                               textColor: Colors.white70,
@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ListTile(
                         onTap: () {
                           Navigator.pushNamed(
-                              context, WatchlistMoviesPage.ROUTE_NAME);
+                              context, WatchlistPage.ROUTE_NAME);
                         },
                         leading: Icon(Icons.save_alt),
                         title: Text('Watchlist'),
@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             child: Consumer<HomeNotifier>(
                                 builder: (context, data, child) {
                               final state = data.state;
-                              if (state == ContentType.Movie) {
+                              if (state == MdbContentType.Movie) {
                                 return MainMoviePage();
                               } else {
                                 return MainTvPage();

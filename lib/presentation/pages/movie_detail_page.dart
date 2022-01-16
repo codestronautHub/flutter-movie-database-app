@@ -71,7 +71,7 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: Urls.imageUrl(movie.posterPath),
+          imageUrl: Urls.imageUrl(movie.posterPath!),
           width: MediaQuery.of(context).size.width,
           placeholder: (context, url) =>
               Center(child: CircularProgressIndicator()),
@@ -164,7 +164,7 @@ class DetailContent extends StatelessWidget {
                                   itemCount: 5,
                                   itemBuilder: (context, index) => Icon(
                                     Icons.star,
-                                    color: kMikadoYellow,
+                                    color: Colors.amber,
                                   ),
                                   itemSize: 24,
                                 ),

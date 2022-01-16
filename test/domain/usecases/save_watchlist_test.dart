@@ -8,15 +8,16 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockMovieRepository mockMovieRepository;
-  // TODO: Add MockTvRepository
+  late MockTvRepository mockTvRepository;
   late SaveWatchlist usecase;
-  // TODO: Add SaveWatchlistTv
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
-    // TODO: Add MockTvRepository initialization
-    usecase = SaveWatchlist(mockMovieRepository);
-    // TODO: Add SaveWatchlistTv initialization
+    mockTvRepository = MockTvRepository();
+    usecase = SaveWatchlist(
+      movieRepository: mockMovieRepository,
+      tvRepository: mockTvRepository,
+    );
   });
 
   test(
@@ -27,13 +28,27 @@ void main() {
           .thenAnswer((_) async => Right('Added to watchlist'));
 
       // act
-      final result = await usecase.execute(testMovieDetail);
+      final result = await usecase.executeMovie(testMovieDetail);
 
       // assert
       verify(mockMovieRepository.saveWatchlist(testMovieDetail));
-      expect(result, Right('Added to watchlist'));
+      expect(result, equals(Right('Added to watchlist')));
     },
   );
 
-  // TODO: Add save tv watchlist test
+  test(
+    'should save a tv to the repository',
+    () async {
+      // arrange
+      when(mockTvRepository.saveWatchlist(testTvDetail))
+          .thenAnswer((_) async => Right('Added to watchlist'));
+
+      // act
+      final result = await usecase.executeTv(testTvDetail);
+
+      // assert
+      verify(mockTvRepository.saveWatchlist(testTvDetail));
+      expect(result, equals(Right('Added to watchlist')));
+    },
+  );
 }

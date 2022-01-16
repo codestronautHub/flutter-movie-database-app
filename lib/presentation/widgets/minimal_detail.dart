@@ -8,7 +8,7 @@ import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class MinimalDetail extends StatelessWidget {
-  final ContentType type;
+  final MdbContentType type;
   final Movie? movie;
   final Tv? tv;
 
@@ -36,7 +36,7 @@ class MinimalDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                     child: CachedNetworkImage(
                       imageUrl: Urls.imageUrl(
-                        type == ContentType.Movie
+                        type == MdbContentType.Movie
                             ? movie!.posterPath!
                             : tv!.posterPath!,
                       ),
@@ -59,7 +59,7 @@ class MinimalDetail extends StatelessWidget {
                           Expanded(
                             flex: 4,
                             child: Text(
-                              type == ContentType.Movie
+                              type == MdbContentType.Movie
                                   ? movie!.title ?? '-'
                                   : tv!.name ?? '-',
                               style: TextStyle(
@@ -108,7 +108,7 @@ class MinimalDetail extends StatelessWidget {
                               color: Colors.redAccent,
                               borderRadius: BorderRadius.circular(4.0),
                             ),
-                            child: Text(type == ContentType.Movie
+                            child: Text(type == MdbContentType.Movie
                                 ? movie!.releaseDate!.split('-')[0]
                                 : tv!.firstAirDate!.split('-')[0]),
                           ),
@@ -120,7 +120,7 @@ class MinimalDetail extends StatelessWidget {
                           ),
                           SizedBox(width: 4.0),
                           Text(
-                            type == ContentType.Movie
+                            type == MdbContentType.Movie
                                 ? (movie!.voteAverage! / 2).toStringAsFixed(1)
                                 : (tv!.voteAverage! / 2).toStringAsFixed(1),
                           ),
@@ -128,7 +128,7 @@ class MinimalDetail extends StatelessWidget {
                       ),
                       SizedBox(height: 8.0),
                       Text(
-                        type == ContentType.Movie
+                        type == MdbContentType.Movie
                             ? movie!.overview ?? '-'
                             : tv!.overview ?? '-',
                         style: TextStyle(
@@ -151,7 +151,7 @@ class MinimalDetail extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: GestureDetector(
               onTap: () {
-                if (type == ContentType.Movie) {
+                if (type == MdbContentType.Movie) {
                   Navigator.pushNamed(
                     context,
                     MovieDetailPage.ROUTE_NAME,

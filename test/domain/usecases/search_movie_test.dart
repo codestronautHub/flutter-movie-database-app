@@ -29,7 +29,7 @@ void main() {
       final result = await usecase.execute(tQuery);
 
       // assert
-      expect(result, Right(tMovies));
+      expect(result, equals(Right(tMovies)));
     },
   );
 }

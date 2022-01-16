@@ -4,6 +4,9 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/usecases/get_tv_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_recommendations.dart';
+import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
+import 'package:ditonton/domain/usecases/remove_watchlist.dart';
+import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -12,20 +15,35 @@ import 'package:mockito/mockito.dart';
 import '../../dummy_data/dummy_objects.dart';
 import 'tv_detail_notifier_test.mocks.dart';
 
-@GenerateMocks([GetTvDetail, GetTvRecommendations])
+@GenerateMocks([
+  GetTvDetail,
+  GetTvRecommendations,
+  GetWatchlistStatus,
+  SaveWatchlist,
+  RemoveWatchlist,
+])
 void main() {
   late int listenerCallCount;
   late MockGetTvDetail mockGetTvDetail;
   late MockGetTvRecommendations mockGetTvRecommendations;
+  late MockGetWatchlistStatus mockGetWatchListStatus;
+  late MockSaveWatchlist mockSaveWatchlist;
+  late MockRemoveWatchlist mockRemoveWatchlist;
   late TvDetailNotifier provider;
 
   setUp(() {
     listenerCallCount = 0;
     mockGetTvDetail = MockGetTvDetail();
     mockGetTvRecommendations = MockGetTvRecommendations();
+    mockGetWatchListStatus = MockGetWatchlistStatus();
+    mockSaveWatchlist = MockSaveWatchlist();
+    mockRemoveWatchlist = MockRemoveWatchlist();
     provider = TvDetailNotifier(
       getTvDetail: mockGetTvDetail,
       getTvRecommendations: mockGetTvRecommendations,
+      getWatchListStatus: mockGetWatchListStatus,
+      saveWatchlist: mockSaveWatchlist,
+      removeWatchlist: mockRemoveWatchlist,
     )..addListener(() {
         listenerCallCount++;
       });
@@ -39,9 +57,7 @@ void main() {
     genreIds: [1, 2, 3, 4],
     id: 1,
     name: 'Name',
-    originalName: 'Original Name',
     overview: 'Overview',
-    popularity: 1.0,
     posterPath: '/path.jpg',
     voteAverage: 1.0,
     voteCount: 1,
@@ -183,6 +199,94 @@ void main() {
         // assert
         expect(provider.recommendationsState, equals(RequestState.Error));
         expect(provider.message, equals('Failed'));
+      },
+    );
+  });
+
+  group('tv watchlist', () {
+    test(
+      'should get the watchlist status',
+      () async {
+        // arrange
+        when(mockGetWatchListStatus.executeTv(1)).thenAnswer((_) async => true);
+
+        // act
+        await provider.loadWatchlistStatus(1);
+
+        // assert
+        expect(provider.isAddedToWatchlist, equals(true));
+      },
+    );
+
+    test(
+      'should execute save watchlist when function called',
+      () async {
+        // arrange
+        when(mockSaveWatchlist.executeTv(testTvDetail))
+            .thenAnswer((_) async => Right('Success'));
+        when(mockGetWatchListStatus.executeTv(testTvDetail.id))
+            .thenAnswer((_) async => true);
+
+        // act
+        await provider.addToWatchlist(testTvDetail);
+
+        // assert
+        verify(mockSaveWatchlist.executeTv(testTvDetail));
+      },
+    );
+
+    test(
+      'should execute remove watchlist when function called',
+      () async {
+        // arrange
+        when(mockRemoveWatchlist.executeTv(testTvDetail))
+            .thenAnswer((_) async => Right('Removed'));
+        when(mockGetWatchListStatus.executeTv(testTvDetail.id))
+            .thenAnswer((_) async => true);
+
+        // act
+        await provider.removeFromWatchlist(testTvDetail);
+
+        // assert
+        verify(mockRemoveWatchlist.executeTv(testTvDetail));
+      },
+    );
+
+    test(
+      'should change watchlist status when adding watchlist success',
+      () async {
+        // arrange
+        when(mockSaveWatchlist.executeTv(testTvDetail))
+            .thenAnswer((_) async => Right('Added to watchlist'));
+        when(mockGetWatchListStatus.executeTv(testTvDetail.id))
+            .thenAnswer((_) async => true);
+
+        // act
+        await provider.addToWatchlist(testTvDetail);
+
+        // assert
+        verify(mockGetWatchListStatus.executeTv(testTvDetail.id));
+        expect(provider.isAddedToWatchlist, equals(true));
+        expect(provider.watchlistMessage, equals('Added to watchlist'));
+        expect(listenerCallCount, equals(1));
+      },
+    );
+
+    test(
+      'should change watchlist message when adding watchlist failed',
+      () async {
+        // arrange
+        when(mockSaveWatchlist.executeTv(testTvDetail))
+            .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+        when(mockGetWatchListStatus.executeTv(testTvDetail.id))
+            .thenAnswer((_) async => true);
+
+        // act
+        await provider.addToWatchlist(testTvDetail);
+
+        // assert
+        expect(provider.watchlistMessage, equals('Failed'));
+        expect(listenerCallCount, equals(1));
       },
     );
   });

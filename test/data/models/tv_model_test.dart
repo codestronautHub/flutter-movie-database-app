@@ -9,9 +9,7 @@ void main() {
     genreIds: [1, 2, 3, 4],
     id: 1,
     name: 'Name',
-    originalName: 'Original Name',
     overview: 'Overview',
-    popularity: 1.0,
     posterPath: '/path.jpg',
     voteAverage: 1.0,
     voteCount: 1,
@@ -23,19 +21,18 @@ void main() {
     genreIds: [1, 2, 3, 4],
     id: 1,
     name: 'Name',
-    originalName: 'Original Name',
     overview: 'Overview',
-    popularity: 1.0,
     posterPath: '/path.jpg',
     voteAverage: 1.0,
     voteCount: 1,
   );
 
   test(
-    'should be a subclass of Tv entity',
+    'should be a subclass of tv entity',
     () async {
+      // assert
       final result = tTvModel.toEntity();
-      expect(result, tTv);
+      expect(result, equals(tTv));
     },
   );
 }

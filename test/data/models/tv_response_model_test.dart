@@ -13,9 +13,7 @@ void main() {
     genreIds: [1, 2, 3, 4],
     id: 1,
     name: 'Name',
-    originalName: 'Original Name',
     overview: 'Overview',
-    popularity: 1.0,
     posterPath: '/path.jpg',
     voteAverage: 1.0,
     voteCount: 1,
@@ -25,9 +23,9 @@ void main() {
     tvList: <TvModel>[tTvModel],
   );
 
-  group('fromJson', () {
+  group('from json', () {
     test(
-      'should return a valid model from JSON',
+      'should return a valid model from json',
       () async {
         // arrange
         final Map<String, dynamic> jsonMap = json.decode(
@@ -38,17 +36,15 @@ void main() {
         final result = TvResponse.fromJson(jsonMap);
 
         // assert
-        expect(result, tTvResponseModel);
+        expect(result, equals(tTvResponseModel));
       },
     );
   });
 
-  group('toJson', () {
+  group('to json', () {
     test(
-      'should return a JSON map containing proper data',
+      'should return a json map containing proper data',
       () async {
-        // arrange
-
         // act
         final result = tTvResponseModel.toJson();
 
@@ -61,16 +57,14 @@ void main() {
               "genre_ids": [1, 2, 3, 4],
               "id": 1,
               "name": "Name",
-              "original_name": "Original Name",
               "overview": "Overview",
-              "popularity": 1.0,
               "poster_path": "/path.jpg",
               "vote_average": 1.0,
               "vote_count": 1
             }
           ],
         };
-        expect(result, expectedJsonMap);
+        expect(result, equals(expectedJsonMap));
       },
     );
   });

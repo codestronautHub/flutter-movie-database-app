@@ -1,15 +1,5 @@
 {
-    "adult": false,
     "backdrop_path": "/path.jpg",
-    "created_by": [
-        {
-            "id": 1,
-            "credit_id": "Credit Id",
-            "name": "Creator Name",
-            "gender": 1,
-            "profile_path": "/path.jpg"
-        }
-    ],
     "episode_run_time": [
         100
     ],
@@ -20,80 +10,11 @@
             "name": "Genre 1"
         }
     ],
-    "homepage": "https://www.google.com",
     "id": 1,
-    "in_production": true,
-    "languages": [
-        "en"
-    ],
-    "last_air_date": "2022-01-01",
-    "last_episode_to_air": {
-        "air_date": "2022-01-01",
-        "episode_number": 1,
-        "id": 1,
-        "name": "Episode Name",
-        "overview": "Episode Overview",
-        "production_code": "Production Code",
-        "season_number": 1,
-        "still_path": "/path.jpg",
-        "vote_average": 1.0,
-        "vote_count": 1
-    },
     "name": "Name",
-    "next_episode_to_air": null,
-    "networks": [
-        {
-            "name": "Network Name",
-            "id": 1,
-            "logo_path": "/path.png",
-            "origin_country": "Network Origin Country"
-        }
-    ],
-    "number_of_episodes": 1,
     "number_of_seasons": 1,
-    "origin_country": [
-        "US"
-    ],
-    "original_language": "en",
-    "original_name": "Original Name",
     "overview": "Overview",
-    "popularity": 1.0,
     "poster_path": "/path.jpg",
-    "production_companies": [
-        {
-            "id": 1,
-            "logo_path": "/path.png",
-            "name": "Company Name",
-            "origin_country": "US"
-        }
-    ],
-    "production_countries": [
-        {
-            "iso_3166_1": "US",
-            "name": "United States of America"
-        }
-    ],
-    "seasons": [
-        {
-            "air_date": "2022-01-01",
-            "episode_count": 1,
-            "id": 1,
-            "name": "Season 1",
-            "overview": "Season Overview",
-            "poster_path": "/path.jpg",
-            "season_number": 1
-        }
-    ],
-    "spoken_languages": [
-        {
-            "english_name": "English",
-            "iso_639_1": "en",
-            "name": "English"
-        }
-    ],
-    "status": "Status",
-    "tagline": "Tagline",
-    "type": "Type",
     "vote_average": 1.0,
     "vote_count": 1
 }

@@ -2,11 +2,11 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
 
 class HomeNotifier extends ChangeNotifier {
-  ContentType _state = ContentType.Movie;
+  MdbContentType _state = MdbContentType.Movie;
 
-  ContentType get state => _state;
+  MdbContentType get state => _state;
 
-  void setState(ContentType newState) {
+  void setState(MdbContentType newState) {
     _state = newState;
     notifyListeners();
   }

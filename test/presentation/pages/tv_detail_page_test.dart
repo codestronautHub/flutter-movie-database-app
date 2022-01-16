@@ -1,25 +1,151 @@
+import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/domain/entities/tv_season_episode.dart';
+import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:ditonton/presentation/provider/tv_season_episodes_notifier.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-// import 'package:provider/provider.dart';
+import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 
-// import 'tv_detail_page_test.mocks.dart';
+import '../../dummy_data/dummy_objects.dart';
+import 'tv_detail_page_test.mocks.dart';
 
-@GenerateMocks([TvDetailNotifier])
+@GenerateMocks([TvDetailNotifier, TvSeasonEpisodesNotifier])
 void main() {
-  // late MockTvDetailNotifier mockNotifier;
+  late MockTvDetailNotifier mockNotifier;
+  late MockTvSeasonEpisodesNotifier mockTvSeasonEpisodesNotifier;
 
-  // setUp(() {
-  //   mockNotifier = MockTvDetailNotifier();
-  // });
+  setUp(() {
+    mockNotifier = MockTvDetailNotifier();
+    mockTvSeasonEpisodesNotifier = MockTvSeasonEpisodesNotifier();
+  });
 
-  // Widget _makeTestableWidget(Widget body) {
-  //   return ChangeNotifierProvider<TvDetailNotifier>.value(
-  //     value: mockNotifier,
-  //     child: MaterialApp(
-  //       home: body,
-  //     ),
-  //   );
-  // }
+  Widget _makeTestableWidget(Widget body) {
+    return ChangeNotifierProvider<TvDetailNotifier>.value(
+      value: mockNotifier,
+      child: ChangeNotifierProvider<TvSeasonEpisodesNotifier>.value(
+        value: mockTvSeasonEpisodesNotifier,
+        child: MaterialApp(
+          home: body,
+        ),
+      ),
+    );
+  }
+
+  testWidgets(
+    'watchlist button should display add icon when tv not added to watchlist',
+    (WidgetTester tester) async {
+      // arrange
+      when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.tv).thenReturn(testTvDetail);
+      when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.recommendations).thenReturn(<Tv>[]);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodesState)
+          .thenReturn(RequestState.Loaded);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodes)
+          .thenReturn(<TvSeasonEpisode>[]);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+
+      // act
+      final watchlistButtonIcon = find.byIcon(Icons.add);
+
+      await tester.pumpWidget(_makeTestableWidget(TvDetailPage(id: 1)));
+
+      // assert
+      expect(watchlistButtonIcon, equals(findsOneWidget));
+    },
+  );
+
+  testWidgets(
+    'watchlist button should display check icon when tv is added to watchlist',
+    (WidgetTester tester) async {
+      // arrange
+      when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.tv).thenReturn(testTvDetail);
+      when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.recommendations).thenReturn(<Tv>[]);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodesState)
+          .thenReturn(RequestState.Loaded);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodes)
+          .thenReturn(<TvSeasonEpisode>[]);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(true);
+
+      // act
+      final watchlistButtonIcon = find.byIcon(Icons.check);
+
+      await tester.pumpWidget(_makeTestableWidget(TvDetailPage(id: 1)));
+
+      // assert
+      expect(watchlistButtonIcon, equals(findsOneWidget));
+    },
+  );
+
+  testWidgets(
+    'watchlist button should display snackbar when tv is added to watchlist',
+    (WidgetTester tester) async {
+      // arrange
+      when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.tv).thenReturn(testTvDetail);
+      when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.recommendations).thenReturn(<Tv>[]);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodesState)
+          .thenReturn(RequestState.Loaded);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodes)
+          .thenReturn(<TvSeasonEpisode>[]);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+      when(mockNotifier.watchlistMessage).thenReturn('Added to watchlist');
+
+      // act
+      final watchlistButton = find.byType(ElevatedButton);
+
+      await tester.pumpWidget(_makeTestableWidget(TvDetailPage(id: 1)));
+
+      // assert
+      expect(find.byIcon(Icons.add), equals(findsOneWidget));
+
+      // act
+      await tester.tap(watchlistButton);
+      await tester.pump();
+
+      // assert
+      expect(find.byType(SnackBar), equals(findsOneWidget));
+      expect(find.text('Added to watchlist'), equals(findsOneWidget));
+    },
+  );
+
+  testWidgets(
+    'watchlist button should display alert dialog when add to watchlist failed',
+    (WidgetTester tester) async {
+      // arrange
+      when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.tv).thenReturn(testTvDetail);
+      when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.recommendations).thenReturn(<Tv>[]);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodesState)
+          .thenReturn(RequestState.Loaded);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodes)
+          .thenReturn(<TvSeasonEpisode>[]);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+      when(mockNotifier.watchlistMessage).thenReturn('Failed');
+
+      // act
+      final watchlistButton = find.byType(ElevatedButton);
+
+      await tester.pumpWidget(_makeTestableWidget(TvDetailPage(id: 1)));
+
+      // assert
+      expect(find.byIcon(Icons.add), equals(findsOneWidget));
+
+      // act
+      await tester.tap(watchlistButton);
+      await tester.pump();
+
+      // assert
+      expect(find.byType(AlertDialog), equals(findsOneWidget));
+      expect(find.text('Failed'), equals(findsOneWidget));
+    },
+  );
 }

@@ -7,7 +7,7 @@ import 'package:ditonton/presentation/widgets/minimal_detail.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalItemList extends StatelessWidget {
-  final ContentType type;
+  final MdbContentType type;
   final List<Movie>? movies;
   final List<Tv>? tvs;
 
@@ -16,7 +16,7 @@ class HorizontalItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (type) {
-      case ContentType.Movie:
+      case MdbContentType.Movie:
         return Container(
           height: 170.0,
           child: ListView.builder(
@@ -61,7 +61,7 @@ class HorizontalItemList extends StatelessWidget {
             },
           ),
         );
-      case ContentType.Tv:
+      case MdbContentType.Tv:
         return Container(
           height: 170.0,
           child: ListView.builder(

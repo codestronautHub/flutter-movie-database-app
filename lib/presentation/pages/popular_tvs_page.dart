@@ -43,7 +43,7 @@ class _PopularTvsPageState extends State<PopularTvsPage> {
                 itemBuilder: (context, index) {
                   final tv = data.tvs[index];
                   return ItemCard(
-                    type: ContentType.Tv,
+                    type: MdbContentType.Tv,
                     tv: tv,
                   );
                 },

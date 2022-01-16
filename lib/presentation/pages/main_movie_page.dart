@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ditonton/common/urls.dart';
@@ -21,6 +23,11 @@ class _MainMoviePageState extends State<MainMoviePage> {
   @override
   void initState() {
     super.initState();
+
+    loadData();
+  }
+
+  Future<void> loadData() async {
     Future.microtask(
       () => Provider.of<MovieListNotifier>(context, listen: false)
         ..fetchNowPlayingMovies()
@@ -48,7 +55,6 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 return CarouselSlider(
                   options: CarouselOptions(
                     height: 575.0,
-                    autoPlay: true,
                     viewportFraction: 1.0,
                     onPageChanged: (index, reason) {
                       Provider.of<MovieImagesNotifier>(context, listen: false)
@@ -69,7 +75,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                             context: context,
                             builder: (context) {
                               return MinimalDetail(
-                                type: ContentType.Movie,
+                                type: MdbContentType.Movie,
                                 movie: item,
                               );
                             },
@@ -147,6 +153,9 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                               data.movieImages.logoPaths[0],
                                             ),
                                           );
+                                        } else if (data.movieImagesState ==
+                                            RequestState.Empty) {
+                                          return Text('Please wait');
                                         } else {
                                           return Text('Failed');
                                         }
@@ -178,7 +187,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 return Center(child: CircularProgressIndicator());
               } else if (data.popularMoviesState == RequestState.Loaded) {
                 return HorizontalItemList(
-                  type: ContentType.Movie,
+                  type: MdbContentType.Movie,
                   movies: data.popularMovies,
                 );
               } else {
@@ -197,7 +206,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 return Center(child: CircularProgressIndicator());
               } else if (data.topRatedMoviesState == RequestState.Loaded) {
                 return HorizontalItemList(
-                  type: ContentType.Movie,
+                  type: MdbContentType.Movie,
                   movies: data.topRatedMovies,
                 );
               } else {

@@ -6,15 +6,16 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockMovieRepository mockMovieRepository;
-  // TODO: Add MockTvRepository
-  late GetWatchListStatus usecase;
-  // TODO: Add GetWatchlistTvStatus
+  late MockTvRepository mockTvRepository;
+  late GetWatchlistStatus usecase;
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
-    // TODO: Add MockTvRepository initialization
-    usecase = GetWatchListStatus(mockMovieRepository);
-    // TODO: Add GetWatchlistTvStatus initialization
+    mockTvRepository = MockTvRepository();
+    usecase = GetWatchlistStatus(
+      movieRepository: mockMovieRepository,
+      tvRepository: mockTvRepository,
+    );
   });
 
   test(
@@ -25,12 +26,25 @@ void main() {
           .thenAnswer((_) async => true);
 
       // act
-      final result = await usecase.execute(1);
+      final result = await usecase.executeMovie(1);
 
       // assert
-      expect(result, true);
+      expect(result, equals(true));
     },
   );
 
-  // TODO: Add get tv watchlist status test
+  test(
+    'should get tv watchlist status from repository',
+    () async {
+      // arrange
+      when(mockTvRepository.isAddedToWatchlist(1))
+          .thenAnswer((_) async => true);
+
+      // act
+      final result = await usecase.executeTv(1);
+
+      // assert
+      expect(result, equals(true));
+    },
+  );
 }

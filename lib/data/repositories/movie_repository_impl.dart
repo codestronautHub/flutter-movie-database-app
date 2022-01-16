@@ -57,18 +57,6 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, MediaImage>> getMovieImages(int id) async {
-    try {
-      final result = await remoteDataSource.getMovieImages(id);
-      return Right(result.toEntity());
-    } on ServerException {
-      return Left(ServerFailure(''));
-    } on SocketException {
-      return Left(ConnectionFailure('Failed to connect to the network'));
-    }
-  }
-
-  @override
   Future<Either<Failure, MovieDetail>> getMovieDetail(int id) async {
     try {
       final result = await remoteDataSource.getMovieDetail(id);
@@ -97,6 +85,18 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final result = await remoteDataSource.searchMovies(query);
       return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MediaImage>> getMovieImages(int id) async {
+    try {
+      final result = await remoteDataSource.getMovieImages(id);
+      return Right(result.toEntity());
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {

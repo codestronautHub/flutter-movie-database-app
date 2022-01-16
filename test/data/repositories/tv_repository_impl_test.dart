@@ -18,15 +18,15 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockTvRemoteDataSource mockRemoteDataSource;
-  // TODO: add MockTvLocalDataSource
+  late MockTvLocalDataSource mockLocalDataSource;
   late TvRepositoryImpl repository;
 
   setUp(() {
     mockRemoteDataSource = MockTvRemoteDataSource();
-    // TODO: add MockTvLocalDataSource initialization
+    mockLocalDataSource = MockTvLocalDataSource();
     repository = TvRepositoryImpl(
       remoteDataSource: mockRemoteDataSource,
-      // TODO: add MockTvLocalDataSource dependency
+      localDataSource: mockLocalDataSource,
     );
   });
 
@@ -36,10 +36,8 @@ void main() {
     genreIds: [16, 10765, 10759, 18],
     id: 94605,
     name: 'Arcane',
-    originalName: 'Arcane',
     overview:
         'Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.',
-    popularity: 663.141,
     posterPath: '/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg',
     voteAverage: 9.1,
     voteCount: 1451,
@@ -51,10 +49,8 @@ void main() {
     genreIds: [16, 10765, 10759, 18],
     id: 94605,
     name: 'Arcane',
-    originalName: 'Arcane',
     overview:
         'Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.',
-    popularity: 663.141,
     posterPath: '/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg',
     voteAverage: 9.1,
     voteCount: 1451,
@@ -236,67 +232,6 @@ void main() {
     );
   });
 
-  group('get tv images', () {
-    final tId = 1;
-    final tTvImages = MediaImageModel(
-      id: 1,
-      backdropPaths: ['/path.jpg'],
-      logoPaths: ['/path.jpg'],
-      posterPaths: ['/path.jpg'],
-    );
-
-    test(
-      'should return tv images when a call to data source is successful',
-      () async {
-        // arrange
-        when(mockRemoteDataSource.getTvImages(tId))
-            .thenAnswer((_) async => tTvImages);
-
-        // act
-        final result = await repository.getTvImages(tId);
-
-        // assert
-        verify(mockRemoteDataSource.getTvImages(tId));
-        expect(result, equals(Right(testImages)));
-      },
-    );
-
-    test(
-      'should return server failure when a call to data source is unsuccessful',
-      () async {
-        // arrange
-        when(mockRemoteDataSource.getTvImages(tId))
-            .thenThrow(ServerException());
-
-        // act
-        final result = await repository.getTvImages(tId);
-
-        // assert
-        verify(mockRemoteDataSource.getTvImages(tId));
-        expect(result, equals(Left(ServerFailure(''))));
-      },
-    );
-
-    test(
-      'should return connection failure when the device is not connected',
-      () async {
-        // arrange
-        when(mockRemoteDataSource.getTvImages(tId))
-            .thenThrow(SocketException('Failed to connect to the network'));
-
-        // act
-        final result = await repository.getTvImages(tId);
-
-        // assert
-        verify(mockRemoteDataSource.getTvImages(tId));
-        expect(
-          result,
-          equals(Left(ConnectionFailure('Failed to connect to the network'))),
-        );
-      },
-    );
-  });
-
   group('get tv detail', () {
     final tId = 1;
     final tTvDetailModel = TvDetailModel(
@@ -308,7 +243,6 @@ void main() {
       name: 'Name',
       numberOfSeasons: 1,
       overview: 'Overview',
-      popularity: 1.0,
       posterPath: '/path.jpg',
       voteAverage: 1.0,
       voteCount: 1,
@@ -545,6 +479,179 @@ void main() {
           result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))),
         );
+      },
+    );
+  });
+
+  group('get tv images', () {
+    final tId = 1;
+    final tTvImages = MediaImageModel(
+      id: 1,
+      backdropPaths: ['/path.jpg'],
+      logoPaths: ['/path.jpg'],
+      posterPaths: ['/path.jpg'],
+    );
+
+    test(
+      'should return tv images when a call to data source is successful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getTvImages(tId))
+            .thenAnswer((_) async => tTvImages);
+
+        // act
+        final result = await repository.getTvImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getTvImages(tId));
+        expect(result, equals(Right(testImages)));
+      },
+    );
+
+    test(
+      'should return server failure when a call to data source is unsuccessful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getTvImages(tId))
+            .thenThrow(ServerException());
+
+        // act
+        final result = await repository.getTvImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getTvImages(tId));
+        expect(result, equals(Left(ServerFailure(''))));
+      },
+    );
+
+    test(
+      'should return connection failure when the device is not connected',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getTvImages(tId))
+            .thenThrow(SocketException('Failed to connect to the network'));
+
+        // act
+        final result = await repository.getTvImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getTvImages(tId));
+        expect(
+          result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))),
+        );
+      },
+    );
+  });
+
+  group('save watchlist', () {
+    test(
+      'should return success message when saving is successful',
+      () async {
+        // arrange
+        when(mockLocalDataSource.insertWatchlist(testTvTable))
+            .thenAnswer((_) async => 'Added to watchlist');
+
+        // act
+        final result = await repository.saveWatchlist(testTvDetail);
+
+        // assert
+        verify(mockLocalDataSource.insertWatchlist(testTvTable));
+        expect(result, equals(Right('Added to watchlist')));
+      },
+    );
+
+    test(
+      'should return database failure when saving unsuccessful',
+      () async {
+        // arrange
+        when(mockLocalDataSource.insertWatchlist(testTvTable))
+            .thenThrow(DatabaseException('Failed to add watchlist'));
+
+        // act
+        final result = await repository.saveWatchlist(testTvDetail);
+
+        // assert
+        verify(mockLocalDataSource.insertWatchlist(testTvTable));
+        expect(
+          result,
+          equals(Left(DatabaseFailure('Failed to add watchlist'))),
+        );
+      },
+    );
+  });
+
+  group('remove watchlist', () {
+    test(
+      'should return success message when remove successful',
+      () async {
+        // arrange
+        when(mockLocalDataSource.removeWatchlist(testTvTable))
+            .thenAnswer((_) async => 'Removed from watchlist');
+
+        // act
+        final result = await repository.removeWatchlist(testTvDetail);
+
+        // assert
+        verify(mockLocalDataSource.removeWatchlist(testTvTable));
+        expect(result, equals(Right('Removed from watchlist')));
+      },
+    );
+
+    test(
+      'should return database failure when remove unsuccessful',
+      () async {
+        // arrange
+        when(mockLocalDataSource.removeWatchlist(testTvTable))
+            .thenThrow(DatabaseException('Failed to remove watchlist'));
+
+        // act
+        final result = await repository.removeWatchlist(testTvDetail);
+
+        // assert
+        verify(mockLocalDataSource.removeWatchlist(testTvTable));
+        expect(
+          result,
+          equals(Left(DatabaseFailure('Failed to remove watchlist'))),
+        );
+      },
+    );
+  });
+
+  group('get watchlist status', () {
+    final tId = 1;
+
+    test(
+      'should return watchlist status whether data is found',
+      () async {
+        // arrange
+        when(mockLocalDataSource.getTvById(tId)).thenAnswer((_) async => null);
+
+        // act
+        final result = await repository.isAddedToWatchlist(tId);
+
+        // assert
+        verify(mockLocalDataSource.getTvById(tId));
+        expect(result, equals(false));
+      },
+    );
+  });
+
+  group('get watchlist tvs', () {
+    test(
+      'should return list of tvs from database',
+      () async {
+        // arrange
+        when(mockLocalDataSource.getWatchlistTvs())
+            .thenAnswer((_) async => [testTvTable]);
+
+        // act
+        final result = await repository.getWatchlistTvs();
+
+        // assert
+        verify(mockLocalDataSource.getWatchlistTvs());
+        final resultList = result.getOrElse(() => []);
+        expect(resultList, equals([testWatchlistTv]));
       },
     );
   });

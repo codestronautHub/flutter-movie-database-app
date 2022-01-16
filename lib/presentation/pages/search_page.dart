@@ -63,7 +63,7 @@ class SearchPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final movie = data.searchResult[index];
                   return ItemCard(
-                    type: ContentType.Movie,
+                    type: MdbContentType.Movie,
                     movie: movie,
                   );
                 },
@@ -92,7 +92,7 @@ class SearchPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final tv = data.searchResult[index];
                   return ItemCard(
-                    type: ContentType.Tv,
+                    type: MdbContentType.Tv,
                     tv: tv,
                   );
                 },
