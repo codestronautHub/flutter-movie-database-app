@@ -46,5 +46,7 @@ jobs:
 
     # Upload coverage to codecov
     - name: Upload coverage to codecov
-      run: curl -s https://codecov.io/bash
-      shell: bash
+      uses: codecov/codecov-action@v2.1.0
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        file: ./coverage/lcov.info
