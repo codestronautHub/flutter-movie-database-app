@@ -27,12 +27,16 @@ void main() {
     voteCount: 1,
   );
 
-  test(
-    'should be a subclass of movie entity',
-    () async {
-      // assert
-      final result = tMovieModel.toEntity();
-      expect(result, equals(tMovie));
-    },
-  );
+  group('to entity', () {
+    test(
+      'should be a subclass of movie entity',
+      () async {
+        // act
+        final result = tMovieModel.toEntity();
+
+        // assert
+        expect(result, equals(tMovie));
+      },
+    );
+  });
 }

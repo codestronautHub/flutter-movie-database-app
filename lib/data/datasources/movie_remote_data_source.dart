@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/data/models/media_image_model.dart';
-import 'package:ditonton/data/models/movie_detail_model.dart';
+import 'package:ditonton/data/models/movie_detail_response.dart';
 import 'package:ditonton/data/models/movie_model.dart';
 import 'package:ditonton/data/models/movie_response.dart';
 import 'package:ditonton/common/exception.dart';

@@ -3,18 +3,18 @@ import 'dart:convert';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/urls.dart';
 import 'package:ditonton/data/models/media_image_model.dart';
-import 'package:ditonton/data/models/tv_detail_model.dart';
+import 'package:ditonton/data/models/tv_detail_response.dart';
 import 'package:ditonton/data/models/tv_season_episode_model.dart';
 import 'package:ditonton/data/models/tv_model.dart';
 import 'package:ditonton/data/models/tv_response.dart';
-import 'package:ditonton/data/models/tv_season_episodes_model.dart';
+import 'package:ditonton/data/models/tv_season_episode_response.dart';
 import 'package:http/http.dart' as http;
 
 abstract class TvRemoteDataSource {
   Future<List<TvModel>> getOnTheAirTvs();
   Future<List<TvModel>> getPopularTvs();
   Future<List<TvModel>> getTopRatedTvs();
-  Future<TvDetailModel> getTvDetail(int id);
+  Future<TvDetailResponse> getTvDetail(int id);
   Future<List<TvSeasonEpisodeModel>> getTvSeasonEpisodes(
       int id, int seasonNumber);
   Future<List<TvModel>> getTvRecommendations(int id);
@@ -61,11 +61,11 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   }
 
   @override
-  Future<TvDetailModel> getTvDetail(int id) async {
+  Future<TvDetailResponse> getTvDetail(int id) async {
     final response = await client.get(Uri.parse(Urls.tvDetail(id)));
 
     if (response.statusCode == 200) {
-      return TvDetailModel.fromJson(json.decode(response.body));
+      return TvDetailResponse.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }
@@ -81,7 +81,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      return TvSeasonEpisodesModel.fromJson(json.decode(response.body))
+      return TvSeasonEpisodeResponse.fromJson(json.decode(response.body))
           .tvEpisodes;
     } else {
       throw ServerException();

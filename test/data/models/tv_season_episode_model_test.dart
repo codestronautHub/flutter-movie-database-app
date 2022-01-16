@@ -27,12 +27,16 @@ void main() {
     voteCount: 1,
   );
 
-  test(
-    'should be a subclass of tv episode entity',
-    () async {
-      // assert
-      final result = tTvEpisodeModel.toEntity();
-      expect(result, equals(tTvEpisode));
-    },
-  );
+  group('to entity', () {
+    test(
+      'should be a subclass of tv episode entity',
+      () async {
+        // act
+        final result = tTvEpisodeModel.toEntity();
+
+        // assert
+        expect(result, equals(tTvEpisode));
+      },
+    );
+  });
 }

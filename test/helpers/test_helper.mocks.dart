@@ -15,10 +15,10 @@ import 'package:ditonton/data/datasources/movie_remote_data_source.dart'
 import 'package:ditonton/data/datasources/tv_local_data_source.dart' as _i24;
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart' as _i21;
 import 'package:ditonton/data/models/media_image_model.dart' as _i4;
-import 'package:ditonton/data/models/movie_detail_model.dart' as _i3;
+import 'package:ditonton/data/models/movie_detail_response.dart' as _i3;
 import 'package:ditonton/data/models/movie_model.dart' as _i14;
 import 'package:ditonton/data/models/movie_table.dart' as _i16;
-import 'package:ditonton/data/models/tv_detail_model.dart' as _i5;
+import 'package:ditonton/data/models/tv_detail_response.dart' as _i5;
 import 'package:ditonton/data/models/tv_model.dart' as _i22;
 import 'package:ditonton/data/models/tv_season_episode_model.dart' as _i23;
 import 'package:ditonton/data/models/tv_table.dart' as _i25;
@@ -50,7 +50,8 @@ class _FakeMovieDetailResponse_1 extends _i1.Fake
 
 class _FakeMediaImageModel_2 extends _i1.Fake implements _i4.MediaImageModel {}
 
-class _FakeTvDetailModel_3 extends _i1.Fake implements _i5.TvDetailModel {}
+class _FakeTvDetailResponse_3 extends _i1.Fake implements _i5.TvDetailResponse {
+}
 
 class _FakeResponse_4 extends _i1.Fake implements _i6.Response {}
 
@@ -327,10 +328,11 @@ class MockTvRemoteDataSource extends _i1.Mock
               returnValue: Future<List<_i22.TvModel>>.value(<_i22.TvModel>[]))
           as _i8.Future<List<_i22.TvModel>>);
   @override
-  _i8.Future<_i5.TvDetailModel> getTvDetail(int? id) => (super.noSuchMethod(
-          Invocation.method(#getTvDetail, [id]),
-          returnValue: Future<_i5.TvDetailModel>.value(_FakeTvDetailModel_3()))
-      as _i8.Future<_i5.TvDetailModel>);
+  _i8.Future<_i5.TvDetailResponse> getTvDetail(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getTvDetail, [id]),
+              returnValue:
+                  Future<_i5.TvDetailResponse>.value(_FakeTvDetailResponse_3()))
+          as _i8.Future<_i5.TvDetailResponse>);
   @override
   _i8.Future<List<_i23.TvSeasonEpisodeModel>> getTvSeasonEpisodes(
           int? id, int? seasonNumber) =>

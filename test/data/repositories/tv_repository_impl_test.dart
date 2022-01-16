@@ -5,7 +5,7 @@ import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/models/genre_model.dart';
 import 'package:ditonton/data/models/media_image_model.dart';
-import 'package:ditonton/data/models/tv_detail_model.dart';
+import 'package:ditonton/data/models/tv_detail_response.dart';
 import 'package:ditonton/data/models/tv_season_episode_model.dart';
 import 'package:ditonton/data/models/tv_model.dart';
 import 'package:ditonton/data/repositories/tv_repository_impl.dart';
@@ -234,7 +234,7 @@ void main() {
 
   group('get tv detail', () {
     final tId = 1;
-    final tTvDetailModel = TvDetailModel(
+    final tTvDetailModel = TvDetailResponse(
       backdropPath: '/path.jpg',
       episodeRunTime: [100],
       firstAirDate: '2022-01-01',
