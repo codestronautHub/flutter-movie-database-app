@@ -44,7 +44,7 @@ void main() {
       await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
       // assert
-      expect(watchlistButtonIcon, findsOneWidget);
+      expect(watchlistButtonIcon, equals(findsOneWidget));
     },
   );
 
@@ -64,7 +64,7 @@ void main() {
       await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
       // assert
-      expect(watchlistButtonIcon, findsOneWidget);
+      expect(watchlistButtonIcon, equals(findsOneWidget));
     },
   );
 
@@ -85,15 +85,15 @@ void main() {
       await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
       // assert
-      expect(find.byIcon(Icons.add), findsOneWidget);
+      expect(find.byIcon(Icons.add), equals(findsOneWidget));
 
       // act
       await tester.tap(watchlistButton);
       await tester.pump();
 
       // assert
-      expect(find.byType(SnackBar), findsOneWidget);
-      expect(find.text('Added to watchlist'), findsOneWidget);
+      expect(find.byType(SnackBar), equals(findsOneWidget));
+      expect(find.text('Added to watchlist'), equals(findsOneWidget));
     },
   );
 
@@ -114,15 +114,15 @@ void main() {
       await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
       // assert
-      expect(find.byIcon(Icons.add), findsOneWidget);
+      expect(find.byIcon(Icons.add), equals(findsOneWidget));
 
       // act
       await tester.tap(watchlistButton);
       await tester.pump();
 
       // assert
-      expect(find.byType(AlertDialog), findsOneWidget);
-      expect(find.text('Failed'), findsOneWidget);
+      expect(find.byType(AlertDialog), equals(findsOneWidget));
+      expect(find.text('Failed'), equals(findsOneWidget));
     },
   );
 }

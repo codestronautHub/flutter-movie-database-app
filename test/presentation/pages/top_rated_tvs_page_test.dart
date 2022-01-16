@@ -40,8 +40,8 @@ void main() {
       await tester.pumpWidget(_makeTestableWidget(TopRatedTvsPage()));
 
       // assert
-      expect(centerFinder, findsOneWidget);
-      expect(progressBarFinder, findsOneWidget);
+      expect(centerFinder, equals(findsOneWidget));
+      expect(progressBarFinder, equals(findsOneWidget));
     },
   );
 
@@ -58,7 +58,7 @@ void main() {
       await tester.pumpWidget(_makeTestableWidget(TopRatedTvsPage()));
 
       // assert
-      expect(listViewFinder, findsOneWidget);
+      expect(listViewFinder, equals(findsOneWidget));
     },
   );
 
@@ -75,7 +75,7 @@ void main() {
       await tester.pumpWidget(_makeTestableWidget(TopRatedTvsPage()));
 
       // assert
-      expect(textFinder, findsOneWidget);
+      expect(textFinder, equals(findsOneWidget));
     },
   );
 }
