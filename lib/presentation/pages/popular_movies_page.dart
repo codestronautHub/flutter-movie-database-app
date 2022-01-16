@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/widgets/item_card_list.dart';
@@ -38,15 +39,19 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (data.state == RequestState.Loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.movies[index];
-                  return ItemCard(
-                    type: MdbContentType.Movie,
-                    movie: movie,
-                  );
-                },
-                itemCount: data.movies.length,
+              return FadeInUp(
+                from: 20,
+                duration: Duration(milliseconds: 500),
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    final movie = data.movies[index];
+                    return ItemCard(
+                      type: MdbContentType.Movie,
+                      movie: movie,
+                    );
+                  },
+                  itemCount: data.movies.length,
+                ),
               );
             } else {
               return Center(

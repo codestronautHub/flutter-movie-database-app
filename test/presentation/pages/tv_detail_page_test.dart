@@ -52,7 +52,11 @@ void main() {
       // act
       final watchlistButtonIcon = find.byIcon(Icons.add);
 
-      await tester.pumpWidget(_makeTestableWidget(TvDetailPage(id: 1)));
+      await tester.pumpWidget(
+        _makeTestableWidget(TvDetailPage(id: 1)),
+        Duration(milliseconds: 500),
+      );
+      await tester.pumpAndSettle(Duration(milliseconds: 500));
 
       // assert
       expect(watchlistButtonIcon, equals(findsOneWidget));
@@ -76,7 +80,11 @@ void main() {
       // act
       final watchlistButtonIcon = find.byIcon(Icons.check);
 
-      await tester.pumpWidget(_makeTestableWidget(TvDetailPage(id: 1)));
+      await tester.pumpWidget(
+        _makeTestableWidget(TvDetailPage(id: 1)),
+        Duration(milliseconds: 500),
+      );
+      await tester.pumpAndSettle(Duration(milliseconds: 500));
 
       // assert
       expect(watchlistButtonIcon, equals(findsOneWidget));
@@ -101,12 +109,16 @@ void main() {
       // act
       final watchlistButton = find.byType(ElevatedButton);
 
-      await tester.pumpWidget(_makeTestableWidget(TvDetailPage(id: 1)));
+      await tester.pumpWidget(
+        _makeTestableWidget(TvDetailPage(id: 1)),
+        Duration(milliseconds: 500),
+      );
 
       // assert
       expect(find.byIcon(Icons.add), equals(findsOneWidget));
 
       // act
+      await tester.pumpAndSettle(Duration(milliseconds: 500));
       await tester.tap(watchlistButton);
       await tester.pump();
 
@@ -134,12 +146,16 @@ void main() {
       // act
       final watchlistButton = find.byType(ElevatedButton);
 
-      await tester.pumpWidget(_makeTestableWidget(TvDetailPage(id: 1)));
+      await tester.pumpWidget(
+        _makeTestableWidget(TvDetailPage(id: 1)),
+        Duration(milliseconds: 500),
+      );
 
       // assert
       expect(find.byIcon(Icons.add), equals(findsOneWidget));
 
       // act
+      await tester.pumpAndSettle(Duration(milliseconds: 500));
       await tester.tap(watchlistButton);
       await tester.pump();
 

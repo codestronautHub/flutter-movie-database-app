@@ -89,6 +89,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      GestureDetector(
+                        onTap: toggle,
+                        child: CircleAvatar(
+                          child: Icon(Icons.close, color: kRichBlack),
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 128.0),
                       Row(
                         children: [
                           Expanded(
@@ -196,57 +204,54 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ..scale(scale)
                   ..rotateZ(rotate),
                 alignment: Alignment.centerLeft,
-                child: GestureDetector(
-                  onTap: toggle,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(radius),
-                    child: AnimatedBuilder(
-                      animation: _colorAnimationController,
-                      builder: (context, child) {
-                        return Scaffold(
-                          extendBodyBehindAppBar: true,
-                          appBar: AppBar(
-                            toolbarOpacity: toolbarOpacity,
-                            leading: IconButton(
-                              icon: Icon(Icons.menu),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(radius),
+                  child: AnimatedBuilder(
+                    animation: _colorAnimationController,
+                    builder: (context, child) {
+                      return Scaffold(
+                        extendBodyBehindAppBar: true,
+                        appBar: AppBar(
+                          toolbarOpacity: toolbarOpacity,
+                          leading: IconButton(
+                            icon: Icon(Icons.menu),
+                            splashRadius: 20.0,
+                            onPressed: toggle,
+                          ),
+                          title: Text(
+                            'MDB',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                          actions: [
+                            IconButton(
+                              icon: Icon(Icons.search),
                               splashRadius: 20.0,
-                              onPressed: toggle,
-                            ),
-                            title: Text(
-                              'MDB',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
+                              onPressed: () => Navigator.pushNamed(
+                                context,
+                                SearchPage.ROUTE_NAME,
                               ),
-                            ),
-                            actions: [
-                              IconButton(
-                                icon: Icon(Icons.search),
-                                splashRadius: 20.0,
-                                onPressed: () => Navigator.pushNamed(
-                                  context,
-                                  SearchPage.ROUTE_NAME,
-                                ),
-                              )
-                            ],
-                            backgroundColor: _colorTween.value,
-                            elevation: 0.0,
-                          ),
-                          body: NotificationListener<ScrollNotification>(
-                            onNotification: _scrollListener,
-                            child: Consumer<HomeNotifier>(
-                                builder: (context, data, child) {
-                              final state = data.state;
-                              if (state == MdbContentType.Movie) {
-                                return MainMoviePage();
-                              } else {
-                                return MainTvPage();
-                              }
-                            }),
-                          ),
-                        );
-                      },
-                    ),
+                            )
+                          ],
+                          backgroundColor: _colorTween.value,
+                          elevation: 0.0,
+                        ),
+                        body: NotificationListener<ScrollNotification>(
+                          onNotification: _scrollListener,
+                          child: Consumer<HomeNotifier>(
+                              builder: (context, data, child) {
+                            final state = data.state;
+                            if (state == MdbContentType.Movie) {
+                              return MainMoviePage();
+                            } else {
+                              return MainTvPage();
+                            }
+                          }),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

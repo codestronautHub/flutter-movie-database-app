@@ -55,7 +55,11 @@ void main() {
       // act
       final listViewFinder = find.byType(ListView);
 
-      await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+      await tester.pumpWidget(
+        _makeTestableWidget(PopularMoviesPage()),
+        Duration(milliseconds: 500),
+      );
+      await tester.pumpAndSettle(Duration(milliseconds: 500));
 
       // assert
       expect(listViewFinder, equals(findsOneWidget));
@@ -72,7 +76,11 @@ void main() {
       // act
       final textFinder = find.byKey(Key('error_message'));
 
-      await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+      await tester.pumpWidget(
+        _makeTestableWidget(PopularMoviesPage()),
+        Duration(milliseconds: 500),
+      );
+      await tester.pumpAndSettle(Duration(milliseconds: 500));
 
       // assert
       expect(textFinder, equals(findsOneWidget));
