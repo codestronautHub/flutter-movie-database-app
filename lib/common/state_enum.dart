@@ -1,2 +1,2 @@
 enum RequestState { Empty, Loading, Loaded, Error }
-enum ContentType { Movie, Tv }
+enum MdbContentType { Movie, Tv }

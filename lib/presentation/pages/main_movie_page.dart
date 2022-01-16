@@ -69,7 +69,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                             context: context,
                             builder: (context) {
                               return MinimalDetail(
-                                type: ContentType.Movie,
+                                type: MdbContentType.Movie,
                                 movie: item,
                               );
                             },
@@ -178,7 +178,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 return Center(child: CircularProgressIndicator());
               } else if (data.popularMoviesState == RequestState.Loaded) {
                 return HorizontalItemList(
-                  type: ContentType.Movie,
+                  type: MdbContentType.Movie,
                   movies: data.popularMovies,
                 );
               } else {
@@ -197,7 +197,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 return Center(child: CircularProgressIndicator());
               } else if (data.topRatedMoviesState == RequestState.Loaded) {
                 return HorizontalItemList(
-                  type: ContentType.Movie,
+                  type: MdbContentType.Movie,
                   movies: data.topRatedMovies,
                 );
               } else {

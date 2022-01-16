@@ -18,7 +18,7 @@ import 'tv_detail_notifier_test.mocks.dart';
 @GenerateMocks([
   GetTvDetail,
   GetTvRecommendations,
-  GetWatchListStatus,
+  GetWatchlistStatus,
   SaveWatchlist,
   RemoveWatchlist,
 ])
@@ -26,7 +26,7 @@ void main() {
   late int listenerCallCount;
   late MockGetTvDetail mockGetTvDetail;
   late MockGetTvRecommendations mockGetTvRecommendations;
-  late MockGetWatchListStatus mockGetWatchListStatus;
+  late MockGetWatchlistStatus mockGetWatchListStatus;
   late MockSaveWatchlist mockSaveWatchlist;
   late MockRemoveWatchlist mockRemoveWatchlist;
   late TvDetailNotifier provider;
@@ -35,7 +35,7 @@ void main() {
     listenerCallCount = 0;
     mockGetTvDetail = MockGetTvDetail();
     mockGetTvRecommendations = MockGetTvRecommendations();
-    mockGetWatchListStatus = MockGetWatchListStatus();
+    mockGetWatchListStatus = MockGetWatchlistStatus();
     mockSaveWatchlist = MockSaveWatchlist();
     mockRemoveWatchlist = MockRemoveWatchlist();
     provider = TvDetailNotifier(
@@ -57,9 +57,7 @@ void main() {
     genreIds: [1, 2, 3, 4],
     id: 1,
     name: 'Name',
-    originalName: 'Original Name',
     overview: 'Overview',
-    popularity: 1.0,
     posterPath: '/path.jpg',
     voteAverage: 1.0,
     voteCount: 1,

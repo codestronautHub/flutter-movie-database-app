@@ -18,7 +18,7 @@ import 'movie_detail_notifier_test.mocks.dart';
 @GenerateMocks([
   GetMovieDetail,
   GetMovieRecommendations,
-  GetWatchListStatus,
+  GetWatchlistStatus,
   SaveWatchlist,
   RemoveWatchlist,
 ])
@@ -26,7 +26,7 @@ void main() {
   late int listenerCallCount;
   late MockGetMovieDetail mockGetMovieDetail;
   late MockGetMovieRecommendations mockGetMovieRecommendations;
-  late MockGetWatchListStatus mockGetWatchlistStatus;
+  late MockGetWatchlistStatus mockGetWatchlistStatus;
   late MockSaveWatchlist mockSaveWatchlist;
   late MockRemoveWatchlist mockRemoveWatchlist;
   late MovieDetailNotifier provider;
@@ -35,7 +35,7 @@ void main() {
     listenerCallCount = 0;
     mockGetMovieDetail = MockGetMovieDetail();
     mockGetMovieRecommendations = MockGetMovieRecommendations();
-    mockGetWatchlistStatus = MockGetWatchListStatus();
+    mockGetWatchlistStatus = MockGetWatchlistStatus();
     mockSaveWatchlist = MockSaveWatchlist();
     mockRemoveWatchlist = MockRemoveWatchlist();
     provider = MovieDetailNotifier(
@@ -52,17 +52,13 @@ void main() {
   final tId = 1;
 
   final tMovie = Movie(
-    adult: false,
     backdropPath: '/path.jpg',
     genreIds: [1, 2, 3, 4],
     id: 1,
-    originalTitle: 'Original Title',
     overview: 'Overview',
-    popularity: 1.0,
     posterPath: '/path.jpg',
     releaseDate: '2022-01-01',
     title: 'Title',
-    video: false,
     voteAverage: 1.0,
     voteCount: 1,
   );

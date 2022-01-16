@@ -58,34 +58,26 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, MediaImage>> getTvImages(int id) async {
-    try {
-      final result = await remoteDataSource.getTvImages(id);
-      return Right(result.toEntity());
-    } on ServerException {
-      return Left(ServerFailure(''));
-    } on SocketException {
-      return Left(ConnectionFailure('Failed to connect to the network'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Tv>>> searchTvs(String query) async {
-    try {
-      final result = await remoteDataSource.searchTvs(query);
-      return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return Left(ServerFailure(''));
-    } on SocketException {
-      return Left(ConnectionFailure('Failed to connect to the network'));
-    }
-  }
-
-  @override
   Future<Either<Failure, TvDetail>> getTvDetail(int id) async {
     try {
       final result = await remoteDataSource.getTvDetail(id);
       return Right(result.toEntity());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvSeasonEpisode>>> getTvSeasonEpisodes(
+    int id,
+    int seasonNumber,
+  ) async {
+    try {
+      final result =
+          await remoteDataSource.getTvSeasonEpisodes(id, seasonNumber);
+      return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -106,14 +98,22 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<TvSeasonEpisode>>> getTvSeasonEpisodes(
-    int id,
-    int seasonNumber,
-  ) async {
+  Future<Either<Failure, List<Tv>>> searchTvs(String query) async {
     try {
-      final result =
-          await remoteDataSource.getTvSeasonEpisodes(id, seasonNumber);
+      final result = await remoteDataSource.searchTvs(query);
       return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MediaImage>> getTvImages(int id) async {
+    try {
+      final result = await remoteDataSource.getTvImages(id);
+      return Right(result.toEntity());
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {

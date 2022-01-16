@@ -161,7 +161,7 @@ class _MainTvPageState extends State<MainTvPage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return HorizontalItemList(
-                    type: ContentType.Tv,
+                    type: MdbContentType.Tv,
                     tvs: data.popularTvs,
                   );
                 } else {
@@ -183,7 +183,7 @@ class _MainTvPageState extends State<MainTvPage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return HorizontalItemList(
-                    type: ContentType.Tv,
+                    type: MdbContentType.Tv,
                     tvs: data.topRatedTvs,
                   );
                 } else {

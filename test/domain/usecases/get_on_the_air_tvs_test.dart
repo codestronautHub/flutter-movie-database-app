@@ -28,7 +28,7 @@ void main() {
       final result = await usecase.execute();
 
       // assert
-      expect(result, Right(tTvs));
+      expect(result, equals(Right(tTvs)));
     },
   );
 }

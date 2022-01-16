@@ -11,24 +11,24 @@ class Urls {
       '$baseUrl/movie/$id/recommendations?$apiKey';
   static String searchMovies(String query) =>
       '$baseUrl/search/movie?$apiKey&query=$query';
-  static String movieImages(int id) =>
-      '$baseUrl/movie/$id/images?$apiKey&language=en-US&include_image_language=en,null';
 
   // Tvs
   static const String onTheAirTvs = '$baseUrl/tv/on_the_air?$apiKey';
   static const String popularTvs = '$baseUrl/tv/popular?$apiKey';
   static const String topRatedTvs = '$baseUrl/tv/top_rated?$apiKey';
   static String tvDetail(int id) => '$baseUrl/tv/$id?$apiKey';
+  static String tvSeasons(int id, int seasonNumber) =>
+      '$baseUrl/tv/$id/season/$seasonNumber?$apiKey';
   static String tvRecommendations(int id) =>
       '$baseUrl/tv/$id/recommendations?$apiKey';
   static String searchTvs(String query) =>
       '$baseUrl/search/tv?$apiKey&query=$query';
-  static String tvImages(int id) =>
-      '$baseUrl/tv/$id/images?$apiKey&language=en-US&include_image_language=en,null';
-  static String tvSeasons(int id, int seasonNumber) =>
-      '$baseUrl/tv/$id/season/$seasonNumber?$apiKey';
 
   // Image
   static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
   static String imageUrl(String path) => '$baseImageUrl$path';
+  static String movieImages(int id) =>
+      '$baseUrl/movie/$id/images?$apiKey&language=en-US&include_image_language=en,null';
+  static String tvImages(int id) =>
+      '$baseUrl/tv/$id/images?$apiKey&language=en-US&include_image_language=en,null';
 }

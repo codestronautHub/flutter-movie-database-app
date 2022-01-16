@@ -32,7 +32,7 @@ void main() {
 
       // assert
       verify(mockMovieRepository.saveWatchlist(testMovieDetail));
-      expect(result, Right('Added to watchlist'));
+      expect(result, equals(Right('Added to watchlist')));
     },
   );
 
@@ -48,7 +48,7 @@ void main() {
 
       // assert
       verify(mockTvRepository.saveWatchlist(testTvDetail));
-      expect(result, Right('Added to watchlist'));
+      expect(result, equals(Right('Added to watchlist')));
     },
   );
 }

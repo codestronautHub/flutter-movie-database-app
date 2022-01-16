@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 const Color kRichBlack = Color(0xFF1E1E29);
 const Color kSpaceGrey = Color(0xFF26262F);
 const Color kOxfordBlue = Color(0xFF001D3D);
-const Color kMikadoYellow = Color(0xFFffc300);
 
 // text style
 final TextStyle kHeading5 =

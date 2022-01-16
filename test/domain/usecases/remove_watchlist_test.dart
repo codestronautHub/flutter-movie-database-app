@@ -32,7 +32,7 @@ void main() {
 
       // assert
       verify(mockMovieRepository.removeWatchlist(testMovieDetail));
-      expect(result, Right('Removed from watchlist'));
+      expect(result, equals(Right('Removed from watchlist')));
     },
   );
 
@@ -48,7 +48,7 @@ void main() {
 
       // assert
       verify(mockTvRepository.removeWatchlist(testTvDetail));
-      expect(result, Right('Removed from watchlist'));
+      expect(result, equals(Right('Removed from watchlist')));
     },
   );
 }

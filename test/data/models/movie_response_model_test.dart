@@ -8,17 +8,13 @@ import '../../json_reader.dart';
 
 void main() {
   final tMovieModel = MovieModel(
-    adult: false,
     backdropPath: '/path.jpg',
     genreIds: [1, 2, 3, 4],
     id: 1,
-    originalTitle: 'Original Title',
     overview: 'Overview',
-    popularity: 1.0,
     posterPath: '/path.jpg',
     releaseDate: '2022-01-01',
     title: 'Title',
-    video: false,
     voteAverage: 1.0,
     voteCount: 1,
   );
@@ -27,9 +23,9 @@ void main() {
     movieList: <MovieModel>[tMovieModel],
   );
 
-  group('fromJson', () {
+  group('from json', () {
     test(
-      'should return a valid model from JSON',
+      'should return a valid model from json',
       () async {
         // arrange
         final Map<String, dynamic> jsonMap = json.decode(
@@ -40,17 +36,15 @@ void main() {
         final result = MovieResponse.fromJson(jsonMap);
 
         // assert
-        expect(result, tMovieResponseModel);
+        expect(result, equals(tMovieResponseModel));
       },
     );
   });
 
-  group('toJson', () {
+  group('to json', () {
     test(
-      'should return a JSON map containing proper data',
+      'should return a json map containing proper data',
       () async {
-        // arrange
-
         // act
         final result = tMovieResponseModel.toJson();
 
@@ -58,23 +52,19 @@ void main() {
         final expectedJsonMap = {
           "results": [
             {
-              "adult": false,
               "backdrop_path": "/path.jpg",
               "genre_ids": [1, 2, 3, 4],
               "id": 1,
-              "original_title": "Original Title",
               "overview": "Overview",
-              "popularity": 1.0,
               "poster_path": "/path.jpg",
               "release_date": "2022-01-01",
               "title": "Title",
-              "video": false,
               "vote_average": 1.0,
               "vote_count": 1
             }
           ],
         };
-        expect(result, expectedJsonMap);
+        expect(result, equals(expectedJsonMap));
       },
     );
   });

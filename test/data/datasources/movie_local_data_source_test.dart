@@ -27,12 +27,12 @@ void main() {
         final result = await dataSource.insertWatchlist(testMovieTable);
 
         // assert
-        expect(result, 'Added to watchlist');
+        expect(result, equals('Added to watchlist'));
       },
     );
 
     test(
-      'should throw DatabaseException when insert to database is failed',
+      'should throw database exception when insert to database is failed',
       () async {
         // arrange
         when(mockDatabaseHelper.insertMovieWatchlist(testMovieTable))
@@ -59,12 +59,12 @@ void main() {
         final result = await dataSource.removeWatchlist(testMovieTable);
 
         // assert
-        expect(result, 'Removed from watchlist');
+        expect(result, equals('Removed from watchlist'));
       },
     );
 
     test(
-      'should throw DatabaseException when remove from database is failed',
+      'should throw database exception when remove from database is failed',
       () async {
         // arrange
         when(mockDatabaseHelper.removeMovieWatchlist(testMovieTable))
@@ -91,7 +91,7 @@ void main() {
         final result = await dataSource.getWatchlistMovies();
 
         // assert
-        expect(result, [testMovieTable]);
+        expect(result, equals([testMovieTable]));
       },
     );
   });
@@ -110,7 +110,7 @@ void main() {
         final result = await dataSource.getMovieById(tId);
 
         // assert
-        expect(result, testMovieTable);
+        expect(result, equals(testMovieTable));
       },
     );
 
@@ -125,7 +125,7 @@ void main() {
         final result = await dataSource.getMovieById(tId);
 
         // assert
-        expect(result, null);
+        expect(result, equals(null));
       },
     );
   });

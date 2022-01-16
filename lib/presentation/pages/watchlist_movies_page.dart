@@ -65,7 +65,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                     itemBuilder: (context, index) {
                       final tv = data.watchlistTvs[index];
                       return ItemCard(
-                        type: ContentType.Tv,
+                        type: MdbContentType.Tv,
                         tv: tv,
                       );
                     },

@@ -9,18 +9,14 @@ import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/domain/entities/tv_season_episode.dart';
 
 final testMovie = Movie(
-  adult: false,
   backdropPath: '/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
   genreIds: [28, 12, 878],
   id: 634649,
-  originalTitle: 'Spider-Man: No Way Home',
   overview:
       'Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.',
-  popularity: 8817.063,
   posterPath: '/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',
   releaseDate: '2021-12-15',
   title: 'Spider-Man: No Way Home',
-  video: false,
   voteAverage: 8.4,
   voteCount: 3427,
 );
@@ -28,11 +24,9 @@ final testMovie = Movie(
 final testMovieList = [testMovie];
 
 final testMovieDetail = MovieDetail(
-  adult: false,
   backdropPath: '/path.jpg',
   genres: [Genre(id: 1, name: 'Genre 1')],
   id: 1,
-  originalTitle: 'Original Title',
   overview: 'Overview',
   posterPath: '/path.jpg',
   releaseDate: '2022-01-01',
@@ -69,10 +63,8 @@ final testTv = Tv(
   genreIds: [16, 10765, 10759, 18],
   id: 94605,
   name: 'Arcane',
-  originalName: 'Arcane',
   overview:
       'Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.',
-  popularity: 663.141,
   posterPath: '/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg',
   voteAverage: 9.1,
   voteCount: 1451,
@@ -89,7 +81,6 @@ final testTvDetail = TvDetail(
   name: 'Name',
   numberOfSeasons: 1,
   overview: 'Overview',
-  popularity: 1.0,
   posterPath: '/path.jpg',
   voteAverage: 1.0,
   voteCount: 1,

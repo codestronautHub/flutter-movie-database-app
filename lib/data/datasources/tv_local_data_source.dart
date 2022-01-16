@@ -5,8 +5,8 @@ import 'package:ditonton/data/models/tv_table.dart';
 abstract class TvLocalDataSource {
   Future<String> insertWatchlist(TvTable tv);
   Future<String> removeWatchlist(TvTable tv);
-  Future<List<TvTable>> getWatchlistTvs();
   Future<TvTable?> getTvById(int id);
+  Future<List<TvTable>> getWatchlistTvs();
 }
 
 class TvLocalDataSourceImpl implements TvLocalDataSource {
@@ -35,12 +35,6 @@ class TvLocalDataSourceImpl implements TvLocalDataSource {
   }
 
   @override
-  Future<List<TvTable>> getWatchlistTvs() async {
-    final result = await databaseHelper.getWatchlistTvs();
-    return result.map((data) => TvTable.fromMap(data)).toList();
-  }
-
-  @override
   Future<TvTable?> getTvById(int id) async {
     final result = await databaseHelper.getTvById(id);
     if (result != null) {
@@ -48,5 +42,11 @@ class TvLocalDataSourceImpl implements TvLocalDataSource {
     } else {
       return null;
     }
+  }
+
+  @override
+  Future<List<TvTable>> getWatchlistTvs() async {
+    final result = await databaseHelper.getWatchlistTvs();
+    return result.map((data) => TvTable.fromMap(data)).toList();
   }
 }

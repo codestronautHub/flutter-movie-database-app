@@ -7,12 +7,12 @@ import '../../helpers/test_helper.mocks.dart';
 void main() {
   late MockMovieRepository mockMovieRepository;
   late MockTvRepository mockTvRepository;
-  late GetWatchListStatus usecase;
+  late GetWatchlistStatus usecase;
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
     mockTvRepository = MockTvRepository();
-    usecase = GetWatchListStatus(
+    usecase = GetWatchlistStatus(
       movieRepository: mockMovieRepository,
       tvRepository: mockTvRepository,
     );
@@ -29,7 +29,7 @@ void main() {
       final result = await usecase.executeMovie(1);
 
       // assert
-      expect(result, true);
+      expect(result, equals(true));
     },
   );
 
@@ -44,7 +44,7 @@ void main() {
       final result = await usecase.executeTv(1);
 
       // assert
-      expect(result, true);
+      expect(result, equals(true));
     },
   );
 }

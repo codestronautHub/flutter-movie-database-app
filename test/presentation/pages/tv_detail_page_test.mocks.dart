@@ -30,8 +30,8 @@ class _FakeGetTvDetail_0 extends _i1.Fake implements _i2.GetTvDetail {}
 class _FakeGetTvRecommendations_1 extends _i1.Fake
     implements _i3.GetTvRecommendations {}
 
-class _FakeGetWatchListStatus_2 extends _i1.Fake
-    implements _i4.GetWatchListStatus {}
+class _FakeGetWatchlistStatus_2 extends _i1.Fake
+    implements _i4.GetWatchlistStatus {}
 
 class _FakeSaveWatchlist_3 extends _i1.Fake implements _i5.SaveWatchlist {}
 
@@ -56,9 +56,9 @@ class MockTvDetailNotifier extends _i1.Mock implements _i8.TvDetailNotifier {
       Invocation.getter(#getTvRecommendations),
       returnValue: _FakeGetTvRecommendations_1()) as _i3.GetTvRecommendations);
   @override
-  _i4.GetWatchListStatus get getWatchListStatus =>
+  _i4.GetWatchlistStatus get getWatchListStatus =>
       (super.noSuchMethod(Invocation.getter(#getWatchListStatus),
-          returnValue: _FakeGetWatchListStatus_2()) as _i4.GetWatchListStatus);
+          returnValue: _FakeGetWatchlistStatus_2()) as _i4.GetWatchlistStatus);
   @override
   _i5.SaveWatchlist get saveWatchlist =>
       (super.noSuchMethod(Invocation.getter(#saveWatchlist),

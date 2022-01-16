@@ -42,35 +42,46 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        /// General
         ChangeNotifierProvider(
           create: (_) => di.locator<HomeNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieListNotifier>(),
+          create: (_) => di.locator<SearchFilterNotifier>(),
         ),
+
+        /// Movie
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvListNotifier>(),
+          create: (_) => di.locator<MovieListNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<PopularMoviesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvsNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<TopRatedMoviesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvsNotifier>(),
+          create: (_) => di.locator<MovieDetailNotifier>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<MovieSearchNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieImagesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvImagesNotifier>(),
+          create: (_) => di.locator<WatchlistMovieNotifier>(),
+        ),
+
+        /// Tv
+        ChangeNotifierProvider(
+          create: (_) => di.locator<TvListNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
+          create: (_) => di.locator<PopularTvsNotifier>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<TopRatedTvsNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TvDetailNotifier>(),
@@ -79,16 +90,10 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TvSeasonEpisodesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<SearchFilterNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<TvSearchNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistMovieNotifier>(),
+          create: (_) => di.locator<TvImagesNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistTvNotifier>(),
@@ -102,7 +107,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: kRichBlack,
           textTheme: kTextTheme,
           colorScheme: kColorScheme.copyWith(
-            secondary: kMikadoYellow,
+            secondary: Colors.redAccent,
           ),
         ),
         home: HomePage(),
@@ -113,17 +118,17 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => HomePage());
             case PopularMoviesPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => PopularMoviesPage());
-            case PopularTvsPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => PopularTvsPage());
             case TopRatedMoviesPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => TopRatedMoviesPage());
-            case TopRatedTvsPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => TopRatedTvsPage());
             case MovieDetailPage.ROUTE_NAME:
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: settings.arguments as int),
                 settings: settings,
               );
+            case PopularTvsPage.ROUTE_NAME:
+              return MaterialPageRoute(builder: (_) => PopularTvsPage());
+            case TopRatedTvsPage.ROUTE_NAME:
+              return MaterialPageRoute(builder: (_) => TopRatedTvsPage());
             case TvDetailPage.ROUTE_NAME:
               return MaterialPageRoute(
                 builder: (_) => TvDetailPage(id: settings.arguments as int),

@@ -71,11 +71,12 @@ void main() {
         when(mockHttpClient.get(Uri.parse(Urls.popularMovies))).thenAnswer(
             (_) async => http.Response(
                 readJson('dummy_data/popular_top_rated_movie.json'), 200));
+
         // act
         final result = await dataSource.getPopularMovies();
 
         // assert
-        expect(result, tMovieList);
+        expect(result, equals(tMovieList));
       },
     );
 
@@ -111,7 +112,7 @@ void main() {
         final result = await dataSource.getTopRatedMovies();
 
         // assert
-        expect(result, tMovieList);
+        expect(result, equals(tMovieList));
       },
     );
 
@@ -124,44 +125,6 @@ void main() {
 
         // act
         final call = dataSource.getTopRatedMovies();
-
-        // assert
-        expect(() => call, throwsA(isA<ServerException>()));
-      },
-    );
-  });
-
-  group('get movie images', () {
-    final tId = 1;
-    final tMovieImages = MediaImageModel.fromJson(
-      json.decode(readJson('dummy_data/images.json')),
-    );
-
-    test(
-      'should return movie images when the response code is 200',
-      () async {
-        // arrange
-        when(mockHttpClient.get(Uri.parse(Urls.movieImages(tId)))).thenAnswer(
-            (_) async =>
-                http.Response(readJson('dummy_data/images.json'), 200));
-
-        // act
-        final result = await dataSource.getMovieImages(tId);
-
-        // assert
-        expect(result, equals(tMovieImages));
-      },
-    );
-
-    test(
-      'should throw a server exception when the response code is 404 or other',
-      () async {
-        // arrange
-        when(mockHttpClient.get(Uri.parse(Urls.movieImages(tId))))
-            .thenAnswer((_) async => http.Response('Not found', 404));
-
-        // act
-        final call = dataSource.getMovieImages(tId);
 
         // assert
         expect(() => call, throwsA(isA<ServerException>()));
@@ -276,6 +239,44 @@ void main() {
 
         // act
         final call = dataSource.searchMovies(tQuery);
+
+        // assert
+        expect(() => call, throwsA(isA<ServerException>()));
+      },
+    );
+  });
+
+  group('get movie images', () {
+    final tId = 1;
+    final tMovieImages = MediaImageModel.fromJson(
+      json.decode(readJson('dummy_data/images.json')),
+    );
+
+    test(
+      'should return movie images when the response code is 200',
+      () async {
+        // arrange
+        when(mockHttpClient.get(Uri.parse(Urls.movieImages(tId)))).thenAnswer(
+            (_) async =>
+                http.Response(readJson('dummy_data/images.json'), 200));
+
+        // act
+        final result = await dataSource.getMovieImages(tId);
+
+        // assert
+        expect(result, equals(tMovieImages));
+      },
+    );
+
+    test(
+      'should throw a server exception when the response code is 404 or other',
+      () async {
+        // arrange
+        when(mockHttpClient.get(Uri.parse(Urls.movieImages(tId))))
+            .thenAnswer((_) async => http.Response('Not found', 404));
+
+        // act
+        final call = dataSource.getMovieImages(tId);
 
         // assert
         expect(() => call, throwsA(isA<ServerException>()));

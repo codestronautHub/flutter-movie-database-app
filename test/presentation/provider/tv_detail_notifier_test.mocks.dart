@@ -74,12 +74,12 @@ class MockGetTvRecommendations extends _i1.Mock
           as _i6.Future<_i3.Either<_i7.Failure, List<_i10.Tv>>>);
 }
 
-/// A class which mocks [GetWatchListStatus].
+/// A class which mocks [GetWatchlistStatus].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetWatchListStatus extends _i1.Mock
-    implements _i11.GetWatchListStatus {
-  MockGetWatchListStatus() {
+class MockGetWatchlistStatus extends _i1.Mock
+    implements _i11.GetWatchlistStatus {
+  MockGetWatchlistStatus() {
     _i1.throwOnMissingStub(this);
   }
 

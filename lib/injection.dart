@@ -52,6 +52,8 @@ final locator = GetIt.instance;
 void init() {
   // provider
   locator.registerFactory(() => HomeNotifier());
+  locator.registerFactory(() => SearchFilterNotifier());
+
   locator.registerFactory(
     () => MovieListNotifier(
       getNowPlayingMovies: locator(),
@@ -60,19 +62,7 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => TvListNotifier(
-      getOnTheAirTvs: locator(),
-      getPopularTvs: locator(),
-      getTopRatedTvs: locator(),
-    ),
-  );
-  locator.registerFactory(
     () => PopularMoviesNotifier(
-      locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => PopularTvsNotifier(
       locator(),
     ),
   );
@@ -82,8 +72,17 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => TopRatedTvsNotifier(
-      locator(),
+    () => MovieDetailNotifier(
+      getMovieDetail: locator(),
+      getMovieRecommendations: locator(),
+      getWatchListStatus: locator(),
+      saveWatchlist: locator(),
+      removeWatchlist: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => MovieSearchNotifier(
+      searchMovies: locator(),
     ),
   );
   locator.registerFactory(
@@ -92,17 +91,26 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => TvImagesNotifier(
-      getTvImages: locator(),
+    () => WatchlistMovieNotifier(
+      getWatchlistMovies: locator(),
+    ),
+  );
+
+  locator.registerFactory(
+    () => TvListNotifier(
+      getOnTheAirTvs: locator(),
+      getPopularTvs: locator(),
+      getTopRatedTvs: locator(),
     ),
   );
   locator.registerFactory(
-    () => MovieDetailNotifier(
-      getMovieDetail: locator(),
-      getMovieRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
+    () => PopularTvsNotifier(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TopRatedTvsNotifier(
+      locator(),
     ),
   );
   locator.registerFactory(
@@ -119,20 +127,14 @@ void init() {
       getTvSeasonEpisodes: locator(),
     ),
   );
-  locator.registerFactory(() => SearchFilterNotifier());
   locator.registerFactory(
-    () => MovieSearchNotifier(
-      searchMovies: locator(),
+    () => TvImagesNotifier(
+      getTvImages: locator(),
     ),
   );
   locator.registerFactory(
     () => TvSearchNotifier(
       searchTvs: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => WatchlistMovieNotifier(
-      getWatchlistMovies: locator(),
     ),
   );
   locator.registerFactory(
@@ -145,20 +147,24 @@ void init() {
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
   locator.registerLazySingleton(() => GetPopularMovies(locator()));
   locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
+  locator.registerLazySingleton(() => GetMovieDetail(locator()));
+  locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
+  locator.registerLazySingleton(() => SearchMovies(locator()));
+  locator.registerLazySingleton(() => GetMovieImages(locator()));
+  locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
+
   locator.registerLazySingleton(() => GetOnTheAirTvs(locator()));
   locator.registerLazySingleton(() => GetPopularTvs(locator()));
   locator.registerLazySingleton(() => GetTopRatedTvs(locator()));
-  locator.registerLazySingleton(() => GetMovieImages(locator()));
-  locator.registerLazySingleton(() => GetTvImages(locator()));
-  locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetTvDetail(locator()));
   locator.registerLazySingleton(() => GetTvSeasonEpisodes(locator()));
-  locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => GetTvRecommendations(locator()));
-  locator.registerLazySingleton(() => SearchMovies(locator()));
   locator.registerLazySingleton(() => SearchTvs(locator()));
+  locator.registerLazySingleton(() => GetTvImages(locator()));
+  locator.registerLazySingleton(() => GetWatchlistTvs(locator()));
+
   locator.registerLazySingleton(
-    () => GetWatchListStatus(
+    () => GetWatchlistStatus(
       movieRepository: locator(),
       tvRepository: locator(),
     ),
@@ -175,8 +181,6 @@ void init() {
       tvRepository: locator(),
     ),
   );
-  locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
-  locator.registerLazySingleton(() => GetWatchlistTvs(locator()));
 
   // repository
   locator.registerLazySingleton<MovieRepository>(
@@ -195,10 +199,11 @@ void init() {
   // data sources
   locator.registerLazySingleton<MovieRemoteDataSource>(
       () => MovieRemoteDataSourceImpl(client: locator()));
-  locator.registerLazySingleton<TvRemoteDataSource>(
-      () => TvRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<MovieLocalDataSource>(
       () => MovieLocalDataSourceImpl(databaseHelper: locator()));
+
+  locator.registerLazySingleton<TvRemoteDataSource>(
+      () => TvRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<TvLocalDataSource>(
     () => TvLocalDataSourceImpl(databaseHelper: locator()),
   );

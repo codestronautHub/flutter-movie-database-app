@@ -9,7 +9,7 @@ import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
-  final ContentType type;
+  final MdbContentType type;
   final Movie? movie;
   final Tv? tv;
 
@@ -23,7 +23,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (type == ContentType.Movie) {
+        if (type == MdbContentType.Movie) {
           Navigator.pushNamed(
             context,
             MovieDetailPage.ROUTE_NAME,
@@ -51,7 +51,7 @@ class ItemCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
                 child: CachedNetworkImage(
                   imageUrl: Urls.imageUrl(
-                    type == ContentType.Movie
+                    type == MdbContentType.Movie
                         ? movie!.posterPath!
                         : tv!.posterPath!,
                   ),
@@ -69,7 +69,7 @@ class ItemCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    type == ContentType.Movie
+                    type == MdbContentType.Movie
                         ? movie!.title ?? '-'
                         : tv!.name ?? '-',
                     overflow: TextOverflow.ellipsis,
@@ -88,7 +88,7 @@ class ItemCard extends StatelessWidget {
                           color: Colors.redAccent,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text(type == ContentType.Movie
+                        child: Text(type == MdbContentType.Movie
                             ? movie!.releaseDate!.split('-')[0]
                             : tv!.firstAirDate!.split('-')[0]),
                       ),
@@ -100,7 +100,7 @@ class ItemCard extends StatelessWidget {
                       ),
                       SizedBox(width: 4.0),
                       Text(
-                        type == ContentType.Movie
+                        type == MdbContentType.Movie
                             ? (movie!.voteAverage! / 2).toStringAsFixed(1)
                             : (tv!.voteAverage! / 2).toStringAsFixed(1),
                       ),
@@ -108,7 +108,7 @@ class ItemCard extends StatelessWidget {
                   ),
                   SizedBox(height: 16.0),
                   Text(
-                    type == ContentType.Movie
+                    type == MdbContentType.Movie
                         ? movie!.overview ?? '-'
                         : tv!.overview ?? '-',
                     overflow: TextOverflow.ellipsis,

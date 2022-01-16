@@ -30,35 +30,27 @@ void main() {
   });
 
   final tMovieModel = MovieModel(
-    adult: false,
     backdropPath: '/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
     genreIds: [28, 12, 878],
     id: 634649,
-    originalTitle: 'Spider-Man: No Way Home',
     overview:
         'Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.',
-    popularity: 8817.063,
     posterPath: '/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',
     releaseDate: '2021-12-15',
     title: 'Spider-Man: No Way Home',
-    video: false,
     voteAverage: 8.4,
     voteCount: 3427,
   );
 
   final tMovie = Movie(
-    adult: false,
     backdropPath: '/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
     genreIds: [28, 12, 878],
     id: 634649,
-    originalTitle: 'Spider-Man: No Way Home',
     overview:
         'Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.',
-    popularity: 8817.063,
     posterPath: '/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',
     releaseDate: '2021-12-15',
     title: 'Spider-Man: No Way Home',
-    video: false,
     voteAverage: 8.4,
     voteCount: 3427,
   );
@@ -240,89 +232,17 @@ void main() {
     );
   });
 
-  group('get movie images', () {
-    final tId = 1;
-    final tMovieImages = MediaImageModel(
-      id: 1,
-      backdropPaths: ['/path.jpg'],
-      logoPaths: ['/path.jpg'],
-      posterPaths: ['/path.jpg'],
-    );
-
-    test(
-      'should return movie images when a call to data source is successful',
-      () async {
-        // arrange
-        when(mockRemoteDataSource.getMovieImages(tId))
-            .thenAnswer((_) async => tMovieImages);
-
-        // act
-        final result = await repository.getMovieImages(tId);
-
-        // assert
-        verify(mockRemoteDataSource.getMovieImages(tId));
-        expect(result, equals(Right(testImages)));
-      },
-    );
-
-    test(
-      'should return server failure when a call to data source is unsuccessful',
-      () async {
-        // arrange
-        when(mockRemoteDataSource.getMovieImages(tId))
-            .thenThrow(ServerException());
-
-        // act
-        final result = await repository.getMovieImages(tId);
-
-        // assert
-        verify(mockRemoteDataSource.getMovieImages(tId));
-        expect(result, equals(Left(ServerFailure(''))));
-      },
-    );
-
-    test(
-      'should return connection failure when the device is not connected',
-      () async {
-        // arrange
-        when(mockRemoteDataSource.getMovieImages(tId))
-            .thenThrow(SocketException('Failed to connect to the network'));
-
-        // act
-        final result = await repository.getMovieImages(tId);
-
-        // assert
-        verify(mockRemoteDataSource.getMovieImages(tId));
-        expect(
-          result,
-          equals(Left(ConnectionFailure('Failed to connect to the network'))),
-        );
-      },
-    );
-  });
-
   group('get movie detail', () {
     final tId = 1;
     final tMovieResponse = MovieDetailResponse(
-      adult: false,
       backdropPath: '/path.jpg',
-      budget: 100,
       genres: [GenreModel(id: 1, name: 'Genre 1')],
-      homepage: "https://www.google.com",
       id: 1,
-      imdbId: 'IMDB 1',
-      originalLanguage: 'en',
-      originalTitle: 'Original Title',
       overview: 'Overview',
-      popularity: 1.0,
       posterPath: '/path.jpg',
       releaseDate: '2022-01-01',
-      revenue: 10000,
       runtime: 100,
-      status: 'Status',
-      tagline: 'Tagline',
       title: 'Title',
-      video: false,
       voteAverage: 1.0,
       voteCount: 1,
     );
@@ -492,6 +412,67 @@ void main() {
 
         // assert
         verify(mockRemoteDataSource.searchMovies(tQuery));
+        expect(
+          result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))),
+        );
+      },
+    );
+  });
+
+  group('get movie images', () {
+    final tId = 1;
+    final tMovieImages = MediaImageModel(
+      id: 1,
+      backdropPaths: ['/path.jpg'],
+      logoPaths: ['/path.jpg'],
+      posterPaths: ['/path.jpg'],
+    );
+
+    test(
+      'should return movie images when a call to data source is successful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getMovieImages(tId))
+            .thenAnswer((_) async => tMovieImages);
+
+        // act
+        final result = await repository.getMovieImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getMovieImages(tId));
+        expect(result, equals(Right(testImages)));
+      },
+    );
+
+    test(
+      'should return server failure when a call to data source is unsuccessful',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getMovieImages(tId))
+            .thenThrow(ServerException());
+
+        // act
+        final result = await repository.getMovieImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getMovieImages(tId));
+        expect(result, equals(Left(ServerFailure(''))));
+      },
+    );
+
+    test(
+      'should return connection failure when the device is not connected',
+      () async {
+        // arrange
+        when(mockRemoteDataSource.getMovieImages(tId))
+            .thenThrow(SocketException('Failed to connect to the network'));
+
+        // act
+        final result = await repository.getMovieImages(tId);
+
+        // assert
+        verify(mockRemoteDataSource.getMovieImages(tId));
         expect(
           result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))),

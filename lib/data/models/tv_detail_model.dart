@@ -11,7 +11,6 @@ class TvDetailModel extends Equatable {
   final String name;
   final int numberOfSeasons;
   final String overview;
-  final double popularity;
   final String? posterPath;
   final double voteAverage;
   final int voteCount;
@@ -25,7 +24,6 @@ class TvDetailModel extends Equatable {
     required this.name,
     required this.numberOfSeasons,
     required this.overview,
-    required this.popularity,
     required this.posterPath,
     required this.voteAverage,
     required this.voteCount,
@@ -41,7 +39,6 @@ class TvDetailModel extends Equatable {
         name: json['name'],
         numberOfSeasons: json['number_of_seasons'],
         overview: json['overview'],
-        popularity: json['popularity'],
         posterPath: json['poster_path'],
         voteAverage: json['vote_average'],
         voteCount: json['vote_count'],
@@ -56,7 +53,6 @@ class TvDetailModel extends Equatable {
         'name': name,
         'number_of_seasons': numberOfSeasons,
         'overview': overview,
-        'popularity': popularity,
         'poster_path': posterPath,
         'vote_average': voteAverage,
         'vote_count': voteCount,
@@ -71,7 +67,6 @@ class TvDetailModel extends Equatable {
         name: this.name,
         numberOfSeasons: this.numberOfSeasons,
         overview: this.overview,
-        popularity: this.popularity,
         posterPath: this.posterPath,
         voteAverage: this.voteAverage,
         voteCount: this.voteCount,
@@ -87,7 +82,6 @@ class TvDetailModel extends Equatable {
         name,
         numberOfSeasons,
         overview,
-        popularity,
         posterPath,
         voteAverage,
         voteCount,
