@@ -34,8 +34,8 @@ void main() {
       // arrange
       when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
       when(mockNotifier.movie).thenReturn(testMovieDetail);
-      when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-      when(mockNotifier.movieRecommendations).thenReturn(<Movie>[]);
+      when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.recommendations).thenReturn(<Movie>[]);
       when(mockNotifier.isAddedToWatchlist).thenReturn(false);
 
       // act
@@ -54,8 +54,8 @@ void main() {
       // arrange
       when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
       when(mockNotifier.movie).thenReturn(testMovieDetail);
-      when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-      when(mockNotifier.movieRecommendations).thenReturn(<Movie>[]);
+      when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.recommendations).thenReturn(<Movie>[]);
       when(mockNotifier.isAddedToWatchlist).thenReturn(true);
 
       // act
@@ -74,8 +74,8 @@ void main() {
       // arrange
       when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
       when(mockNotifier.movie).thenReturn(testMovieDetail);
-      when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-      when(mockNotifier.movieRecommendations).thenReturn(<Movie>[]);
+      when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.recommendations).thenReturn(<Movie>[]);
       when(mockNotifier.isAddedToWatchlist).thenReturn(false);
       when(mockNotifier.watchlistMessage).thenReturn('Added to watchlist');
 
@@ -103,8 +103,8 @@ void main() {
       // arrange
       when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
       when(mockNotifier.movie).thenReturn(testMovieDetail);
-      when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-      when(mockNotifier.movieRecommendations).thenReturn(<Movie>[]);
+      when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.recommendations).thenReturn(<Movie>[]);
       when(mockNotifier.isAddedToWatchlist).thenReturn(false);
       when(mockNotifier.watchlistMessage).thenReturn('Failed');
 

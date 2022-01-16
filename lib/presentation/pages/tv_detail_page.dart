@@ -47,7 +47,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
             return TvDetailContent(
               tv: tv,
               recommendations: provider.recommendations,
-              isAddedWatchlist: provider.isAddedToWatchlist,
+              isAddedToWatchlist: provider.isAddedToWatchlist,
             );
           } else {
             return Text(provider.message);
@@ -61,11 +61,11 @@ class _TvDetailPageState extends State<TvDetailPage> {
 class TvDetailContent extends StatefulWidget {
   final TvDetail tv;
   final List<Tv> recommendations;
-  final bool isAddedWatchlist;
+  final bool isAddedToWatchlist;
   const TvDetailContent({
     required this.tv,
     required this.recommendations,
-    required this.isAddedWatchlist,
+    required this.isAddedToWatchlist,
   });
 
   @override
@@ -166,6 +166,15 @@ class _TvDetailContentState extends State<TvDetailContent>
                             letterSpacing: 1.2,
                           ),
                         ),
+                        SizedBox(width: 4.0),
+                        Text(
+                          '(${widget.tv.voteAverage})',
+                          style: TextStyle(
+                            fontSize: 1.0,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(width: 16.0),
@@ -193,7 +202,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () async {
-                    if (!widget.isAddedWatchlist) {
+                    if (!widget.isAddedToWatchlist) {
                       await Provider.of<TvDetailNotifier>(context,
                               listen: false)
                           .addToWatchlist(widget.tv);
@@ -227,7 +236,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      widget.isAddedWatchlist
+                      widget.isAddedToWatchlist
                           ? Icon(Icons.check)
                           : Icon(Icons.add),
                       Text('Watchlist'),
