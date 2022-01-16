@@ -55,10 +55,12 @@ final testMovieTable = MovieTable(
 );
 
 final testMovieMap = {
+  'releaseDate': '2022-01-01',
   'id': 1,
   'overview': 'Overview',
   'posterPath': '/path.jpg',
   'title': 'Title',
+  'voteAverage': 1.0,
 };
 
 final testTv = Tv(

@@ -1,7 +1,9 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/domain/entities/tv_season_episode.dart';
 import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_season_episodes_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -11,19 +13,24 @@ import 'package:provider/provider.dart';
 import '../../dummy_data/dummy_objects.dart';
 import 'tv_detail_page_test.mocks.dart';
 
-@GenerateMocks([TvDetailNotifier])
+@GenerateMocks([TvDetailNotifier, TvSeasonEpisodesNotifier])
 void main() {
   late MockTvDetailNotifier mockNotifier;
+  late MockTvSeasonEpisodesNotifier mockTvSeasonEpisodesNotifier;
 
   setUp(() {
     mockNotifier = MockTvDetailNotifier();
+    mockTvSeasonEpisodesNotifier = MockTvSeasonEpisodesNotifier();
   });
 
   Widget _makeTestableWidget(Widget body) {
     return ChangeNotifierProvider<TvDetailNotifier>.value(
       value: mockNotifier,
-      child: MaterialApp(
-        home: body,
+      child: ChangeNotifierProvider<TvSeasonEpisodesNotifier>.value(
+        value: mockTvSeasonEpisodesNotifier,
+        child: MaterialApp(
+          home: body,
+        ),
       ),
     );
   }
@@ -36,6 +43,10 @@ void main() {
       when(mockNotifier.tv).thenReturn(testTvDetail);
       when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
       when(mockNotifier.recommendations).thenReturn(<Tv>[]);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodesState)
+          .thenReturn(RequestState.Loaded);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodes)
+          .thenReturn(<TvSeasonEpisode>[]);
       when(mockNotifier.isAddedToWatchlist).thenReturn(false);
 
       // act
@@ -56,6 +67,10 @@ void main() {
       when(mockNotifier.tv).thenReturn(testTvDetail);
       when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
       when(mockNotifier.recommendations).thenReturn(<Tv>[]);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodesState)
+          .thenReturn(RequestState.Loaded);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodes)
+          .thenReturn(<TvSeasonEpisode>[]);
       when(mockNotifier.isAddedToWatchlist).thenReturn(true);
 
       // act
@@ -76,7 +91,11 @@ void main() {
       when(mockNotifier.tv).thenReturn(testTvDetail);
       when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
       when(mockNotifier.recommendations).thenReturn(<Tv>[]);
-      when(mockNotifier.isAddedToWatchlist).thenReturn(true);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodesState)
+          .thenReturn(RequestState.Loaded);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodes)
+          .thenReturn(<TvSeasonEpisode>[]);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
       when(mockNotifier.watchlistMessage).thenReturn('Added to watchlist');
 
       // act
@@ -105,6 +124,10 @@ void main() {
       when(mockNotifier.tv).thenReturn(testTvDetail);
       when(mockNotifier.recommendationsState).thenReturn(RequestState.Loaded);
       when(mockNotifier.recommendations).thenReturn(<Tv>[]);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodesState)
+          .thenReturn(RequestState.Loaded);
+      when(mockTvSeasonEpisodesNotifier.seasonEpisodes)
+          .thenReturn(<TvSeasonEpisode>[]);
       when(mockNotifier.isAddedToWatchlist).thenReturn(false);
       when(mockNotifier.watchlistMessage).thenReturn('Failed');
 
