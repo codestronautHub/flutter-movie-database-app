@@ -28,6 +28,8 @@ class _TvDetailPageState extends State<TvDetailPage> {
     Future.microtask(() {
       Provider.of<TvDetailNotifier>(context, listen: false)
           .fetchTvDetail(widget.id);
+      Provider.of<TvDetailNotifier>(context, listen: false)
+          .loadWatchlistStatus(widget.id);
       Provider.of<TvSeasonEpisodesNotifier>(context, listen: false)
           .fetchTvSeasonEpisodes(widget.id, 1);
     });
@@ -45,6 +47,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
             return TvDetailContent(
               tv: tv,
               recommendations: provider.recommendations,
+              isAddedWatchlist: provider.isAddedToWatchlist,
             );
           } else {
             return Text(provider.message);
@@ -58,7 +61,12 @@ class _TvDetailPageState extends State<TvDetailPage> {
 class TvDetailContent extends StatefulWidget {
   final TvDetail tv;
   final List<Tv> recommendations;
-  const TvDetailContent({required this.tv, required this.recommendations});
+  final bool isAddedWatchlist;
+  const TvDetailContent({
+    required this.tv,
+    required this.recommendations,
+    required this.isAddedWatchlist,
+  });
 
   @override
   State<TvDetailContent> createState() => _TvDetailContentState();
@@ -184,8 +192,47 @@ class _TvDetailContentState extends State<TvDetailContent>
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Add to watchlist'),
+                  onPressed: () async {
+                    if (!widget.isAddedWatchlist) {
+                      await Provider.of<TvDetailNotifier>(context,
+                              listen: false)
+                          .addToWatchlist(widget.tv);
+                    } else {
+                      await Provider.of<TvDetailNotifier>(context,
+                              listen: false)
+                          .removeFromWatchlist(widget.tv);
+                    }
+
+                    final message =
+                        Provider.of<TvDetailNotifier>(context, listen: false)
+                            .watchlistMessage;
+
+                    if (message ==
+                            TvDetailNotifier.watchlistAddSuccessMessage ||
+                        message ==
+                            TvDetailNotifier.watchlistRemoveSuccessMessage) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(message)));
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(message),
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      widget.isAddedWatchlist
+                          ? Icon(Icons.check)
+                          : Icon(Icons.add),
+                      Text('Watchlist'),
+                    ],
+                  ),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
                     minimumSize: Size(

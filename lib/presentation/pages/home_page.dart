@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ListTile(
                         onTap: () {
                           Navigator.pushNamed(
-                              context, WatchlistMoviesPage.ROUTE_NAME);
+                              context, WatchlistPage.ROUTE_NAME);
                         },
                         leading: Icon(Icons.save_alt),
                         title: Text('Watchlist'),
