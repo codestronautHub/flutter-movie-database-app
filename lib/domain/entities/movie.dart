@@ -25,10 +25,12 @@ class Movie extends Equatable {
   });
 
   Movie.watchlist({
+    required this.releaseDate,
     required this.id,
     required this.overview,
     required this.posterPath,
     required this.title,
+    required this.voteAverage,
   });
 
   @override

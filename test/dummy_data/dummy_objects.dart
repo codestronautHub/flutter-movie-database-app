@@ -37,17 +37,21 @@ final testMovieDetail = MovieDetail(
 );
 
 final testWatchlistMovie = Movie.watchlist(
+  releaseDate: '2022-01-01',
   id: 1,
   overview: 'Overview',
   posterPath: '/path.jpg',
   title: 'Title',
+  voteAverage: 1.0,
 );
 
 final testMovieTable = MovieTable(
+  releaseDate: '2022-01-01',
   id: 1,
   overview: 'Overview',
   posterPath: '/path.jpg',
   title: 'Title',
+  voteAverage: 1.0,
 );
 
 final testMovieMap = {

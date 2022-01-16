@@ -53,7 +53,30 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
         ),
         body: TabBarView(
           children: [
-            Text('Movie Watchlist'),
+            Consumer<WatchlistMovieNotifier>(
+              builder: (context, data, child) {
+                if (data.watchlistState == RequestState.Loading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (data.watchlistState == RequestState.Loaded) {
+                  return ListView.builder(
+                    itemCount: data.watchlistMovies.length,
+                    padding: EdgeInsets.all(16.0),
+                    itemBuilder: (context, index) {
+                      final movie = data.watchlistMovies[index];
+                      return ItemCard(
+                        type: MdbContentType.Movie,
+                        movie: movie,
+                      );
+                    },
+                  );
+                } else {
+                  return Center(
+                    key: Key('error_message'),
+                    child: Text(data.message),
+                  );
+                }
+              },
+            ),
             Consumer<WatchlistTvNotifier>(
               builder: (context, data, child) {
                 if (data.watchlistState == RequestState.Loading) {
@@ -80,34 +103,6 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
             ),
           ],
         ),
-        // body: Padding(
-        //   padding: const EdgeInsets.all(8.0),
-        //   child: Consumer<WatchlistMovieNotifier>(
-        //     builder: (context, data, child) {
-        //       if (data.watchlistState == RequestState.Loading) {
-        //         return Center(
-        //           child: CircularProgressIndicator(),
-        //         );
-        //       } else if (data.watchlistState == RequestState.Loaded) {
-        //         return ListView.builder(
-        //           itemBuilder: (context, index) {
-        //             final movie = data.watchlistMovies[index];
-        //             return ItemCard(
-        //               type: ContentType.Movie,
-        //               movie: movie,
-        //             );
-        //           },
-        //           itemCount: data.watchlistMovies.length,
-        //         );
-        //       } else {
-        //         return Center(
-        //           key: Key('error_message'),
-        //           child: Text(data.message),
-        //         );
-        //       }
-        //     },
-        //   ),
-        // ),
       ),
     );
   }

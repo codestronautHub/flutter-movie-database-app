@@ -28,17 +28,19 @@ class DatabaseHelper {
     final path = await getDatabasesPath();
     final databasePath = '$path/mdb.db';
 
-    var db = await openDatabase(databasePath, version: 3, onCreate: _onCreate);
+    var db = await openDatabase(databasePath, version: 4, onCreate: _onCreate);
     return db;
   }
 
   void _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE  $_movieWatchlistTable (
+        releaseDate TEXT,
         id INTEGER PRIMARY KEY,
         title TEXT,
         overview TEXT,
-        posterPath TEXT
+        posterPath TEXT,
+        voteAverage DOUBLE
       );
     ''');
     await db.execute('''
