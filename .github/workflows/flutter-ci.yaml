@@ -18,22 +18,33 @@ jobs:
   build:
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
     
     # Setup the flutter environtment
-    - uses: subosito/flutter-action@v2
+    - name: Install and set Flutter version
+      uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
     
     # Get flutter dependencies
-    - run: flutter pub get
+    - name: Restore packages
+      run: flutter pub get
 
     # Check for any formatting issue in the code
-    - run: flutter format --set-exit-if-changed .
+    - name: Check formatting issue
+      run: flutter format --set-exit-if-changed .
 
     # Statically analyze the Dart code for any errors.
-    - run: flutter analyze .
+    - name: Analyze
+      run: flutter analyze .
 
     # Run widget tests for our flutter project.
-    - run: flutter test
+    - name: Run tests
+      run: flutter test --coverage
+
+    # Upload coverage to codecov
+    - name: Upload coverage to codecov
+      run: curl -s https://codecov.io/bash
+      shell: bash
