@@ -5,6 +5,7 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/presentation/widgets/minimal_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HorizontalItemList extends StatelessWidget {
   final MdbContentType type;
@@ -49,9 +50,20 @@ class HorizontalItemList extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(8.0)),
                     child: CachedNetworkImage(
+                      width: 120.0,
+                      fit: BoxFit.cover,
                       imageUrl: Urls.imageUrl(movie.posterPath!),
-                      placeholder: (context, url) => Center(
-                        child: CircularProgressIndicator(),
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        child: Container(
+                          height: 170.0,
+                          width: 120.0,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        baseColor: Colors.grey[850]!,
+                        highlightColor: Colors.grey[800]!,
                       ),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
@@ -93,9 +105,20 @@ class HorizontalItemList extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     child: CachedNetworkImage(
+                      width: 120.0,
+                      fit: BoxFit.cover,
                       imageUrl: Urls.imageUrl(tv.posterPath!),
-                      placeholder: (context, url) => Center(
-                        child: CircularProgressIndicator(),
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        child: Container(
+                          height: 170.0,
+                          width: 120.0,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        baseColor: Colors.grey[850]!,
+                        highlightColor: Colors.grey[800]!,
                       ),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),

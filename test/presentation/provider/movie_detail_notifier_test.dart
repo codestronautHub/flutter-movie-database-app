@@ -130,7 +130,7 @@ void main() {
 
         // assert
         expect(provider.movieState, equals(RequestState.Loaded));
-        expect(provider.movieRecommendations, equals(tMovies));
+        expect(provider.recommendations, equals(tMovies));
       },
     );
 
@@ -163,7 +163,7 @@ void main() {
 
         // assert
         verify(mockGetMovieRecommendations.execute(tId));
-        expect(provider.movieRecommendations, equals(tMovies));
+        expect(provider.recommendations, equals(tMovies));
       },
     );
 
@@ -177,8 +177,8 @@ void main() {
         await provider.fetchMovieDetail(tId);
 
         // assert
-        expect(provider.recommendationState, equals(RequestState.Loaded));
-        expect(provider.movieRecommendations, equals(tMovies));
+        expect(provider.recommendationsState, equals(RequestState.Loaded));
+        expect(provider.recommendations, equals(tMovies));
       },
     );
 
@@ -195,7 +195,7 @@ void main() {
         await provider.fetchMovieDetail(tId);
 
         // assert
-        expect(provider.recommendationState, equals(RequestState.Error));
+        expect(provider.recommendationsState, equals(RequestState.Error));
         expect(provider.message, equals('Failed'));
       },
     );
@@ -227,7 +227,7 @@ void main() {
             .thenAnswer((_) async => true);
 
         // act
-        await provider.addWatchlist(testMovieDetail);
+        await provider.addToWatchlist(testMovieDetail);
 
         // assert
         verify(mockSaveWatchlist.executeMovie(testMovieDetail));
@@ -261,7 +261,7 @@ void main() {
             .thenAnswer((_) async => true);
 
         // act
-        await provider.addWatchlist(testMovieDetail);
+        await provider.addToWatchlist(testMovieDetail);
 
         // assert
         verify(mockGetWatchlistStatus.executeMovie(testMovieDetail.id));
@@ -281,7 +281,7 @@ void main() {
             .thenAnswer((_) async => false);
 
         // act
-        await provider.addWatchlist(testMovieDetail);
+        await provider.addToWatchlist(testMovieDetail);
 
         // assert
         expect(provider.watchlistMessage, equals('Failed'));

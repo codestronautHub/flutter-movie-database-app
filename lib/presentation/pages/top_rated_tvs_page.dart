@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/top_rated_tvs_notifier.dart';
 import 'package:ditonton/presentation/widgets/item_card_list.dart';
@@ -38,15 +39,19 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (data.state == RequestState.Loaded) {
-              return ListView.builder(
-                itemCount: data.tvs.length,
-                itemBuilder: (context, index) {
-                  final tv = data.tvs[index];
-                  return ItemCard(
-                    type: MdbContentType.Tv,
-                    tv: tv,
-                  );
-                },
+              return FadeInUp(
+                from: 20,
+                duration: Duration(milliseconds: 500),
+                child: ListView.builder(
+                  itemCount: data.tvs.length,
+                  itemBuilder: (context, index) {
+                    final tv = data.tvs[index];
+                    return ItemCard(
+                      type: MdbContentType.Tv,
+                      tv: tv,
+                    );
+                  },
+                ),
               );
             } else {
               return Center(

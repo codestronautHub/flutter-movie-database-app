@@ -149,8 +149,8 @@ class MinimalDetail extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.all(16.0),
-            child: GestureDetector(
-              onTap: () {
+            child: TextButton(
+              onPressed: () {
                 if (type == MdbContentType.Movie) {
                   Navigator.pushNamed(
                     context,
@@ -177,6 +177,13 @@ class MinimalDetail extends StatelessWidget {
                   ),
                   Icon(Icons.arrow_forward_ios_rounded, size: 16.0),
                 ],
+              ),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 16.0,
+                ),
               ),
             ),
           ),

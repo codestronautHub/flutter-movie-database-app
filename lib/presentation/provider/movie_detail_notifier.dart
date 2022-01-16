@@ -33,17 +33,20 @@ class MovieDetailNotifier extends ChangeNotifier {
   RequestState _movieState = RequestState.Empty;
   RequestState get movieState => _movieState;
 
-  List<Movie> _movieRecommendations = [];
-  List<Movie> get movieRecommendations => _movieRecommendations;
+  List<Movie> _recommendations = [];
+  List<Movie> get recommendations => _recommendations;
 
-  RequestState _recommendationState = RequestState.Empty;
-  RequestState get recommendationState => _recommendationState;
+  RequestState _recommendationsState = RequestState.Empty;
+  RequestState get recommendationsState => _recommendationsState;
 
   String _message = '';
   String get message => _message;
 
-  bool _isAddedtoWatchlist = false;
-  bool get isAddedToWatchlist => _isAddedtoWatchlist;
+  bool _isAddedToWatchlist = false;
+  bool get isAddedToWatchlist => _isAddedToWatchlist;
+
+  String _watchlistMessage = '';
+  String get watchlistMessage => _watchlistMessage;
 
   Future<void> fetchMovieDetail(int id) async {
     _movieState = RequestState.Loading;
@@ -58,17 +61,17 @@ class MovieDetailNotifier extends ChangeNotifier {
         notifyListeners();
       },
       (movie) {
-        _recommendationState = RequestState.Loading;
+        _recommendationsState = RequestState.Loading;
         _movie = movie;
         notifyListeners();
         recommendationResult.fold(
           (failure) {
-            _recommendationState = RequestState.Error;
+            _recommendationsState = RequestState.Error;
             _message = failure.message;
           },
           (movies) {
-            _recommendationState = RequestState.Loaded;
-            _movieRecommendations = movies;
+            _recommendationsState = RequestState.Loaded;
+            _recommendations = movies;
           },
         );
         _movieState = RequestState.Loaded;
@@ -77,10 +80,7 @@ class MovieDetailNotifier extends ChangeNotifier {
     );
   }
 
-  String _watchlistMessage = '';
-  String get watchlistMessage => _watchlistMessage;
-
-  Future<void> addWatchlist(MovieDetail movie) async {
+  Future<void> addToWatchlist(MovieDetail movie) async {
     final result = await saveWatchlist.executeMovie(movie);
 
     await result.fold(
@@ -112,7 +112,7 @@ class MovieDetailNotifier extends ChangeNotifier {
 
   Future<void> loadWatchlistStatus(int id) async {
     final result = await getWatchListStatus.executeMovie(id);
-    _isAddedtoWatchlist = result;
+    _isAddedToWatchlist = result;
     notifyListeners();
   }
 }

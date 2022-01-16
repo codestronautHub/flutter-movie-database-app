@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
@@ -57,16 +58,20 @@ class SearchPage extends StatelessWidget {
           } else if (data.state == RequestState.Loaded) {
             final result = data.searchResult;
             return Expanded(
-              child: ListView.builder(
-                itemCount: result.length,
-                padding: EdgeInsets.zero,
-                itemBuilder: (context, index) {
-                  final movie = data.searchResult[index];
-                  return ItemCard(
-                    type: MdbContentType.Movie,
-                    movie: movie,
-                  );
-                },
+              child: FadeInUp(
+                from: 20,
+                duration: Duration(milliseconds: 500),
+                child: ListView.builder(
+                  itemCount: result.length,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    final movie = data.searchResult[index];
+                    return ItemCard(
+                      type: MdbContentType.Movie,
+                      movie: movie,
+                    );
+                  },
+                ),
               ),
             );
           } else {
