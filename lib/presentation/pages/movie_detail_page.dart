@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/urls.dart';
@@ -6,8 +7,10 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/widgets/minimal_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MovieDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/movie-detail';
@@ -72,185 +75,210 @@ class MovieDetailContent extends StatelessWidget {
           pinned: true,
           expandedHeight: 250.0,
           flexibleSpace: FlexibleSpaceBar(
-            background: ShaderMask(
-              shaderCallback: (rect) {
-                return LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black,
-                    Colors.black,
-                    Colors.transparent,
-                  ],
-                  stops: [0.0, 0.5, 1.0, 1.0],
-                ).createShader(
-                  Rect.fromLTRB(0.0, 0.0, rect.width, rect.height),
-                );
-              },
-              blendMode: BlendMode.dstIn,
-              child: CachedNetworkImage(
-                width: MediaQuery.of(context).size.width,
-                imageUrl: Urls.imageUrl(movie.backdropPath!),
-                fit: BoxFit.cover,
+            background: FadeIn(
+              duration: Duration(milliseconds: 500),
+              child: ShaderMask(
+                shaderCallback: (rect) {
+                  return LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black,
+                      Colors.black,
+                      Colors.transparent,
+                    ],
+                    stops: [0.0, 0.5, 1.0, 1.0],
+                  ).createShader(
+                    Rect.fromLTRB(0.0, 0.0, rect.width, rect.height),
+                  );
+                },
+                blendMode: BlendMode.dstIn,
+                child: CachedNetworkImage(
+                  width: MediaQuery.of(context).size.width,
+                  imageUrl: Urls.imageUrl(movie.backdropPath!),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
         ),
         SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  movie.title,
-                  style: kHeading5.copyWith(
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-                SizedBox(height: 8.0),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 2.0,
-                        horizontal: 8.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[800],
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Text(
-                        movie.releaseDate.split('-')[0],
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+          child: FadeInUp(
+            from: 20,
+            duration: Duration(milliseconds: 500),
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    movie.title,
+                    style: kHeading5.copyWith(
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.2,
                     ),
-                    SizedBox(width: 16.0),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20.0,
+                  ),
+                  SizedBox(height: 8.0),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 2.0,
+                          horizontal: 8.0,
                         ),
-                        SizedBox(width: 4.0),
-                        Text(
-                          (movie.voteAverage / 2).toStringAsFixed(1),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[800],
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: Text(
+                          movie.releaseDate.split('-')[0],
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w500,
-                            letterSpacing: 1.2,
                           ),
                         ),
-                        SizedBox(width: 4.0),
+                      ),
+                      SizedBox(width: 16.0),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 20.0,
+                          ),
+                          SizedBox(width: 4.0),
+                          Text(
+                            (movie.voteAverage / 2).toStringAsFixed(1),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                          SizedBox(width: 4.0),
+                          Text(
+                            '(${movie.voteAverage})',
+                            style: TextStyle(
+                              fontSize: 1.0,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 16.0),
+                      Text(
+                        _showDuration(movie.runtime),
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16.0),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (!isAddedToWatchlist) {
+                        await Provider.of<MovieDetailNotifier>(context,
+                                listen: false)
+                            .addToWatchlist(movie);
+                      } else {
+                        await Provider.of<MovieDetailNotifier>(context,
+                                listen: false)
+                            .removeFromWatchlist(movie);
+                      }
+
+                      final message = Provider.of<MovieDetailNotifier>(context,
+                              listen: false)
+                          .watchlistMessage;
+
+                      if (message ==
+                              MovieDetailNotifier.watchlistAddSuccessMessage ||
+                          message ==
+                              MovieDetailNotifier
+                                  .watchlistRemoveSuccessMessage) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(message)));
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text(message),
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        isAddedToWatchlist
+                            ? Icon(Icons.check, color: Colors.white)
+                            : Icon(Icons.add, color: Colors.black),
+                        SizedBox(width: 16.0),
                         Text(
-                          '(${movie.voteAverage})',
+                          isAddedToWatchlist
+                              ? 'Added to watchlist'
+                              : 'Add to watchlist',
                           style: TextStyle(
-                            fontSize: 1.0,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 1.2,
+                            color: isAddedToWatchlist
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(width: 16.0),
-                    Text(
-                      _showDuration(movie.runtime),
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 1.2,
+                    style: ElevatedButton.styleFrom(
+                      primary:
+                          isAddedToWatchlist ? Colors.grey[850] : Colors.white,
+                      minimumSize: Size(
+                        MediaQuery.of(context).size.width,
+                        42.0,
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (!isAddedToWatchlist) {
-                      await Provider.of<MovieDetailNotifier>(context,
-                              listen: false)
-                          .addToWatchlist(movie);
-                    } else {
-                      await Provider.of<MovieDetailNotifier>(context,
-                              listen: false)
-                          .removeFromWatchlist(movie);
-                    }
-
-                    final message =
-                        Provider.of<MovieDetailNotifier>(context, listen: false)
-                            .watchlistMessage;
-
-                    if (message ==
-                            MovieDetailNotifier.watchlistAddSuccessMessage ||
-                        message ==
-                            MovieDetailNotifier.watchlistRemoveSuccessMessage) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text(message)));
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text(message),
-                          );
-                        },
-                      );
-                    }
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      isAddedToWatchlist ? Icon(Icons.check) : Icon(Icons.add),
-                      Text('Watchlist'),
-                    ],
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    minimumSize: Size(
-                      MediaQuery.of(context).size.width,
-                      42.0,
+                  SizedBox(height: 16.0),
+                  Text(
+                    movie.overview,
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 1.2,
                     ),
                   ),
-                ),
-                SizedBox(height: 16.0),
-                Text(
-                  movie.overview,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 1.2,
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Genres: ${_showGenres(movie.genres)}',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 1.2,
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  'Genres: ${_showGenres(movie.genres)}',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
         SliverPadding(
           padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
           sliver: SliverToBoxAdapter(
-            child: Text(
-              'More like this'.toUpperCase(),
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 1.2,
+            child: FadeInUp(
+              from: 20,
+              duration: Duration(milliseconds: 500),
+              child: Text(
+                'More like this'.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 1.2,
+                ),
               ),
             ),
           ),
@@ -291,27 +319,53 @@ class MovieDetailContent extends StatelessWidget {
   Widget _showRecommendations() {
     return Consumer<MovieDetailNotifier>(
       builder: (context, data, child) {
-        if (data.recommendationsState == RequestState.Loading) {
-          return SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
-          );
-        } else if (data.recommendationsState == RequestState.Error) {
-          return SliverToBoxAdapter(child: Text(data.message));
-        } else if (data.recommendationsState == RequestState.Loaded) {
+        if (data.recommendationsState == RequestState.Loaded) {
           return SliverGrid(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final recommendation = data.recommendations[index];
-                return ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                  child: CachedNetworkImage(
-                    imageUrl: Urls.imageUrl(recommendation.posterPath!),
-                    placeholder: (context, url) => Center(
-                      child: CircularProgressIndicator(),
+                return FadeInUp(
+                  from: 20,
+                  duration: Duration(milliseconds: 500),
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10.0),
+                            topRight: Radius.circular(10.0),
+                          ),
+                        ),
+                        context: context,
+                        builder: (context) {
+                          return MinimalDetail(
+                            type: MdbContentType.Movie,
+                            movie: recommendation,
+                          );
+                        },
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      child: CachedNetworkImage(
+                        imageUrl: Urls.imageUrl(recommendation.posterPath!),
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          child: Container(
+                            height: 170.0,
+                            width: 120.0,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          baseColor: Colors.grey[850]!,
+                          highlightColor: Colors.grey[800]!,
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        height: 180.0,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                    height: 180.0,
-                    fit: BoxFit.cover,
                   ),
                 );
               },
@@ -327,8 +381,11 @@ class MovieDetailContent extends StatelessWidget {
                       : 4,
             ),
           );
+        } else if (data.recommendationsState == RequestState.Error) {
+          return SliverToBoxAdapter(child: Center(child: Text(data.message)));
         } else {
-          return SizedBox();
+          return SliverToBoxAdapter(
+              child: Center(child: CircularProgressIndicator()));
         }
       },
     );
