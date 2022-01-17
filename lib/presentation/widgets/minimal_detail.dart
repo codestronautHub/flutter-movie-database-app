@@ -8,16 +8,19 @@ import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class MinimalDetail extends StatelessWidget {
+  final String? keyValue;
+  final String? closeKeyValue;
   final MdbContentType type;
   final Movie? movie;
   final Tv? tv;
 
   const MinimalDetail({
-    Key? key,
+    this.keyValue,
+    this.closeKeyValue,
     required this.type,
     this.movie,
     this.tv,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +77,7 @@ class MinimalDetail extends StatelessWidget {
                                 height: 36.0,
                                 width: 36.0,
                                 child: TextButton(
+                                  key: Key(closeKeyValue ?? '-'),
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
@@ -150,6 +154,7 @@ class MinimalDetail extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextButton(
+              key: Key(keyValue ?? '-'),
               onPressed: () {
                 if (type == MdbContentType.Movie) {
                   Navigator.pushNamed(

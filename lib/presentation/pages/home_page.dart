@@ -3,7 +3,7 @@ import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/main_movie_page.dart';
 import 'package:ditonton/presentation/pages/main_tv_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:ditonton/presentation/provider/home_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
+                        key: Key('closeDrawerButton'),
                         onTap: toggle,
                         child: CircleAvatar(
                           child: Icon(Icons.close, color: kRichBlack),
@@ -135,6 +136,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         return Column(
                           children: [
                             ListTile(
+                              key: Key('movieListTile'),
                               onTap: () {
                                 Provider.of<HomeNotifier>(context,
                                         listen: false)
@@ -154,6 +156,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             ListTile(
+                              key: Key('tvListTile'),
                               onTap: () {
                                 Provider.of<HomeNotifier>(context,
                                         listen: false)
@@ -176,6 +179,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         );
                       }),
                       ListTile(
+                        key: Key('watchlistListTile'),
                         onTap: () {
                           Navigator.pushNamed(
                               context, WatchlistPage.ROUTE_NAME);
@@ -186,6 +190,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         textColor: Colors.white70,
                       ),
                       ListTile(
+                        key: Key('aboutListTile'),
                         onTap: () {
                           Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
                         },
@@ -214,6 +219,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         appBar: AppBar(
                           toolbarOpacity: toolbarOpacity,
                           leading: IconButton(
+                            key: Key('drawerButton'),
                             icon: Icon(Icons.menu),
                             splashRadius: 20.0,
                             onPressed: toggle,
@@ -227,6 +233,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                           actions: [
                             IconButton(
+                              key: Key('searchButton'),
                               icon: Icon(Icons.search),
                               splashRadius: 20.0,
                               onPressed: () => Navigator.pushNamed(

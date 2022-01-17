@@ -43,6 +43,7 @@ class _PopularTvsPageState extends State<PopularTvsPage> {
                 from: 20,
                 duration: Duration(milliseconds: 500),
                 child: ListView.builder(
+                  key: Key('popularTvsListView'),
                   itemCount: data.tvs.length,
                   itemBuilder: (context, index) {
                     final tv = data.tvs[index];

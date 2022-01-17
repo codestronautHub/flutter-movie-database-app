@@ -43,6 +43,7 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
                 from: 20,
                 duration: Duration(milliseconds: 500),
                 child: ListView.builder(
+                  key: Key('topRatedTvsListView'),
                   itemCount: data.tvs.length,
                   itemBuilder: (context, index) {
                     final tv = data.tvs[index];

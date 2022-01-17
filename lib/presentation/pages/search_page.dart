@@ -28,12 +28,14 @@ class SearchPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 RadioListTile<SearchFilter>(
+                  key: Key('filterByMovie'),
                   title: Text('Movie'),
                   value: SearchFilter.movie,
                   groupValue: data.filter,
                   onChanged: onMovieFilterSelected,
                 ),
                 RadioListTile<SearchFilter>(
+                  key: Key('filterByTv'),
                   title: Text('Tv'),
                   value: SearchFilter.tv,
                   groupValue: data.filter,
@@ -142,6 +144,7 @@ class SearchPage extends StatelessWidget {
                       Expanded(
                         flex: 6,
                         child: TextField(
+                          key: Key('enterSearchQuery'),
                           controller: _textEditingController,
                           onSubmitted: (query) {
                             if (data.filter == SearchFilter.movie) {
@@ -175,6 +178,7 @@ class SearchPage extends StatelessWidget {
                       SizedBox(width: 16.0),
                       Expanded(
                         child: IconButton(
+                          key: Key('openFilterDialog'),
                           onPressed: () {
                             _showFilterSearchDialog(
                               context: context,
