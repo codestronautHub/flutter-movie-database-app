@@ -1,8 +1,12 @@
 # Flutter Movie Database
 
+![Flutter](https://img.shields.io/badge/Flutter-095B9A?logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-25BEFA?logo=dart&logoColor=white)
 [![codecov](https://codecov.io/gh/codestronaut/flutter-movie-database-app/branch/main/graph/badge.svg?token=F777RVVH55)](https://codecov.io/gh/codestronaut/flutter-movie-database-app)
 ![GitHub stars](https://img.shields.io/github/stars/codestronautHub/flutter-movie-database-app?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/codestronautHub/flutter-movie-database-app?style=social)
+![Actions](https://img.shields.io/badge/GitHub%20Actions-2671E5?logo=github%20actions&logoColor=white)
+
 
 Movie Database app is a Flutter app project that allows users to search for a movie or tv series, see the detail, season & episode, and save watchlist. The movies and tv series data is gotten from https://www.themoviedb.org/
 
@@ -41,7 +45,7 @@ class Urls {
 * Test-Driven Development (TDD) - Unit, Widget, and Integration tests 🧪
 * Advanced UI 🏙️
 
-## Contributing to [This project](https://github.com/codestronautHub/flutter-movie-database-app)
+## 🔥 Contributing to [This project](https://github.com/codestronautHub/flutter-movie-database-app)
 
 If you are currently learning Flutter development and want to start contributing to open source, let's get started! To contribute to this project, follow these steps:
 
@@ -58,3 +62,5 @@ IMPORTANT: You must follow the clean architecture and TDD proccess to add a new 
 ## Contributors
 
 * [@codestronaut](https://github.com/codestronaut)
+
+Thanks 😊
