@@ -1,4 +1,3 @@
-import 'package:ditonton/common/constants.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
@@ -16,7 +15,7 @@ class AboutPage extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  color: kRichBlack,
+                  color: Color(0xFF1E1E29),
                   child: Center(
                     child: Text(
                       'MDB',
@@ -32,7 +31,7 @@ class AboutPage extends StatelessWidget {
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(32.0),
-                  color: kRichBlack,
+                  color: Color(0xFF1E1E29),
                   child: Text(
                     'Movie Database (MDB) is a movie and tv series catalog app developed by Aditya Rohman sebagai as a project submission for Flutter Developer Expert course on Dicoding Indonesia.',
                     style: TextStyle(fontSize: 16.0),

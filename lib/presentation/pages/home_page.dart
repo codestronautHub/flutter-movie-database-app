@@ -1,5 +1,5 @@
+import 'package:about/about.dart';
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/main_movie_page.dart';
 import 'package:ditonton/presentation/pages/main_tv_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
