@@ -46,7 +46,16 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
         appBar: AppBar(
           title: Text('Watchlist'),
           bottom: TabBar(
-            tabs: [Tab(text: 'Move'), Tab(text: 'Tv')],
+            tabs: [
+              Tab(
+                key: Key('movieWatchlistTab'),
+                text: 'Move',
+              ),
+              Tab(
+                key: Key('tvWatchlistTab'),
+                text: 'Tv',
+              ),
+            ],
             indicatorColor: Colors.redAccent,
             indicatorWeight: 4.0,
           ),
@@ -59,6 +68,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                   return Center(child: CircularProgressIndicator());
                 } else if (data.watchlistState == RequestState.Loaded) {
                   return ListView.builder(
+                    key: Key('movieWatchlist'),
                     itemCount: data.watchlistMovies.length,
                     padding: EdgeInsets.all(16.0),
                     itemBuilder: (context, index) {
@@ -83,6 +93,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                   return Center(child: CircularProgressIndicator());
                 } else if (data.watchlistState == RequestState.Loaded) {
                   return ListView.builder(
+                    key: Key('tvWatchlist'),
                     itemCount: data.watchlistTvs.length,
                     padding: EdgeInsets.all(16.0),
                     itemBuilder: (context, index) {

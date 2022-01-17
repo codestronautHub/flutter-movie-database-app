@@ -97,6 +97,7 @@ class _TvDetailContentState extends State<TvDetailContent>
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      key: Key('tvDetailScrollView'),
       slivers: [
         SliverAppBar(
           pinned: true,
@@ -217,6 +218,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                   ),
                   SizedBox(height: 16.0),
                   ElevatedButton(
+                    key: Key('tvToWatchlist'),
                     onPressed: () async {
                       if (!widget.isAddedToWatchlist) {
                         await Provider.of<TvDetailNotifier>(context,

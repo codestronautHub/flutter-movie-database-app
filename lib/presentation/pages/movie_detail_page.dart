@@ -70,6 +70,7 @@ class MovieDetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      key: Key('movieDetailScrollView'),
       slivers: [
         SliverAppBar(
           pinned: true,
@@ -181,6 +182,7 @@ class MovieDetailContent extends StatelessWidget {
                   ),
                   SizedBox(height: 16.0),
                   ElevatedButton(
+                    key: Key('movieToWatchlist'),
                     onPressed: () async {
                       if (!isAddedToWatchlist) {
                         await Provider.of<MovieDetailNotifier>(context,

@@ -23,27 +23,26 @@ class _MainTvPageState extends State<MainTvPage> {
   @override
   void initState() {
     super.initState();
-    loadData();
-  }
-
-  Future<void> loadData() async {
-    Future.microtask(
-      () => Provider.of<TvListNotifier>(context, listen: false)
-        ..fetchOnTheAirTvs()
-        ..fetchPopularTvs()
-        ..fetchTopRatedTvs().whenComplete(
-          () => Provider.of<TvImagesNotifier>(context, listen: false)
-              .fetchTvImages(Provider.of<TvListNotifier>(context, listen: false)
-                  .onTheAirTvs[0]
-                  .id),
-        ),
-    );
+    Future.microtask(() {
+      Provider.of<TvListNotifier>(context, listen: false)
+          .fetchOnTheAirTvs()
+          .whenComplete(
+            () => Provider.of<TvImagesNotifier>(context, listen: false)
+                .fetchTvImages(
+                    Provider.of<TvListNotifier>(context, listen: false)
+                        .onTheAirTvs[0]
+                        .id),
+          );
+      Provider.of<TvListNotifier>(context, listen: false).fetchPopularTvs();
+      Provider.of<TvListNotifier>(context, listen: false).fetchTopRatedTvs();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        key: Key('tvScrollView'),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -63,6 +62,7 @@ class _MainTvPageState extends State<MainTvPage> {
                     items: data.onTheAirTvs.map(
                       (item) {
                         return GestureDetector(
+                          key: Key('openTvMinimalDetail'),
                           onTap: () {
                             showModalBottomSheet(
                               shape: RoundedRectangleBorder(
@@ -74,6 +74,8 @@ class _MainTvPageState extends State<MainTvPage> {
                               context: context,
                               builder: (context) {
                                 return MinimalDetail(
+                                  keyValue: 'goToTvDetail',
+                                  closeKeyValue: 'closeTvMinimalDetail',
                                   type: MdbContentType.Tv,
                                   tv: item,
                                 );
@@ -205,6 +207,7 @@ class _MainTvPageState extends State<MainTvPage> {
               }
             }),
             SubHeading(
+              valueKey: 'seePopularTvs',
               text: 'Popular',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
@@ -252,6 +255,7 @@ class _MainTvPageState extends State<MainTvPage> {
               }
             }),
             SubHeading(
+              valueKey: 'seeTopRatedTvs',
               text: 'Top Rated',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,

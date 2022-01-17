@@ -24,28 +24,29 @@ class _MainMoviePageState extends State<MainMoviePage> {
   void initState() {
     super.initState();
 
-    loadData();
-  }
-
-  Future<void> loadData() async {
-    Future.microtask(
-      () => Provider.of<MovieListNotifier>(context, listen: false)
-        ..fetchNowPlayingMovies()
-        ..fetchPopularMovies()
-        ..fetchTopRatedMovies().whenComplete(
-          () => Provider.of<MovieImagesNotifier>(context, listen: false)
-              .fetchMovieImages(
-                  Provider.of<MovieListNotifier>(context, listen: false)
-                      .nowPlayingMovies[0]
-                      .id),
-        ),
-    );
+    Future.microtask(() {
+      Provider.of<MovieListNotifier>(context, listen: false)
+          .fetchNowPlayingMovies()
+          .whenComplete(
+            () => Provider.of<MovieImagesNotifier>(context, listen: false)
+                .fetchMovieImages(
+              Provider.of<MovieListNotifier>(context, listen: false)
+                  .nowPlayingMovies[0]
+                  .id,
+            ),
+          );
+      Provider.of<MovieListNotifier>(context, listen: false)
+          .fetchPopularMovies();
+      Provider.of<MovieListNotifier>(context, listen: false)
+          .fetchTopRatedMovies();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        key: Key('movieScrollView'),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,6 +66,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                     items: data.nowPlayingMovies.map(
                       (item) {
                         return GestureDetector(
+                          key: Key('openMovieMinimalDetail'),
                           onTap: () {
                             showModalBottomSheet(
                               shape: RoundedRectangleBorder(
@@ -76,6 +78,8 @@ class _MainMoviePageState extends State<MainMoviePage> {
                               context: context,
                               builder: (context) {
                                 return MinimalDetail(
+                                  keyValue: 'goToMovieDetail',
+                                  closeKeyValue: 'closeMovieMinimalDetail',
                                   type: MdbContentType.Movie,
                                   movie: item,
                                 );
@@ -207,6 +211,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
               }
             }),
             SubHeading(
+              valueKey: 'seePopularMovies',
               text: 'Popular',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
@@ -254,6 +259,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
               }
             }),
             SubHeading(
+              valueKey: 'seeTopRatedMovies',
               text: 'Top Rated',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,

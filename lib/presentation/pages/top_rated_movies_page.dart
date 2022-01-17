@@ -43,6 +43,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
                 from: 20,
                 duration: Duration(milliseconds: 500),
                 child: ListView.builder(
+                  key: Key('topRatedMoviesListView'),
                   itemBuilder: (context, index) {
                     final movie = data.movies[index];
                     return ItemCard(
