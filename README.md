@@ -46,6 +46,7 @@ class Urls {
 * Clean Architecture 🏗️
 * Test-Driven Development (TDD) - Unit, Widget, and Integration tests 🧪
 * Advanced UI 🏙️
+* Modularity
 
 ## 🔥 Contributing to [This project](https://github.com/codestronautHub/flutter-movie-database-app)
 
