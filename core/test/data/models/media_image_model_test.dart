@@ -7,14 +7,14 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../json_reader.dart';
 
 void main() {
-  final tMediaImageModel = MediaImageModel(
+  const tMediaImageModel = MediaImageModel(
     id: 1,
     backdropPaths: ['/path.jpg'],
     logoPaths: ['/path.png'],
     posterPaths: ['/path.jpg'],
   );
 
-  final tMediaImage = MediaImage(
+  const tMediaImage = MediaImage(
     id: 1,
     backdropPaths: ['/path.jpg'],
     logoPaths: ['/path.png'],

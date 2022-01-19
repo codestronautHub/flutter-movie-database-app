@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../json_reader.dart';
 
 void main() {
-  final tMovieDetailResponse = MovieDetailResponse(
+  const tMovieDetailResponse = MovieDetailResponse(
     backdropPath: '/path.jpg',
     genres: [GenreModel(id: 1, name: 'Genre 1')],
     id: 1,
@@ -22,7 +22,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tMovieDetail = MovieDetail(
+  const tMovieDetail = MovieDetail(
     backdropPath: '/path.jpg',
     genres: [Genre(id: 1, name: 'Genre 1')],
     id: 1,

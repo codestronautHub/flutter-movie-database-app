@@ -11,10 +11,10 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/movie-detail';
+  static const routeName = '/movie-detail';
 
   final int id;
-  MovieDetailPage({required this.id});
+  const MovieDetailPage({Key? key, required this.id}) : super(key: key);
 
   @override
   _MovieDetailPageState createState() => _MovieDetailPageState();
@@ -38,7 +38,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       body: Consumer<MovieDetailNotifier>(
         builder: (context, provider, child) {
           if (provider.movieState == RequestState.loading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (provider.movieState == RequestState.loaded) {
             final movie = provider.movie;
             return MovieDetailContent(
@@ -60,25 +60,26 @@ class MovieDetailContent extends StatelessWidget {
   final List<Movie> recommendations;
   final bool isAddedToWatchlist;
   const MovieDetailContent({
+    Key? key,
     required this.movie,
     required this.recommendations,
     required this.isAddedToWatchlist,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      key: Key('movieDetailScrollView'),
+      key: const Key('movieDetailScrollView'),
       slivers: [
         SliverAppBar(
           pinned: true,
           expandedHeight: 250.0,
           flexibleSpace: FlexibleSpaceBar(
             background: FadeIn(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               child: ShaderMask(
                 shaderCallback: (rect) {
-                  return LinearGradient(
+                  return const LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
@@ -105,9 +106,9 @@ class MovieDetailContent extends StatelessWidget {
         SliverToBoxAdapter(
           child: FadeInUp(
             from: 20,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             child: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -118,11 +119,11 @@ class MovieDetailContent extends StatelessWidget {
                       letterSpacing: 1.2,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 2.0,
                           horizontal: 8.0,
                         ),
@@ -132,33 +133,33 @@ class MovieDetailContent extends StatelessWidget {
                         ),
                         child: Text(
                           movie.releaseDate.split('-')[0],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-                      SizedBox(width: 16.0),
+                      const SizedBox(width: 16.0),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.star,
                             color: Colors.amber,
                             size: 20.0,
                           ),
-                          SizedBox(width: 4.0),
+                          const SizedBox(width: 4.0),
                           Text(
                             (movie.voteAverage / 2).toStringAsFixed(1),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1.2,
                             ),
                           ),
-                          SizedBox(width: 4.0),
+                          const SizedBox(width: 4.0),
                           Text(
                             '(${movie.voteAverage})',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 1.0,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1.2,
@@ -166,10 +167,10 @@ class MovieDetailContent extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(width: 16.0),
+                      const SizedBox(width: 16.0),
                       Text(
                         _showDuration(movie.runtime),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500,
@@ -178,9 +179,9 @@ class MovieDetailContent extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   ElevatedButton(
-                    key: Key('movieToWatchlist'),
+                    key: const Key('movieToWatchlist'),
                     onPressed: () async {
                       if (!isAddedToWatchlist) {
                         await Provider.of<MovieDetailNotifier>(context,
@@ -218,9 +219,9 @@ class MovieDetailContent extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         isAddedToWatchlist
-                            ? Icon(Icons.check, color: Colors.white)
-                            : Icon(Icons.add, color: Colors.black),
-                        SizedBox(width: 16.0),
+                            ? const Icon(Icons.check, color: Colors.white)
+                            : const Icon(Icons.add, color: Colors.black),
+                        const SizedBox(width: 16.0),
                         Text(
                           isAddedToWatchlist
                               ? 'Added to watchlist'
@@ -242,19 +243,19 @@ class MovieDetailContent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Text(
                     movie.overview,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,
                       letterSpacing: 1.2,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Text(
                     'Genres: ${_showGenres(movie.genres)}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
@@ -267,14 +268,14 @@ class MovieDetailContent extends StatelessWidget {
           ),
         ),
         SliverPadding(
-          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
           sliver: SliverToBoxAdapter(
             child: FadeInUp(
               from: 20,
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               child: Text(
                 'More like this'.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 1.2,
@@ -285,7 +286,7 @@ class MovieDetailContent extends StatelessWidget {
         ),
         // Tab(text: 'More like this'.toUpperCase()),
         SliverPadding(
-          padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
           sliver: _showRecommendations(),
         ),
       ],
@@ -326,11 +327,11 @@ class MovieDetailContent extends StatelessWidget {
                 final recommendation = data.recommendations[index];
                 return FadeInUp(
                   from: 20,
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.0),
                             topRight: Radius.circular(10.0),
@@ -346,7 +347,8 @@ class MovieDetailContent extends StatelessWidget {
                       );
                     },
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(4.0)),
                       child: CachedNetworkImage(
                         imageUrl: Urls.imageUrl(recommendation.posterPath!),
                         placeholder: (context, url) => Shimmer.fromColors(
@@ -361,7 +363,8 @@ class MovieDetailContent extends StatelessWidget {
                           baseColor: Colors.grey[850]!,
                           highlightColor: Colors.grey[800]!,
                         ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         height: 180.0,
                         fit: BoxFit.cover,
                       ),
@@ -384,7 +387,7 @@ class MovieDetailContent extends StatelessWidget {
         } else if (data.recommendationsState == RequestState.error) {
           return SliverToBoxAdapter(child: Center(child: Text(data.message)));
         } else {
-          return SliverToBoxAdapter(
+          return const SliverToBoxAdapter(
               child: Center(child: CircularProgressIndicator()));
         }
       },

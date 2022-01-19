@@ -116,27 +116,27 @@ class MyApp extends StatelessWidget {
           switch (settings.name) {
             case '/home':
               return MaterialPageRoute(builder: (_) => HomePage());
-            case PopularMoviesPage.ROUTE_NAME:
+            case PopularMoviesPage.routeName:
               return MaterialPageRoute(builder: (_) => PopularMoviesPage());
-            case TopRatedMoviesPage.ROUTE_NAME:
+            case TopRatedMoviesPage.routeName:
               return MaterialPageRoute(builder: (_) => TopRatedMoviesPage());
-            case MovieDetailPage.ROUTE_NAME:
+            case MovieDetailPage.routeName:
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: settings.arguments as int),
                 settings: settings,
               );
-            case PopularTvsPage.ROUTE_NAME:
+            case PopularTvsPage.routeName:
               return MaterialPageRoute(builder: (_) => PopularTvsPage());
-            case TopRatedTvsPage.ROUTE_NAME:
+            case TopRatedTvsPage.routeName:
               return MaterialPageRoute(builder: (_) => TopRatedTvsPage());
-            case TvDetailPage.ROUTE_NAME:
+            case TvDetailPage.routeName:
               return MaterialPageRoute(
                 builder: (_) => TvDetailPage(id: settings.arguments as int),
                 settings: settings,
               );
-            case SearchPage.ROUTE_NAME:
+            case SearchPage.routeName:
               return MaterialPageRoute(builder: (_) => SearchPage());
-            case WatchlistPage.ROUTE_NAME:
+            case WatchlistPage.routeName:
               return MaterialPageRoute(builder: (_) => WatchlistPage());
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => AboutPage());

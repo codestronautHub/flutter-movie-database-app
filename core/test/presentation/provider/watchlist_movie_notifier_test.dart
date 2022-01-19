@@ -47,8 +47,8 @@ void main() {
     'should return database failure when error',
     () async {
       // arrange
-      when(mockGetWatchlistMovies.execute())
-          .thenAnswer((_) async => Left(DatabaseFailure('Can\'t get data')));
+      when(mockGetWatchlistMovies.execute()).thenAnswer(
+          (_) async => const Left(DatabaseFailure('Can\'t get data')));
 
       // act
       await provider.fetchWatchlistMovies();

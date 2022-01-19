@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../json_reader.dart';
 
 void main() {
-  final tTvEpisodeModel = TvSeasonEpisodeModel(
+  const tTvEpisodeModel = TvSeasonEpisodeModel(
     airDate: '2022-01-01',
     episodeNumber: 1,
     id: 1,
@@ -19,7 +19,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tTvSeasonModel = TvSeasonEpisodeResponse(
+  const tTvSeasonModel = TvSeasonEpisodeResponse(
     tvEpisodes: <TvSeasonEpisodeModel>[tTvEpisodeModel],
   );
 

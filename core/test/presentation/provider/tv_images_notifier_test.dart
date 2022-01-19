@@ -25,7 +25,7 @@ void main() {
       });
   });
 
-  final tId = 1;
+  const tId = 1;
 
   group('tv images', () {
     test(
@@ -40,7 +40,7 @@ void main() {
       () async {
         // arrange
         when(mockGetTvImages.execute(tId))
-            .thenAnswer((_) async => Right(testImages));
+            .thenAnswer((_) async => const Right(testImages));
 
         // act
         await provider.fetchTvImages(tId);
@@ -53,7 +53,7 @@ void main() {
     test('should change state to loading when the usecase is called', () {
       // arrange
       when(mockGetTvImages.execute(tId))
-          .thenAnswer((_) async => Right(testImages));
+          .thenAnswer((_) async => const Right(testImages));
 
       // act
       provider.fetchTvImages(tId);
@@ -68,7 +68,7 @@ void main() {
       () async {
         // arrange
         when(mockGetTvImages.execute(tId))
-            .thenAnswer((_) async => Right(testImages));
+            .thenAnswer((_) async => const Right(testImages));
 
         // act
         await provider.fetchTvImages(tId);
@@ -84,8 +84,8 @@ void main() {
       'should return server failure when error',
       () async {
         // arrange
-        when(mockGetTvImages.execute(tId))
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockGetTvImages.execute(tId)).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchTvImages(tId);

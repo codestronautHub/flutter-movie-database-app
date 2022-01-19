@@ -27,7 +27,7 @@ void main() {
 
   final tMovieModel = Movie(
     backdropPath: '/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
-    genreIds: [28, 12, 878],
+    genreIds: const [28, 12, 878],
     id: 634649,
     overview:
         'Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.',
@@ -40,7 +40,7 @@ void main() {
 
   final tMovieList = <Movie>[tMovieModel];
 
-  final tQuery = 'spiderman';
+  const tQuery = 'spiderman';
 
   group('search a movie', () {
     test(
@@ -79,8 +79,8 @@ void main() {
       'should return server failure when error',
       () async {
         // arrange
-        when(mockSearchMovies.execute(tQuery))
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockSearchMovies.execute(tQuery)).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchMovieSearch(tQuery);

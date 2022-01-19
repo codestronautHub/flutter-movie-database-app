@@ -11,18 +11,23 @@ class HorizontalItemList extends StatelessWidget {
   final List<Movie>? movies;
   final List<Tv>? tvs;
 
-  HorizontalItemList({required this.type, this.movies, this.tvs});
+  const HorizontalItemList({
+    Key? key,
+    required this.type,
+    this.movies,
+    this.tvs,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     switch (type) {
       case MdbContentType.movie:
-        return Container(
+        return SizedBox(
           height: 170.0,
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             itemCount: movies!.length,
             itemBuilder: (context, index) {
               final movie = movies![index];
@@ -31,7 +36,7 @@ class HorizontalItemList extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10.0),
                           topRight: Radius.circular(10.0),
@@ -47,7 +52,7 @@ class HorizontalItemList extends StatelessWidget {
                     );
                   },
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     child: CachedNetworkImage(
                       width: 120.0,
                       fit: BoxFit.cover,
@@ -64,7 +69,8 @@ class HorizontalItemList extends StatelessWidget {
                         baseColor: Colors.grey[850]!,
                         highlightColor: Colors.grey[800]!,
                       ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   ),
                 ),
@@ -73,11 +79,11 @@ class HorizontalItemList extends StatelessWidget {
           ),
         );
       case MdbContentType.tv:
-        return Container(
+        return SizedBox(
           height: 170.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             itemCount: tvs!.length,
             itemBuilder: (context, index) {
               final tv = tvs![index];
@@ -86,7 +92,7 @@ class HorizontalItemList extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10.0),
                           topRight: Radius.circular(10.0),
@@ -102,7 +108,7 @@ class HorizontalItemList extends StatelessWidget {
                     );
                   },
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
                     child: CachedNetworkImage(
                       width: 120.0,
                       fit: BoxFit.cover,
@@ -119,7 +125,8 @@ class HorizontalItemList extends StatelessWidget {
                         baseColor: Colors.grey[850]!,
                         highlightColor: Colors.grey[800]!,
                       ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   ),
                 ),

@@ -49,12 +49,12 @@ void main() {
       });
   });
 
-  final tId = 1;
+  const tId = 1;
 
   final tTv = Tv(
     backdropPath: '/path.jpg',
     firstAirDate: '2022-01-01',
-    genreIds: [1, 2, 3, 4],
+    genreIds: const [1, 2, 3, 4],
     id: 1,
     name: 'Name',
     overview: 'Overview',
@@ -67,7 +67,7 @@ void main() {
 
   void _arrangeUsecase() {
     when(mockGetTvDetail.execute(tId))
-        .thenAnswer((_) async => Right(testTvDetail));
+        .thenAnswer((_) async => const Right(testTvDetail));
     when(mockGetTvRecommendations.execute(tId))
         .thenAnswer((_) async => Right(tTvs));
   }
@@ -137,8 +137,8 @@ void main() {
       'should return server failure when error',
       () async {
         // arrange
-        when(mockGetTvDetail.execute(tId))
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockGetTvDetail.execute(tId)).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
         when(mockGetTvRecommendations.execute(tId))
             .thenAnswer((_) async => Right(tTvs));
 
@@ -189,9 +189,9 @@ void main() {
       () async {
         // arrange
         when(mockGetTvDetail.execute(tId))
-            .thenAnswer((_) async => Right(testTvDetail));
+            .thenAnswer((_) async => const Right(testTvDetail));
         when(mockGetTvRecommendations.execute(tId))
-            .thenAnswer((_) async => Left(ServerFailure('Failed')));
+            .thenAnswer((_) async => const Left(ServerFailure('Failed')));
 
         // act
         await provider.fetchTvDetail(tId);
@@ -223,7 +223,7 @@ void main() {
       () async {
         // arrange
         when(mockSaveWatchlist.executeTv(testTvDetail))
-            .thenAnswer((_) async => Right('Success'));
+            .thenAnswer((_) async => const Right('Success'));
         when(mockGetWatchListStatus.executeTv(testTvDetail.id))
             .thenAnswer((_) async => true);
 
@@ -240,7 +240,7 @@ void main() {
       () async {
         // arrange
         when(mockRemoveWatchlist.executeTv(testTvDetail))
-            .thenAnswer((_) async => Right('Removed'));
+            .thenAnswer((_) async => const Right('Removed'));
         when(mockGetWatchListStatus.executeTv(testTvDetail.id))
             .thenAnswer((_) async => true);
 
@@ -257,7 +257,7 @@ void main() {
       () async {
         // arrange
         when(mockSaveWatchlist.executeTv(testTvDetail))
-            .thenAnswer((_) async => Right('Added to watchlist'));
+            .thenAnswer((_) async => const Right('Added to watchlist'));
         when(mockGetWatchListStatus.executeTv(testTvDetail.id))
             .thenAnswer((_) async => true);
 
@@ -277,7 +277,7 @@ void main() {
       () async {
         // arrange
         when(mockSaveWatchlist.executeTv(testTvDetail))
-            .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+            .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
         when(mockGetWatchListStatus.executeTv(testTvDetail.id))
             .thenAnswer((_) async => true);
 

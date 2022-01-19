@@ -28,7 +28,7 @@ void main() {
   final tTv = Tv(
     backdropPath: '/path.jpg',
     firstAirDate: '2022-01-01',
-    genreIds: [1, 2, 3, 4],
+    genreIds: const [1, 2, 3, 4],
     id: 1,
     name: 'Name',
     overview: 'Overview',
@@ -75,7 +75,7 @@ void main() {
     () async {
       // arrange
       when(mockGetPopularTvs.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server failure')));
 
       // act
       await notifier.fetchPopularTvs();

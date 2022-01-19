@@ -12,7 +12,7 @@ class MovieModel extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  MovieModel({
+  const MovieModel({
     required this.backdropPath,
     required this.genreIds,
     required this.id,
@@ -49,15 +49,15 @@ class MovieModel extends Equatable {
       };
 
   Movie toEntity() => Movie(
-        backdropPath: this.backdropPath,
-        genreIds: this.genreIds,
-        id: this.id,
-        overview: this.overview,
-        posterPath: this.posterPath,
-        releaseDate: this.releaseDate,
-        title: this.title,
-        voteAverage: this.voteAverage,
-        voteCount: this.voteCount,
+        backdropPath: backdropPath,
+        genreIds: genreIds,
+        id: id,
+        overview: overview,
+        posterPath: posterPath,
+        releaseDate: releaseDate,
+        title: title,
+        voteAverage: voteAverage,
+        voteCount: voteCount,
       );
 
   @override

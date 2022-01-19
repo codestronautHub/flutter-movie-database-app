@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../json_reader.dart';
 
 void main() {
-  final tMovieModel = MovieModel(
+  const tMovieModel = MovieModel(
     backdropPath: '/path.jpg',
     genreIds: [1, 2, 3, 4],
     id: 1,
@@ -19,7 +19,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tMovieResponseModel = MovieResponse(
+  const tMovieResponseModel = MovieResponse(
     movieList: <MovieModel>[tMovieModel],
   );
 

@@ -27,7 +27,7 @@ void main() {
 
   final tMovie = Movie(
     backdropPath: '/path.jpg',
-    genreIds: [1, 2, 3, 4],
+    genreIds: const [1, 2, 3, 4],
     id: 1,
     overview: 'Overview',
     posterPath: '/path.jpg',
@@ -77,7 +77,7 @@ void main() {
     () async {
       // arrange
       when(mockGetPopularMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server failure')));
 
       // act
       await notifier.fetchPopularMovies();

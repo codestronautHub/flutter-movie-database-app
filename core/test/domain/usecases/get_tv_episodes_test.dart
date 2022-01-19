@@ -15,8 +15,8 @@ void main() {
     usecase = GetTvSeasonEpisodes(mockTvRepository);
   });
 
-  final tId = 1;
-  final tSeasonNumber = 1;
+  const tId = 1;
+  const tSeasonNumber = 1;
   final tTvEpisodes = <TvSeasonEpisode>[];
 
   test(

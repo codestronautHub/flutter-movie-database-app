@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  static const ROUTE_NAME = '/home';
+  static const routeName = '/home';
+
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -26,7 +28,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     _drawerAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _drawerTween = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
@@ -37,7 +39,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     _colorAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 0),
+      duration: const Duration(milliseconds: 0),
     );
     _colorTween = ColorTween(
       begin: Colors.transparent,
@@ -79,7 +81,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
           return Stack(
             children: [
-              Container(
+              SizedBox(
                 width: 220.0,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -88,25 +90,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        key: Key('closeDrawerButton'),
+                        key: const Key('closeDrawerButton'),
                         onTap: toggle,
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           child: Icon(Icons.close, color: kRichBlack),
                           backgroundColor: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 128.0),
+                      const SizedBox(height: 128.0),
                       Row(
                         children: [
                           Expanded(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
-                              child: Image(
+                              child: const Image(
                                 image: AssetImage('assets/user.png'),
                               ),
                             ),
                           ),
-                          SizedBox(width: 16.0),
+                          const SizedBox(width: 16.0),
                           Expanded(
                             flex: 3,
                             child: Column(
@@ -129,20 +131,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           )
                         ],
                       ),
-                      SizedBox(height: 32.0),
+                      const SizedBox(height: 32.0),
                       Consumer<HomeNotifier>(builder: (context, data, child) {
                         return Column(
                           children: [
                             ListTile(
-                              key: Key('movieListTile'),
+                              key: const Key('movieListTile'),
                               onTap: () {
                                 Provider.of<HomeNotifier>(context,
                                         listen: false)
                                     .setState(MdbContentType.movie);
                                 toggle();
                               },
-                              leading: Icon(Icons.movie),
-                              title: Text('Movies'),
+                              leading: const Icon(Icons.movie),
+                              title: const Text('Movies'),
                               selected: data.state == MdbContentType.movie,
                               style: ListTileStyle.drawer,
                               iconColor: Colors.white70,
@@ -154,15 +156,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             ListTile(
-                              key: Key('tvListTile'),
+                              key: const Key('tvListTile'),
                               onTap: () {
                                 Provider.of<HomeNotifier>(context,
                                         listen: false)
                                     .setState(MdbContentType.tv);
                                 toggle();
                               },
-                              leading: Icon(Icons.tv),
-                              title: Text('Tv Show'),
+                              leading: const Icon(Icons.tv),
+                              title: const Text('Tv Show'),
                               selected: data.state == MdbContentType.tv,
                               style: ListTileStyle.drawer,
                               iconColor: Colors.white70,
@@ -177,23 +179,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         );
                       }),
                       ListTile(
-                        key: Key('watchlistListTile'),
+                        key: const Key('watchlistListTile'),
                         onTap: () {
-                          Navigator.pushNamed(
-                              context, WatchlistPage.ROUTE_NAME);
+                          Navigator.pushNamed(context, WatchlistPage.routeName);
                         },
-                        leading: Icon(Icons.save_alt),
-                        title: Text('Watchlist'),
+                        leading: const Icon(Icons.save_alt),
+                        title: const Text('Watchlist'),
                         iconColor: Colors.white70,
                         textColor: Colors.white70,
                       ),
                       ListTile(
-                        key: Key('aboutListTile'),
+                        key: const Key('aboutListTile'),
                         onTap: () {
                           Navigator.pushNamed(context, aboutRoute);
                         },
-                        leading: Icon(Icons.info_outline),
-                        title: Text('About'),
+                        leading: const Icon(Icons.info_outline),
+                        title: const Text('About'),
                         iconColor: Colors.white70,
                         textColor: Colors.white70,
                       ),
@@ -217,12 +218,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         appBar: AppBar(
                           toolbarOpacity: toolbarOpacity,
                           leading: IconButton(
-                            key: Key('drawerButton'),
-                            icon: Icon(Icons.menu),
+                            key: const Key('drawerButton'),
+                            icon: const Icon(Icons.menu),
                             splashRadius: 20.0,
                             onPressed: toggle,
                           ),
-                          title: Text(
+                          title: const Text(
                             'MDB',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -231,8 +232,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                           actions: [
                             IconButton(
-                              key: Key('searchButton'),
-                              icon: Icon(Icons.search),
+                              key: const Key('searchButton'),
+                              icon: const Icon(Icons.search),
                               splashRadius: 20.0,
                               onPressed: () => Navigator.pushNamed(
                                 context,
@@ -249,9 +250,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               builder: (context, data, child) {
                             final state = data.state;
                             if (state == MdbContentType.movie) {
-                              return MainMoviePage();
+                              return const MainMoviePage();
                             } else {
-                              return MainTvPage();
+                              return const MainTvPage();
                             }
                           }),
                         ),

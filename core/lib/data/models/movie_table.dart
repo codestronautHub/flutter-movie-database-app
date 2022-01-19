@@ -10,7 +10,7 @@ class MovieTable extends Equatable {
   final String? overview;
   final double? voteAverage;
 
-  MovieTable({
+  const MovieTable({
     required this.releaseDate,
     required this.id,
     required this.title,

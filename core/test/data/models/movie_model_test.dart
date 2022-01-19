@@ -3,7 +3,7 @@ import 'package:core/domain/entities/movie.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final tMovieModel = MovieModel(
+  const tMovieModel = MovieModel(
     backdropPath: '/path.jpg',
     genreIds: [1, 2, 3, 4],
     id: 1,
@@ -17,7 +17,7 @@ void main() {
 
   final tMovie = Movie(
     backdropPath: '/path.jpg',
-    genreIds: [1, 2, 3, 4],
+    genreIds: const [1, 2, 3, 4],
     id: 1,
     overview: 'Overview',
     posterPath: '/path.jpg',

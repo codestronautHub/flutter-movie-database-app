@@ -25,7 +25,7 @@ void main() {
       });
   });
 
-  final tId = 1;
+  const tId = 1;
 
   group('movie images', () {
     test(
@@ -40,7 +40,7 @@ void main() {
       () async {
         // arrange
         when(mockGetMovieImages.execute(tId))
-            .thenAnswer((_) async => Right(testImages));
+            .thenAnswer((_) async => const Right(testImages));
 
         // act
         await provider.fetchMovieImages(tId);
@@ -55,7 +55,7 @@ void main() {
       () {
         // arrange
         when(mockGetMovieImages.execute(tId))
-            .thenAnswer((_) async => Right(testImages));
+            .thenAnswer((_) async => const Right(testImages));
 
         // act
         provider.fetchMovieImages(tId);
@@ -71,7 +71,7 @@ void main() {
       () async {
         // arrange
         when(mockGetMovieImages.execute(tId))
-            .thenAnswer((_) async => Right(testImages));
+            .thenAnswer((_) async => const Right(testImages));
 
         // act
         await provider.fetchMovieImages(tId);
@@ -87,8 +87,8 @@ void main() {
       'should return server failure when error',
       () async {
         // arrange
-        when(mockGetMovieImages.execute(tId))
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockGetMovieImages.execute(tId)).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchMovieImages(tId);

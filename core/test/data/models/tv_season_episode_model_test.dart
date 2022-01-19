@@ -3,7 +3,7 @@ import 'package:core/domain/entities/tv_season_episode.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final tTvEpisodeModel = TvSeasonEpisodeModel(
+  const tTvEpisodeModel = TvSeasonEpisodeModel(
     airDate: '2022-01-01',
     episodeNumber: 1,
     id: 1,
@@ -15,7 +15,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tTvEpisode = TvSeasonEpisode(
+  const tTvEpisode = TvSeasonEpisode(
     airDate: '2022-01-01',
     episodeNumber: 1,
     id: 1,

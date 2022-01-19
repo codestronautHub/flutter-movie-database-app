@@ -25,14 +25,14 @@ void main() {
     () async {
       // arrange
       when(mockMovieRepository.saveWatchlist(testMovieDetail))
-          .thenAnswer((_) async => Right('Added to watchlist'));
+          .thenAnswer((_) async => const Right('Added to watchlist'));
 
       // act
       final result = await usecase.executeMovie(testMovieDetail);
 
       // assert
       verify(mockMovieRepository.saveWatchlist(testMovieDetail));
-      expect(result, equals(Right('Added to watchlist')));
+      expect(result, equals(const Right('Added to watchlist')));
     },
   );
 
@@ -41,14 +41,14 @@ void main() {
     () async {
       // arrange
       when(mockTvRepository.saveWatchlist(testTvDetail))
-          .thenAnswer((_) async => Right('Added to watchlist'));
+          .thenAnswer((_) async => const Right('Added to watchlist'));
 
       // act
       final result = await usecase.executeTv(testTvDetail);
 
       // assert
       verify(mockTvRepository.saveWatchlist(testTvDetail));
-      expect(result, equals(Right('Added to watchlist')));
+      expect(result, equals(const Right('Added to watchlist')));
     },
   );
 }

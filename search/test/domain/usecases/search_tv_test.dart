@@ -16,7 +16,7 @@ void main() {
   });
 
   final tTvs = <Tv>[];
-  final tQuery = 'Arcane';
+  const tQuery = 'Arcane';
 
   test(
     'should get list of tv from the repository based on query',

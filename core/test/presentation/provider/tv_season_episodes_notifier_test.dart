@@ -27,11 +27,11 @@ void main() {
       });
   });
 
-  final tId = 1;
+  const tId = 1;
 
-  final tSeasonNumber = 1;
+  const tSeasonNumber = 1;
 
-  final tTvSeasonEpisode = TvSeasonEpisode(
+  const tTvSeasonEpisode = TvSeasonEpisode(
     airDate: '2022-01-01',
     episodeNumber: 1,
     id: 1,
@@ -98,8 +98,8 @@ void main() {
       'should return server failure when error occurred',
       () async {
         // arrange
-        when(mockGetTvSeasonEpisodes.execute(tId, tSeasonNumber))
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockGetTvSeasonEpisodes.execute(tId, tSeasonNumber)).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchTvSeasonEpisodes(tId, tSeasonNumber);

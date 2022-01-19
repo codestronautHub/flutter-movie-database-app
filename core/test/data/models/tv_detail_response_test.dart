@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../json_reader.dart';
 
 void main() {
-  final tTvDetailResponse = TvDetailResponse(
+  const tTvDetailResponse = TvDetailResponse(
     backdropPath: '/path.jpg',
     episodeRunTime: [100],
     firstAirDate: '2022-01-01',
@@ -23,7 +23,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tTvDetail = TvDetail(
+  const tTvDetail = TvDetail(
     backdropPath: '/path.jpg',
     episodeRunTime: [100],
     firstAirDate: '2022-01-01',

@@ -10,7 +10,7 @@ import 'package:core/domain/entities/tv_season_episode.dart';
 
 final testMovie = Movie(
   backdropPath: '/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
-  genreIds: [28, 12, 878],
+  genreIds: const [28, 12, 878],
   id: 634649,
   overview:
       'Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.',
@@ -23,7 +23,7 @@ final testMovie = Movie(
 
 final testMovieList = [testMovie];
 
-final testMovieDetail = MovieDetail(
+const testMovieDetail = MovieDetail(
   backdropPath: '/path.jpg',
   genres: [Genre(id: 1, name: 'Genre 1')],
   id: 1,
@@ -45,7 +45,7 @@ final testWatchlistMovie = Movie.watchlist(
   voteAverage: 1.0,
 );
 
-final testMovieTable = MovieTable(
+const testMovieTable = MovieTable(
   releaseDate: '2022-01-01',
   id: 1,
   overview: 'Overview',
@@ -66,7 +66,7 @@ final testMovieMap = {
 final testTv = Tv(
   backdropPath: '/rkB4LyZHo1NHXFEDHl9vSD9r1lI.jpg',
   firstAirDate: '2021-11-06',
-  genreIds: [16, 10765, 10759, 18],
+  genreIds: const [16, 10765, 10759, 18],
   id: 94605,
   name: 'Arcane',
   overview:
@@ -78,7 +78,7 @@ final testTv = Tv(
 
 final testTvList = [testTv];
 
-final testTvDetail = TvDetail(
+const testTvDetail = TvDetail(
   backdropPath: '/path.jpg',
   episodeRunTime: [100],
   firstAirDate: '2022-01-01',
@@ -92,7 +92,7 @@ final testTvDetail = TvDetail(
   voteCount: 1,
 );
 
-final testTvSeasonEpisode = TvSeasonEpisode(
+const testTvSeasonEpisode = TvSeasonEpisode(
   airDate: '2022-01-01',
   episodeNumber: 1,
   id: 1,
@@ -115,7 +115,7 @@ final testWatchlistTv = Tv.watchList(
   voteAverage: 1.0,
 );
 
-final testTvTable = TvTable(
+const testTvTable = TvTable(
   firstAirDate: '2022-01-01',
   id: 1,
   name: 'Name',
@@ -133,7 +133,7 @@ final testTvMap = {
   'voteAverage': 1.0,
 };
 
-final testImages = MediaImage(
+const testImages = MediaImage(
   id: 1,
   backdropPaths: ['/path.jpg'],
   logoPaths: ['/path.jpg'],

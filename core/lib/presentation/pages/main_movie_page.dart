@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MainMoviePage extends StatefulWidget {
+  const MainMoviePage({Key? key}) : super(key: key);
+
   @override
   _MainMoviePageState createState() => _MainMoviePageState();
 }
@@ -45,14 +47,14 @@ class _MainMoviePageState extends State<MainMoviePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        key: Key('movieScrollView'),
+        key: const Key('movieScrollView'),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Consumer<MovieListNotifier>(builder: (context, data, child) {
               if (data.nowPlayingState == RequestState.loaded) {
                 return FadeIn(
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: CarouselSlider(
                     options: CarouselOptions(
                       height: 575.0,
@@ -65,10 +67,10 @@ class _MainMoviePageState extends State<MainMoviePage> {
                     items: data.nowPlayingMovies.map(
                       (item) {
                         return GestureDetector(
-                          key: Key('openMovieMinimalDetail'),
+                          key: const Key('openMovieMinimalDetail'),
                           onTap: () {
                             showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10.0),
                                   topRight: Radius.circular(10.0),
@@ -89,7 +91,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                             children: [
                               ShaderMask(
                                 shaderCallback: (rect) {
-                                  return LinearGradient(
+                                  return const LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                     colors: [
@@ -117,20 +119,21 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(bottom: 16.0),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 16.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.circle,
                                             color: Colors.redAccent,
                                             size: 16.0,
                                           ),
-                                          SizedBox(width: 4.0),
+                                          const SizedBox(width: 4.0),
                                           Text(
                                             'Now Playing'.toUpperCase(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 16.0,
                                             ),
                                           ),
@@ -138,7 +141,8 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.only(bottom: 16.0),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 16.0),
                                       child: Consumer<MovieImagesNotifier>(
                                         builder: (context, data, child) {
                                           if (data.movieImagesState ==
@@ -155,11 +159,11 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                             );
                                           } else if (data.movieImagesState ==
                                               RequestState.error) {
-                                            return Center(
+                                            return const Center(
                                               child: Text('Load data failed'),
                                             );
                                           } else {
-                                            return Center(
+                                            return const Center(
                                               child:
                                                   CircularProgressIndicator(),
                                             );
@@ -178,11 +182,11 @@ class _MainMoviePageState extends State<MainMoviePage> {
                   ),
                 );
               } else if (data.nowPlayingState == RequestState.error) {
-                return Center(child: Text('Load data failed'));
+                return const Center(child: Text('Load data failed'));
               } else {
                 return ShaderMask(
                   shaderCallback: (rect) {
-                    return LinearGradient(
+                    return const LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
@@ -214,28 +218,28 @@ class _MainMoviePageState extends State<MainMoviePage> {
               text: 'Popular',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
-                PopularMoviesPage.ROUTE_NAME,
+                PopularMoviesPage.routeName,
               ),
             ),
             Consumer<MovieListNotifier>(builder: (context, data, _) {
               if (data.popularMoviesState == RequestState.loaded) {
                 return FadeIn(
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: HorizontalItemList(
                     type: MdbContentType.movie,
                     movies: data.popularMovies,
                   ),
                 );
               } else if (data.popularMoviesState == RequestState.error) {
-                return Center(child: Text('Load data failed'));
+                return const Center(child: Text('Load data failed'));
               } else {
-                return Container(
+                return SizedBox(
                   height: 170.0,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: 5,
                     scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 8.0),
@@ -262,28 +266,28 @@ class _MainMoviePageState extends State<MainMoviePage> {
               text: 'Top Rated',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
-                TopRatedMoviesPage.ROUTE_NAME,
+                TopRatedMoviesPage.routeName,
               ),
             ),
             Consumer<MovieListNotifier>(builder: (context, data, child) {
               if (data.topRatedMoviesState == RequestState.loaded) {
                 return FadeIn(
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: HorizontalItemList(
                     type: MdbContentType.movie,
                     movies: data.topRatedMovies,
                   ),
                 );
               } else if (data.topRatedMoviesState == RequestState.error) {
-                return Center(child: Text('Load data failed'));
+                return const Center(child: Text('Load data failed'));
               } else {
-                return Container(
+                return SizedBox(
                   height: 170.0,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: 5,
                     scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 8.0),
@@ -305,7 +309,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 );
               }
             }),
-            SizedBox(height: 50.0),
+            const SizedBox(height: 50.0),
           ],
         ),
       ),

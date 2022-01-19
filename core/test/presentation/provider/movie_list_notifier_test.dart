@@ -40,7 +40,7 @@ void main() {
 
   final tMovie = Movie(
     backdropPath: '/path.jpg',
-    genreIds: [1, 2, 3, 4],
+    genreIds: const [1, 2, 3, 4],
     id: 1,
     overview: 'Overview',
     posterPath: '/path.jpg',
@@ -111,8 +111,8 @@ void main() {
       'should return server failure when error',
       () async {
         // arrange
-        when(mockGetNowPlayingMovies.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockGetNowPlayingMovies.execute()).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchNowPlayingMovies();
@@ -184,8 +184,8 @@ void main() {
       'should return server failure when error',
       () async {
         // arrange
-        when(mockGetPopularMovies.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockGetPopularMovies.execute()).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchPopularMovies();
@@ -257,8 +257,8 @@ void main() {
       'should return server failure when error',
       () async {
         // arrange
-        when(mockGetTopRatedMovies.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockGetTopRatedMovies.execute()).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchTopRatedMovies();

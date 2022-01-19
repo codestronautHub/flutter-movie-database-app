@@ -8,7 +8,9 @@ import 'package:search/presentation/provider/movie_search_notifier.dart';
 import 'package:search/presentation/provider/tv_search_notifier.dart';
 
 class SearchPage extends StatelessWidget {
-  static const ROUTE_NAME = '/search';
+  static const routeName = '/search';
+
+  SearchPage({Key? key}) : super(key: key);
 
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -22,20 +24,20 @@ class SearchPage extends StatelessWidget {
       builder: (context) {
         return Consumer<SearchFilterNotifier>(builder: (context, data, child) {
           return AlertDialog(
-            title: Text('Filter by'),
+            title: const Text('Filter by'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 RadioListTile<SearchFilter>(
-                  key: Key('filterByMovie'),
-                  title: Text('Movie'),
+                  key: const Key('filterByMovie'),
+                  title: const Text('Movie'),
                   value: SearchFilter.movie,
                   groupValue: data.filter,
                   onChanged: onMovieFilterSelected,
                 ),
                 RadioListTile<SearchFilter>(
-                  key: Key('filterByTv'),
-                  title: Text('Tv'),
+                  key: const Key('filterByTv'),
+                  title: const Text('Tv'),
                   value: SearchFilter.tv,
                   groupValue: data.filter,
                   onChanged: onTvFilterSelected,
@@ -53,7 +55,7 @@ class SearchPage extends StatelessWidget {
       return Consumer<MovieSearchNotifier>(
         builder: (context, data, child) {
           if (data.state == RequestState.loading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (data.state == RequestState.loaded) {
@@ -61,7 +63,7 @@ class SearchPage extends StatelessWidget {
             return Expanded(
               child: FadeInUp(
                 from: 20,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: ListView.builder(
                   itemCount: result.length,
                   padding: EdgeInsets.zero,
@@ -86,7 +88,7 @@ class SearchPage extends StatelessWidget {
       return Consumer<TvSearchNotifier>(
         builder: (context, data, child) {
           if (data.state == RequestState.loading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (data.state == RequestState.loaded) {
@@ -129,7 +131,7 @@ class SearchPage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Search'),
+          title: const Text('Search'),
         ),
         body: Consumer<SearchFilterNotifier>(
           builder: (context, data, child) {
@@ -143,7 +145,7 @@ class SearchPage extends StatelessWidget {
                       Expanded(
                         flex: 6,
                         child: TextField(
-                          key: Key('enterSearchQuery'),
+                          key: const Key('enterSearchQuery'),
                           controller: _textEditingController,
                           onSubmitted: (query) {
                             if (data.filter == SearchFilter.movie) {
@@ -158,7 +160,7 @@ class SearchPage extends StatelessWidget {
                           },
                           decoration: InputDecoration(
                             hintText: 'Search title',
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.search,
                               color: Colors.white70,
                             ),
@@ -167,17 +169,17 @@ class SearchPage extends StatelessWidget {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(color: Colors.white),
+                              borderSide: const BorderSide(color: Colors.white),
                             ),
                           ),
                           textInputAction: TextInputAction.search,
                           cursorColor: Colors.white,
                         ),
                       ),
-                      SizedBox(width: 16.0),
+                      const SizedBox(width: 16.0),
                       Expanded(
                         child: IconButton(
-                          key: Key('openFilterDialog'),
+                          key: const Key('openFilterDialog'),
                           onPressed: () {
                             _showFilterSearchDialog(
                               context: context,
@@ -201,17 +203,17 @@ class SearchPage extends StatelessWidget {
                               },
                             );
                           },
-                          icon: Icon(Icons.filter_alt_outlined),
+                          icon: const Icon(Icons.filter_alt_outlined),
                           splashRadius: 20.0,
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Row(
                       children: [
-                        Text(
+                        const Text(
                           'Search Result for ',
                           style: TextStyle(
                             fontSize: 16.0,

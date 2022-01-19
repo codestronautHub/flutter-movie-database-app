@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../json_reader.dart';
 
 void main() {
-  final tTvModel = TvModel(
+  const tTvModel = TvModel(
     backdropPath: '/path.jpg',
     firstAirDate: '2022-01-01',
     genreIds: [1, 2, 3, 4],
@@ -19,7 +19,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tTvResponseModel = TvResponse(
+  const tTvResponseModel = TvResponse(
     tvList: <TvModel>[tTvModel],
   );
 

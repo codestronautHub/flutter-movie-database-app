@@ -11,11 +11,12 @@ class ItemCard extends StatelessWidget {
   final Movie? movie;
   final Tv? tv;
 
-  ItemCard({
+  const ItemCard({
+    Key? key,
     required this.type,
     this.movie,
     this.tv,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +25,20 @@ class ItemCard extends StatelessWidget {
         if (type == MdbContentType.movie) {
           Navigator.pushNamed(
             context,
-            MovieDetailPage.ROUTE_NAME,
+            MovieDetailPage.routeName,
             arguments: movie!.id,
           );
         } else {
           Navigator.pushNamed(
             context,
-            TvDetailPage.ROUTE_NAME,
+            TvDetailPage.routeName,
             arguments: tv!.id,
           );
         }
       },
       child: Container(
-        padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.only(bottom: 16.0),
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.only(bottom: 16.0),
         decoration: BoxDecoration(
           color: Colors.grey[850],
           borderRadius: BorderRadius.circular(10.0),
@@ -53,14 +54,14 @@ class ItemCard extends StatelessWidget {
                         ? movie!.posterPath!
                         : tv!.posterPath!,
                   ),
-                  placeholder: (context, url) => Center(
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),
-            SizedBox(width: 16.0),
+            const SizedBox(width: 16.0),
             Expanded(
               flex: 3,
               child: Column(
@@ -74,11 +75,11 @@ class ItemCard extends StatelessWidget {
                     style: kHeading6,
                     maxLines: 1,
                   ),
-                  SizedBox(height: 4.0),
+                  const SizedBox(height: 4.0),
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 8.0,
                           vertical: 2.0,
                         ),
@@ -90,13 +91,13 @@ class ItemCard extends StatelessWidget {
                             ? movie!.releaseDate!.split('-')[0]
                             : tv!.firstAirDate!.split('-')[0]),
                       ),
-                      SizedBox(width: 16.0),
-                      Icon(
+                      const SizedBox(width: 16.0),
+                      const Icon(
                         Icons.star,
                         color: Colors.amber,
                         size: 18.0,
                       ),
-                      SizedBox(width: 4.0),
+                      const SizedBox(width: 4.0),
                       Text(
                         type == MdbContentType.movie
                             ? (movie!.voteAverage! / 2).toStringAsFixed(1)
@@ -104,7 +105,7 @@ class ItemCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Text(
                     type == MdbContentType.movie
                         ? movie!.overview ?? '-'

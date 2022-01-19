@@ -15,7 +15,7 @@ void main() {
     usecase = GetTvRecommendations(mockTvRepository);
   });
 
-  final tId = 1;
+  const tId = 1;
   final tTvs = <Tv>[];
 
   test(

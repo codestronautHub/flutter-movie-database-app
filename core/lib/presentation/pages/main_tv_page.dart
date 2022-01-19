@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MainTvPage extends StatefulWidget {
+  const MainTvPage({Key? key}) : super(key: key);
+
   @override
   _MainTvPageState createState() => _MainTvPageState();
 }
@@ -41,14 +43,14 @@ class _MainTvPageState extends State<MainTvPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        key: Key('tvScrollView'),
+        key: const Key('tvScrollView'),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Consumer<TvListNotifier>(builder: (context, data, child) {
               if (data.onTheAirTvsState == RequestState.loaded) {
                 return FadeIn(
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: CarouselSlider(
                     options: CarouselOptions(
                       height: 575.0,
@@ -61,10 +63,10 @@ class _MainTvPageState extends State<MainTvPage> {
                     items: data.onTheAirTvs.map(
                       (item) {
                         return GestureDetector(
-                          key: Key('openTvMinimalDetail'),
+                          key: const Key('openTvMinimalDetail'),
                           onTap: () {
                             showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10.0),
                                   topRight: Radius.circular(10.0),
@@ -85,7 +87,7 @@ class _MainTvPageState extends State<MainTvPage> {
                             children: [
                               ShaderMask(
                                 shaderCallback: (rect) {
-                                  return LinearGradient(
+                                  return const LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                     colors: [
@@ -113,20 +115,21 @@ class _MainTvPageState extends State<MainTvPage> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(bottom: 16.0),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 16.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.circle,
                                             color: Colors.redAccent,
                                             size: 16.0,
                                           ),
-                                          SizedBox(width: 4.0),
+                                          const SizedBox(width: 4.0),
                                           Text(
                                             'On The Air'.toUpperCase(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 16.0,
                                             ),
                                           ),
@@ -134,7 +137,8 @@ class _MainTvPageState extends State<MainTvPage> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.only(bottom: 16.0),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 16.0),
                                       child: Consumer<TvImagesNotifier>(
                                         builder: (context, data, child) {
                                           if (data.tvImagesState ==
@@ -151,11 +155,11 @@ class _MainTvPageState extends State<MainTvPage> {
                                             );
                                           } else if (data.tvImagesState ==
                                               RequestState.error) {
-                                            return Center(
+                                            return const Center(
                                               child: Text('Load data failed'),
                                             );
                                           } else {
-                                            return Center(
+                                            return const Center(
                                               child:
                                                   CircularProgressIndicator(),
                                             );
@@ -174,11 +178,11 @@ class _MainTvPageState extends State<MainTvPage> {
                   ),
                 );
               } else if (data.onTheAirTvsState == RequestState.error) {
-                return Center(child: Text('Load data failed'));
+                return const Center(child: Text('Load data failed'));
               } else {
                 return ShaderMask(
                   shaderCallback: (rect) {
-                    return LinearGradient(
+                    return const LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
@@ -210,28 +214,28 @@ class _MainTvPageState extends State<MainTvPage> {
               text: 'Popular',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
-                PopularTvsPage.ROUTE_NAME,
+                PopularTvsPage.routeName,
               ),
             ),
             Consumer<TvListNotifier>(builder: (context, data, child) {
               if (data.popularTvsState == RequestState.loaded) {
                 return FadeIn(
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: HorizontalItemList(
                     type: MdbContentType.tv,
                     tvs: data.popularTvs,
                   ),
                 );
               } else if (data.popularTvsState == RequestState.error) {
-                return Center(child: Text('Load data failed'));
+                return const Center(child: Text('Load data failed'));
               } else {
-                return Container(
+                return SizedBox(
                   height: 170.0,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: 5,
                     scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 8.0),
@@ -258,28 +262,28 @@ class _MainTvPageState extends State<MainTvPage> {
               text: 'Top Rated',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
-                TopRatedTvsPage.ROUTE_NAME,
+                TopRatedTvsPage.routeName,
               ),
             ),
             Consumer<TvListNotifier>(builder: (context, data, child) {
               if (data.topRatedTvsState == RequestState.loaded) {
                 return FadeIn(
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: HorizontalItemList(
                     type: MdbContentType.tv,
                     tvs: data.topRatedTvs,
                   ),
                 );
               } else if (data.topRatedTvsState == RequestState.error) {
-                return Center(child: Text('Load data failed'));
+                return const Center(child: Text('Load data failed'));
               } else {
-                return Container(
+                return SizedBox(
                   height: 170.0,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: 5,
                     scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 8.0),
@@ -301,7 +305,7 @@ class _MainTvPageState extends State<MainTvPage> {
                 );
               }
             }),
-            SizedBox(height: 50.0),
+            const SizedBox(height: 50.0),
           ],
         ),
       ),

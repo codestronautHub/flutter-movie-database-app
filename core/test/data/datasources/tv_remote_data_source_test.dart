@@ -124,7 +124,7 @@ void main() {
   });
 
   group('get tv detail', () {
-    final tId = 1;
+    const tId = 1;
     final tTvDetail = TvDetailResponse.fromJson(
       json.decode(readJson('dummy_data/tv_detail.json')),
     );
@@ -162,8 +162,8 @@ void main() {
   });
 
   group('get tv season episodes', () {
-    final tId = 1;
-    final tSeasonNumber = 1;
+    const tId = 1;
+    const tSeasonNumber = 1;
     final tTvSeasonEpisodes = TvSeasonEpisodeResponse.fromJson(
       json.decode(readJson('dummy_data/tv_season.json')),
     ).tvEpisodes;
@@ -201,7 +201,7 @@ void main() {
   });
 
   group('get tv recommendations', () {
-    final tId = 1;
+    const tId = 1;
     final tTvList = TvResponse.fromJson(
       json.decode(readJson('dummy_data/tv_recommendations.json')),
     ).tvList;
@@ -239,7 +239,7 @@ void main() {
   });
 
   group('search a tv', () {
-    final tQuery = 'Arcane';
+    const tQuery = 'Arcane';
     final tSearchResult = TvResponse.fromJson(
       json.decode(readJson('dummy_data/search_tv.json')),
     ).tvList;
@@ -277,7 +277,7 @@ void main() {
   });
 
   group('get tv images', () {
-    final tId = 1;
+    const tId = 1;
     final tTvImages = MediaImageModel.fromJson(
       json.decode(readJson('dummy_data/images.json')),
     );

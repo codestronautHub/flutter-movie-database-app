@@ -14,7 +14,7 @@ class MovieDetailResponse extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  MovieDetailResponse({
+  const MovieDetailResponse({
     required this.backdropPath,
     required this.genres,
     required this.id,
@@ -56,16 +56,16 @@ class MovieDetailResponse extends Equatable {
       };
 
   MovieDetail toEntity() => MovieDetail(
-        backdropPath: this.backdropPath,
-        genres: this.genres.map((genre) => genre.toEntity()).toList(),
-        id: this.id,
-        overview: this.overview,
-        posterPath: this.posterPath,
-        releaseDate: this.releaseDate,
-        runtime: this.runtime,
-        title: this.title,
-        voteAverage: this.voteAverage,
-        voteCount: this.voteCount,
+        backdropPath: backdropPath,
+        genres: genres.map((genre) => genre.toEntity()).toList(),
+        id: id,
+        overview: overview,
+        posterPath: posterPath,
+        releaseDate: releaseDate,
+        runtime: runtime,
+        title: title,
+        voteAverage: voteAverage,
+        voteCount: voteCount,
       );
 
   @override

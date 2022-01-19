@@ -6,7 +6,9 @@ import 'package:core/presentation/provider/watchlist_tv_provider.dart';
 import 'package:core/presentation/widgets/item_card_list.dart';
 
 class WatchlistPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist';
+  static const routeName = '/watchlist';
+
+  const WatchlistPage({Key? key}) : super(key: key);
 
   @override
   _WatchlistPageState createState() => _WatchlistPageState();
@@ -30,6 +32,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     Provider.of<WatchlistMovieNotifier>(context, listen: false)
         .fetchWatchlistMovies();
@@ -43,8 +46,8 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Watchlist'),
-          bottom: TabBar(
+          title: const Text('Watchlist'),
+          bottom: const TabBar(
             tabs: [
               Tab(
                 key: Key('movieWatchlistTab'),
@@ -64,12 +67,12 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
             Consumer<WatchlistMovieNotifier>(
               builder: (context, data, child) {
                 if (data.watchlistState == RequestState.loading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (data.watchlistState == RequestState.loaded) {
                   return ListView.builder(
-                    key: Key('movieWatchlist'),
+                    key: const Key('movieWatchlist'),
                     itemCount: data.watchlistMovies.length,
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     itemBuilder: (context, index) {
                       final movie = data.watchlistMovies[index];
                       return ItemCard(
@@ -80,7 +83,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                   );
                 } else {
                   return Center(
-                    key: Key('error_message'),
+                    key: const Key('error_message'),
                     child: Text(data.message),
                   );
                 }
@@ -89,12 +92,12 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
             Consumer<WatchlistTvNotifier>(
               builder: (context, data, child) {
                 if (data.watchlistState == RequestState.loading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (data.watchlistState == RequestState.loaded) {
                   return ListView.builder(
-                    key: Key('tvWatchlist'),
+                    key: const Key('tvWatchlist'),
                     itemCount: data.watchlistTvs.length,
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     itemBuilder: (context, index) {
                       final tv = data.watchlistTvs[index];
                       return ItemCard(
@@ -105,7 +108,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                   );
                 } else {
                   return Center(
-                    key: Key('error_message'),
+                    key: const Key('error_message'),
                     child: Text(data.message),
                   );
                 }

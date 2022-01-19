@@ -3,9 +3,9 @@ import 'package:core/domain/entities/genre.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final tGenreModel = GenreModel(id: 1, name: 'Genre 1');
+  const tGenreModel = GenreModel(id: 1, name: 'Genre 1');
 
-  final tGenre = Genre(id: 1, name: 'Genre 1');
+  const tGenre = Genre(id: 1, name: 'Genre 1');
 
   group('to entity', () {
     test(

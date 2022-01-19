@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TopRatedMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/top-rated-movies';
+  static const routeName = '/top-rated-movies';
+
+  const TopRatedMoviesPage({Key? key}) : super(key: key);
 
   @override
   _TopRatedMoviesPageState createState() => _TopRatedMoviesPageState();
@@ -26,7 +28,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('Top Rated Movies'),
+        title: const Text('Top Rated Movies'),
         backgroundColor: Colors.black.withOpacity(0.6),
         elevation: 0.0,
       ),
@@ -35,15 +37,15 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
         child: Consumer<TopRatedMoviesNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.loading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (data.state == RequestState.loaded) {
               return FadeInUp(
                 from: 20,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: ListView.builder(
-                  key: Key('topRatedMoviesListView'),
+                  key: const Key('topRatedMoviesListView'),
                   itemBuilder: (context, index) {
                     final movie = data.movies[index];
                     return ItemCard(
@@ -56,7 +58,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
               );
             } else {
               return Center(
-                key: Key('error_message'),
+                key: const Key('error_message'),
                 child: Text(data.message),
               );
             }

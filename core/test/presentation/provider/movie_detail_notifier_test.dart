@@ -49,11 +49,11 @@ void main() {
       });
   });
 
-  final tId = 1;
+  const tId = 1;
 
   final tMovie = Movie(
     backdropPath: '/path.jpg',
-    genreIds: [1, 2, 3, 4],
+    genreIds: const [1, 2, 3, 4],
     id: 1,
     overview: 'Overview',
     posterPath: '/path.jpg',
@@ -67,7 +67,7 @@ void main() {
 
   void _arrangeUsecase() {
     when(mockGetMovieDetail.execute(tId))
-        .thenAnswer((_) async => Right(testMovieDetail));
+        .thenAnswer((_) async => const Right(testMovieDetail));
     when(mockGetMovieRecommendations.execute(tId))
         .thenAnswer((_) async => Right(tMovies));
   }
@@ -137,7 +137,7 @@ void main() {
     test('should return server failure when error', () async {
       // arrange
       when(mockGetMovieDetail.execute(tId))
-          .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server failure')));
       when(mockGetMovieRecommendations.execute(tId))
           .thenAnswer((_) async => Right(tMovies));
 
@@ -187,9 +187,9 @@ void main() {
       () async {
         // arrange
         when(mockGetMovieDetail.execute(tId))
-            .thenAnswer((_) async => Right(testMovieDetail));
+            .thenAnswer((_) async => const Right(testMovieDetail));
         when(mockGetMovieRecommendations.execute(tId))
-            .thenAnswer((_) async => Left(ServerFailure('Failed')));
+            .thenAnswer((_) async => const Left(ServerFailure('Failed')));
 
         // act
         await provider.fetchMovieDetail(tId);
@@ -222,7 +222,7 @@ void main() {
       () async {
         // arrange
         when(mockSaveWatchlist.executeMovie(testMovieDetail))
-            .thenAnswer((_) async => Right('Success'));
+            .thenAnswer((_) async => const Right('Success'));
         when(mockGetWatchlistStatus.executeMovie(testMovieDetail.id))
             .thenAnswer((_) async => true);
 
@@ -239,7 +239,7 @@ void main() {
       () async {
         // arrange
         when(mockRemoveWatchlist.executeMovie(testMovieDetail))
-            .thenAnswer((_) async => Right('Removed'));
+            .thenAnswer((_) async => const Right('Removed'));
         when(mockGetWatchlistStatus.executeMovie(testMovieDetail.id))
             .thenAnswer((_) async => false);
 
@@ -256,7 +256,7 @@ void main() {
       () async {
         // arrange
         when(mockSaveWatchlist.executeMovie(testMovieDetail))
-            .thenAnswer((_) async => Right('Added to watchlist'));
+            .thenAnswer((_) async => const Right('Added to watchlist'));
         when(mockGetWatchlistStatus.executeMovie(testMovieDetail.id))
             .thenAnswer((_) async => true);
 
@@ -276,7 +276,7 @@ void main() {
       () async {
         // arrange
         when(mockSaveWatchlist.executeMovie(testMovieDetail))
-            .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+            .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
         when(mockGetWatchlistStatus.executeMovie(testMovieDetail.id))
             .thenAnswer((_) async => false);
 

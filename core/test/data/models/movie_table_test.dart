@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../dummy_data/dummy_objects.dart';
 
 void main() {
-  final tMovieTable = MovieTable(
+  const tMovieTable = MovieTable(
     releaseDate: '2022-01-01',
     id: 1,
     title: 'Title',
@@ -25,7 +25,7 @@ void main() {
     voteAverage: 1.0,
   );
 
-  final tMovieDetail = MovieDetail(
+  const tMovieDetail = MovieDetail(
     backdropPath: '/path.jpg',
     genres: [Genre(id: 1, name: 'Genre 1')],
     id: 1,

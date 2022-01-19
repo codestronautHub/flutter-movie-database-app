@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TopRatedTvsPage extends StatefulWidget {
-  static const ROUTE_NAME = '/top-rated-tvs';
+  static const routeName = '/top-rated-tvs';
+
+  const TopRatedTvsPage({Key? key}) : super(key: key);
 
   @override
   _TopRatedTvsPageState createState() => _TopRatedTvsPageState();
@@ -26,7 +28,7 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('Top Rated Tvs'),
+        title: const Text('Top Rated Tvs'),
         backgroundColor: Colors.black.withOpacity(0.6),
         elevation: 0.0,
       ),
@@ -35,15 +37,15 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
         child: Consumer<TopRatedTvsNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.loading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (data.state == RequestState.loaded) {
               return FadeInUp(
                 from: 20,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: ListView.builder(
-                  key: Key('topRatedTvsListView'),
+                  key: const Key('topRatedTvsListView'),
                   itemCount: data.tvs.length,
                   itemBuilder: (context, index) {
                     final tv = data.tvs[index];
@@ -56,7 +58,7 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
               );
             } else {
               return Center(
-                key: Key('error_message'),
+                key: const Key('error_message'),
                 child: Text(data.message),
               );
             }

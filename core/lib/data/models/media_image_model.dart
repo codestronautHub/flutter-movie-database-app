@@ -7,7 +7,7 @@ class MediaImageModel extends Equatable {
   final List<String> logoPaths;
   final List<String> posterPaths;
 
-  MediaImageModel({
+  const MediaImageModel({
     required this.id,
     required this.backdropPaths,
     required this.logoPaths,
@@ -29,10 +29,10 @@ class MediaImageModel extends Equatable {
       );
 
   MediaImage toEntity() => MediaImage(
-        id: this.id,
-        backdropPaths: this.backdropPaths,
-        logoPaths: this.logoPaths,
-        posterPaths: this.posterPaths,
+        id: id,
+        backdropPaths: backdropPaths,
+        logoPaths: logoPaths,
+        posterPaths: posterPaths,
       );
 
   @override

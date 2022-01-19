@@ -12,7 +12,7 @@ class TvSeasonEpisodeModel extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  TvSeasonEpisodeModel({
+  const TvSeasonEpisodeModel({
     required this.airDate,
     required this.episodeNumber,
     required this.id,
@@ -50,15 +50,15 @@ class TvSeasonEpisodeModel extends Equatable {
       };
 
   TvSeasonEpisode toEntity() => TvSeasonEpisode(
-        airDate: this.airDate,
-        episodeNumber: this.episodeNumber,
-        id: this.id,
-        name: this.name,
-        overview: this.overview,
-        seasonNumber: this.seasonNumber,
-        stillPath: this.stillPath,
-        voteAverage: this.voteAverage,
-        voteCount: this.voteCount,
+        airDate: airDate,
+        episodeNumber: episodeNumber,
+        id: id,
+        name: name,
+        overview: overview,
+        seasonNumber: seasonNumber,
+        stillPath: stillPath,
+        voteAverage: voteAverage,
+        voteCount: voteCount,
       );
 
   @override

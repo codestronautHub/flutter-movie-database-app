@@ -97,7 +97,7 @@ void main() {
   });
 
   group('get movie detail by id', () {
-    final tId = 1;
+    const tId = 1;
 
     test(
       'should return movie detail table when data is found',

@@ -15,7 +15,7 @@ class TvDetailResponse extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  TvDetailResponse({
+  const TvDetailResponse({
     required this.backdropPath,
     required this.episodeRunTime,
     required this.firstAirDate,
@@ -60,17 +60,17 @@ class TvDetailResponse extends Equatable {
       };
 
   TvDetail toEntity() => TvDetail(
-        backdropPath: this.backdropPath,
-        episodeRunTime: this.episodeRunTime,
-        firstAirDate: this.firstAirDate,
-        genres: this.genres.map((genre) => genre.toEntity()).toList(),
-        id: this.id,
-        name: this.name,
-        numberOfSeasons: this.numberOfSeasons,
-        overview: this.overview,
-        posterPath: this.posterPath,
-        voteAverage: this.voteAverage,
-        voteCount: this.voteCount,
+        backdropPath: backdropPath,
+        episodeRunTime: episodeRunTime,
+        firstAirDate: firstAirDate,
+        genres: genres.map((genre) => genre.toEntity()).toList(),
+        id: id,
+        name: name,
+        numberOfSeasons: numberOfSeasons,
+        overview: overview,
+        posterPath: posterPath,
+        voteAverage: voteAverage,
+        voteCount: voteCount,
       );
 
   @override

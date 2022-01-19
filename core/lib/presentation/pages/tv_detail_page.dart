@@ -13,10 +13,10 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TvDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/tv-detail';
+  static const routeName = '/tv-detail';
 
   final int id;
-  TvDetailPage({required this.id});
+  const TvDetailPage({Key? key, required this.id}) : super(key: key);
 
   @override
   _TvDetailPageState createState() => _TvDetailPageState();
@@ -42,7 +42,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
       body: Consumer<TvDetailNotifier>(
         builder: (context, provider, child) {
           if (provider.tvState == RequestState.loading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (provider.tvState == RequestState.loaded) {
             final tv = provider.tv;
             return TvDetailContent(
@@ -66,11 +66,12 @@ class TvDetailContent extends StatefulWidget {
   final List<Tv> recommendations;
   final bool isAddedToWatchlist;
   const TvDetailContent({
+    Key? key,
     required this.tv,
     required this.seasonNumber,
     required this.recommendations,
     required this.isAddedToWatchlist,
-  });
+  }) : super(key: key);
 
   @override
   State<TvDetailContent> createState() => _TvDetailContentState();
@@ -80,7 +81,7 @@ class _TvDetailContentState extends State<TvDetailContent>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _selectedIndex = 0;
-  List<int> _seasons = [];
+  final List<int> _seasons = [];
   int _currentSeason = 1;
 
   @override
@@ -95,7 +96,7 @@ class _TvDetailContentState extends State<TvDetailContent>
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      key: Key('tvDetailScrollView'),
+      key: const Key('tvDetailScrollView'),
       slivers: [
         SliverAppBar(
           pinned: true,
@@ -104,7 +105,7 @@ class _TvDetailContentState extends State<TvDetailContent>
             background: FadeIn(
               child: ShaderMask(
                 shaderCallback: (rect) {
-                  return LinearGradient(
+                  return const LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
@@ -131,9 +132,9 @@ class _TvDetailContentState extends State<TvDetailContent>
         SliverToBoxAdapter(
           child: FadeInUp(
             from: 20,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             child: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -144,11 +145,11 @@ class _TvDetailContentState extends State<TvDetailContent>
                       letterSpacing: 1.2,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 2.0,
                           horizontal: 8.0,
                         ),
@@ -158,33 +159,33 @@ class _TvDetailContentState extends State<TvDetailContent>
                         ),
                         child: Text(
                           widget.tv.firstAirDate.split('-')[0],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-                      SizedBox(width: 16.0),
+                      const SizedBox(width: 16.0),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.star,
                             color: Colors.amber,
                             size: 20.0,
                           ),
-                          SizedBox(width: 4.0),
+                          const SizedBox(width: 4.0),
                           Text(
                             (widget.tv.voteAverage / 2).toStringAsFixed(1),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1.2,
                             ),
                           ),
-                          SizedBox(width: 4.0),
+                          const SizedBox(width: 4.0),
                           Text(
                             '(${widget.tv.voteAverage})',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 1.0,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1.2,
@@ -192,20 +193,20 @@ class _TvDetailContentState extends State<TvDetailContent>
                           ),
                         ],
                       ),
-                      SizedBox(width: 16.0),
+                      const SizedBox(width: 16.0),
                       Text(
                         '${widget.tv.numberOfSeasons} Seasons',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1.2,
                         ),
                       ),
-                      SizedBox(width: 16.0),
+                      const SizedBox(width: 16.0),
                       Text(
                         _showEpisodeDuration(widget.tv.episodeRunTime[0]),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500,
@@ -214,9 +215,9 @@ class _TvDetailContentState extends State<TvDetailContent>
                       ),
                     ],
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   ElevatedButton(
-                    key: Key('tvToWatchlist'),
+                    key: const Key('tvToWatchlist'),
                     onPressed: () async {
                       if (!widget.isAddedToWatchlist) {
                         await Provider.of<TvDetailNotifier>(context,
@@ -253,9 +254,9 @@ class _TvDetailContentState extends State<TvDetailContent>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         widget.isAddedToWatchlist
-                            ? Icon(Icons.check, color: Colors.white)
-                            : Icon(Icons.add, color: Colors.black),
-                        SizedBox(width: 16.0),
+                            ? const Icon(Icons.check, color: Colors.white)
+                            : const Icon(Icons.add, color: Colors.black),
+                        const SizedBox(width: 16.0),
                         Text(
                           widget.isAddedToWatchlist
                               ? 'Added to watchlist'
@@ -278,19 +279,19 @@ class _TvDetailContentState extends State<TvDetailContent>
                       ),
                     ),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Text(
                     widget.tv.overview,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,
                       letterSpacing: 1.2,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Text(
                     'Genres: ${_showGenres(widget.tv.genres)}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
@@ -303,13 +304,13 @@ class _TvDetailContentState extends State<TvDetailContent>
           ),
         ),
         SliverPadding(
-          padding: EdgeInsets.only(bottom: 16.0),
+          padding: const EdgeInsets.only(bottom: 16.0),
           sliver: SliverToBoxAdapter(
             child: FadeIn(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               child: TabBar(
                 controller: _tabController,
-                indicator: BoxDecoration(
+                indicator: const BoxDecoration(
                   border: Border(
                     top: BorderSide(
                       color: Colors.redAccent,
@@ -337,10 +338,10 @@ class _TvDetailContentState extends State<TvDetailContent>
 
           return _selectedIndex == 0
               ? SliverPadding(
-                  padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
                   sliver: SliverToBoxAdapter(
                     child: FadeIn(
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.grey[850],
@@ -364,16 +365,20 @@ class _TvDetailContentState extends State<TvDetailContent>
                                 );
                               },
                               items: _seasons
-                                  .map((item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Text(
-                                          'Season $item',
-                                          style: TextStyle(color: Colors.white),
+                                  .map(
+                                    (item) => DropdownMenuItem(
+                                      value: item,
+                                      child: Text(
+                                        'Season $item',
+                                        style: const TextStyle(
+                                          color: Colors.white,
                                         ),
-                                      ))
+                                      ),
+                                    ),
+                                  )
                                   .toList(),
                               value: _currentSeason,
-                              style: new TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16.0,
                                 letterSpacing: 1.2,
                               ),
@@ -384,7 +389,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                     ),
                   ),
                 )
-              : SliverToBoxAdapter();
+              : const SliverToBoxAdapter();
         }),
         Builder(builder: (context) {
           _tabController.addListener(() {
@@ -397,11 +402,11 @@ class _TvDetailContentState extends State<TvDetailContent>
 
           return _selectedIndex == 0
               ? SliverPadding(
-                  padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
                   sliver: _showSeasonEpisodes(),
                 )
               : SliverPadding(
-                  padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
                   sliver: _showRecommendations(),
                 );
         }),
@@ -411,9 +416,9 @@ class _TvDetailContentState extends State<TvDetailContent>
 
   String _showGenres(List<Genre> genres) {
     String result = '';
-    genres.forEach((genre) {
+    for (var genre in genres) {
       result += genre.name + ', ';
-    });
+    }
 
     if (result.isEmpty) {
       return result;
@@ -443,11 +448,11 @@ class _TvDetailContentState extends State<TvDetailContent>
                 final recommendation = data.recommendations[index];
                 return FadeInUp(
                   from: 20,
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.0),
                             topRight: Radius.circular(10.0),
@@ -463,7 +468,8 @@ class _TvDetailContentState extends State<TvDetailContent>
                       );
                     },
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(4.0)),
                       child: CachedNetworkImage(
                         imageUrl: Urls.imageUrl(recommendation.posterPath!),
                         placeholder: (context, url) => Shimmer.fromColors(
@@ -478,7 +484,8 @@ class _TvDetailContentState extends State<TvDetailContent>
                           baseColor: Colors.grey[850]!,
                           highlightColor: Colors.grey[800]!,
                         ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         height: 180.0,
                         fit: BoxFit.cover,
                       ),
@@ -501,7 +508,7 @@ class _TvDetailContentState extends State<TvDetailContent>
         } else if (data.recommendationsState == RequestState.error) {
           return SliverToBoxAdapter(child: Center(child: Text(data.message)));
         } else {
-          return SliverToBoxAdapter(
+          return const SliverToBoxAdapter(
             child: Center(child: CircularProgressIndicator()),
           );
         }
@@ -514,7 +521,7 @@ class _TvDetailContentState extends State<TvDetailContent>
       builder: (context, data, child) {
         if (data.seasonEpisodesState == RequestState.loaded) {
           return data.seasonEpisodes.isEmpty
-              ? SliverToBoxAdapter(
+              ? const SliverToBoxAdapter(
                   child: Center(
                     child: Text(
                       'Comming Soon!',
@@ -528,9 +535,9 @@ class _TvDetailContentState extends State<TvDetailContent>
                       final seasonEpisode = data.seasonEpisodes[index];
                       return FadeInUp(
                         from: 20,
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 24.0),
+                          margin: const EdgeInsets.only(bottom: 24.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -538,21 +545,23 @@ class _TvDetailContentState extends State<TvDetailContent>
                                 children: [
                                   Expanded(
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.all(
+                                      borderRadius: const BorderRadius.all(
                                         Radius.circular(4.0),
                                       ),
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
                                         imageUrl: Urls.imageUrl(
                                             seasonEpisode.stillPath!),
-                                        placeholder: (context, url) => Center(
-                                            child: CircularProgressIndicator()),
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
                                         errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
+                                            const Icon(Icons.error),
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 16.0),
+                                  const SizedBox(width: 16.0),
                                   Expanded(
                                     flex: 2,
                                     child: Column(
@@ -563,7 +572,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                                           width: 200.0,
                                           child: Text(
                                             '${seasonEpisode.episodeNumber}. ${seasonEpisode.name}',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.w600,
                                             ),
@@ -574,7 +583,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                                             DateTime.parse(
                                                 seasonEpisode.airDate),
                                           ),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white70,
                                             fontSize: 12.0,
                                             letterSpacing: 1.2,
@@ -586,10 +595,10 @@ class _TvDetailContentState extends State<TvDetailContent>
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: 8.0),
+                                padding: const EdgeInsets.only(top: 8.0),
                                 child: Text(
                                   seasonEpisode.overview,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white70,
                                     fontSize: 10.0,
                                     letterSpacing: 1.2,
@@ -608,7 +617,7 @@ class _TvDetailContentState extends State<TvDetailContent>
         if (data.seasonEpisodesState == RequestState.error) {
           return SliverToBoxAdapter(child: Center(child: Text(data.message)));
         } else {
-          return SliverToBoxAdapter(
+          return const SliverToBoxAdapter(
             child: Center(child: CircularProgressIndicator()),
           );
         }

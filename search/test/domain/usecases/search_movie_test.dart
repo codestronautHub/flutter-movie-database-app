@@ -16,7 +16,7 @@ void main() {
   });
 
   final tMovies = <Movie>[];
-  final tQuery = 'Spiderman';
+  const tQuery = 'Spiderman';
 
   test(
     'should get list of movie from the repository based on query',

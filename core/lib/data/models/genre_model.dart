@@ -5,7 +5,7 @@ class GenreModel extends Equatable {
   final int id;
   final String name;
 
-  GenreModel({
+  const GenreModel({
     required this.id,
     required this.name,
   });
@@ -21,8 +21,8 @@ class GenreModel extends Equatable {
       };
 
   Genre toEntity() => Genre(
-        id: this.id,
-        name: this.name,
+        id: id,
+        name: name,
       );
 
   @override

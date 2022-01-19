@@ -37,7 +37,7 @@ void main() {
       final centerFinder = find.byType(Center);
       final progressFinder = find.byType(CircularProgressIndicator);
 
-      await tester.pumpWidget(_makeTestableWidget(TopRatedMoviesPage()));
+      await tester.pumpWidget(_makeTestableWidget(const TopRatedMoviesPage()));
 
       // assert
       expect(centerFinder, equals(findsOneWidget));
@@ -56,10 +56,10 @@ void main() {
       final listViewFinder = find.byType(ListView);
 
       await tester.pumpWidget(
-        _makeTestableWidget(TopRatedMoviesPage()),
-        Duration(milliseconds: 500),
+        _makeTestableWidget(const TopRatedMoviesPage()),
+        const Duration(milliseconds: 500),
       );
-      await tester.pumpAndSettle(Duration(milliseconds: 500));
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
 
       // assert
       expect(listViewFinder, equals(findsOneWidget));
@@ -74,13 +74,13 @@ void main() {
       when(mockNotifier.message).thenReturn('Error message');
 
       // act
-      final textFinder = find.byKey(Key('error_message'));
+      final textFinder = find.byKey(const Key('error_message'));
 
       await tester.pumpWidget(
-        _makeTestableWidget(TopRatedMoviesPage()),
-        Duration(milliseconds: 500),
+        _makeTestableWidget(const TopRatedMoviesPage()),
+        const Duration(milliseconds: 500),
       );
-      await tester.pumpAndSettle(Duration(milliseconds: 500));
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
 
       // assert
       expect(textFinder, equals(findsOneWidget));

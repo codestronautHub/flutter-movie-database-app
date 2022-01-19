@@ -49,15 +49,15 @@ class TvModel extends Equatable {
       };
 
   Tv toEntity() => Tv(
-        backdropPath: this.backdropPath,
-        firstAirDate: this.firstAirDate,
-        genreIds: this.genreIds,
-        id: this.id,
-        name: this.name,
-        overview: this.overview,
-        posterPath: this.posterPath,
-        voteAverage: this.voteAverage,
-        voteCount: this.voteCount,
+        backdropPath: backdropPath,
+        firstAirDate: firstAirDate,
+        genreIds: genreIds,
+        id: id,
+        name: name,
+        overview: overview,
+        posterPath: posterPath,
+        voteAverage: voteAverage,
+        voteCount: voteCount,
       );
 
   @override

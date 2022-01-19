@@ -10,7 +10,7 @@ class TvTable extends Equatable {
   final String? posterPath;
   final double? voteAverage;
 
-  TvTable({
+  const TvTable({
     required this.firstAirDate,
     required this.id,
     required this.name,

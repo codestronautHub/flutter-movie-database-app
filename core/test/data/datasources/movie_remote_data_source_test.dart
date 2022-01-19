@@ -131,7 +131,7 @@ void main() {
   });
 
   group('get movie detail', () {
-    final tId = 1;
+    const tId = 1;
     final tMovieDetail = MovieDetailResponse.fromJson(
       json.decode(readJson('dummy_data/movie_detail.json')),
     );
@@ -169,7 +169,7 @@ void main() {
   });
 
   group('get movie recommendations', () {
-    final tId = 1;
+    const tId = 1;
     final tMovieList = MovieResponse.fromJson(
       json.decode(readJson('dummy_data/movie_recommendations.json')),
     ).movieList;
@@ -207,7 +207,7 @@ void main() {
   });
 
   group('search a movie', () {
-    final tQuery = 'Spiderman';
+    const tQuery = 'Spiderman';
     final tSearchResult = MovieResponse.fromJson(
       json.decode(readJson('dummy_data/search_movie.json')),
     ).movieList;
@@ -245,7 +245,7 @@ void main() {
   });
 
   group('get movie images', () {
-    final tId = 1;
+    const tId = 1;
     final tMovieImages = MediaImageModel.fromJson(
       json.decode(readJson('dummy_data/images.json')),
     );

@@ -28,7 +28,7 @@ void main() {
   final tTv = Tv(
     backdropPath: '/rkB4LyZHo1NHXFEDHl9vSD9r1lI.jpg',
     firstAirDate: '2021-11-06',
-    genreIds: [16, 10765, 10759, 18],
+    genreIds: const [16, 10765, 10759, 18],
     id: 94605,
     name: 'Arcane',
     overview:
@@ -40,7 +40,7 @@ void main() {
 
   final tTvList = <Tv>[tTv];
 
-  final tQuery = 'Arcane';
+  const tQuery = 'Arcane';
 
   group('search a tv', () {
     test(
@@ -79,8 +79,8 @@ void main() {
       'shoudl return server failure when error',
       () async {
         // arrange
-        when(mockSearchTvs.execute(tQuery))
-            .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+        when(mockSearchTvs.execute(tQuery)).thenAnswer(
+            (_) async => const Left(ServerFailure('Server failure')));
 
         // act
         await provider.fetchTvSearch(tQuery);

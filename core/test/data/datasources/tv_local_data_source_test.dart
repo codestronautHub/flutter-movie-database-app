@@ -97,7 +97,7 @@ void main() {
   });
 
   group('get tv detail by id', () {
-    final tId = 1;
+    const tId = 1;
 
     test(
       'should return tv detail table when data is found',
