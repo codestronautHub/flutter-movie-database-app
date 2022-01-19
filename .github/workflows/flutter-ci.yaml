@@ -40,8 +40,14 @@ jobs:
     - name: Analyze
       run: flutter analyze .
 
-    # Run widget tests for our flutter project.
-    - name: Run tests
+    # Run widget tests on core module.
+    - name: Run tests on core module
+      working-directory: ./core
+      run: flutter test --coverage
+
+    # Run widget tests on search module.
+    - name: Run tests on search module
+      working-directory: ./search
       run: flutter test --coverage
 
     # Upload coverage to codecov
