@@ -6,7 +6,7 @@ class HomeRobot {
   HomeRobot(this.tester);
 
   Future<void> clickNavigationDrawerButton() async {
-    final drawerButtonFinder = find.byKey(Key('drawerButton'));
+    final drawerButtonFinder = find.byKey(const Key('drawerButton'));
 
     await tester.ensureVisible(drawerButtonFinder);
     await tester.tap(drawerButtonFinder);
@@ -15,7 +15,7 @@ class HomeRobot {
   }
 
   Future<void> clickSearchButton() async {
-    final searchButtonFinder = find.byKey(Key('searchButton'));
+    final searchButtonFinder = find.byKey(const Key('searchButton'));
 
     await tester.ensureVisible(searchButtonFinder);
     await tester.tap(searchButtonFinder);
@@ -24,7 +24,7 @@ class HomeRobot {
   }
 
   Future<void> clickMovieListTile() async {
-    final movieListTileFinder = find.byKey(Key('movieListTile'));
+    final movieListTileFinder = find.byKey(const Key('movieListTile'));
 
     await tester.ensureVisible(movieListTileFinder);
     await tester.tap(movieListTileFinder);
@@ -33,7 +33,7 @@ class HomeRobot {
   }
 
   Future<void> clickTvListTile() async {
-    final tvListTileFinder = find.byKey(Key('tvListTile'));
+    final tvListTileFinder = find.byKey(const Key('tvListTile'));
 
     await tester.ensureVisible(tvListTileFinder);
     await tester.tap(tvListTileFinder);
@@ -42,7 +42,7 @@ class HomeRobot {
   }
 
   Future<void> clickWatchlistListTile() async {
-    final watchlistListTileFinder = find.byKey(Key('watchlistListTile'));
+    final watchlistListTileFinder = find.byKey(const Key('watchlistListTile'));
 
     await tester.ensureVisible(watchlistListTileFinder);
     await tester.tap(watchlistListTileFinder);
@@ -51,7 +51,7 @@ class HomeRobot {
   }
 
   Future<void> clickAboutListTile() async {
-    final aboutListTileFinder = find.byKey(Key('aboutListTile'));
+    final aboutListTileFinder = find.byKey(const Key('aboutListTile'));
 
     await tester.ensureVisible(aboutListTileFinder);
     await tester.tap(aboutListTileFinder);
@@ -60,7 +60,7 @@ class HomeRobot {
   }
 
   Future<void> clickCloseDrawerButton() async {
-    final closeDrawerButtonFinder = find.byKey(Key('closeDrawerButton'));
+    final closeDrawerButtonFinder = find.byKey(const Key('closeDrawerButton'));
 
     await tester.ensureVisible(closeDrawerButtonFinder);
     await tester.tap(closeDrawerButtonFinder);
@@ -69,31 +69,31 @@ class HomeRobot {
   }
 
   Future<void> scrollMoviePage({bool scrollUp = false}) async {
-    final scrollViewFinder = find.byKey(Key('movieScrollView'));
+    final scrollViewFinder = find.byKey(const Key('movieScrollView'));
 
     if (scrollUp) {
-      await tester.fling(scrollViewFinder, Offset(0, 500), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, 500), 10000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, Offset(0, -500), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, -500), 10000);
       await tester.pumpAndSettle();
     }
   }
 
   Future<void> scrollTvPage({bool scrollUp = false}) async {
-    final scrollViewFinder = find.byKey(Key('tvScrollView'));
+    final scrollViewFinder = find.byKey(const Key('tvScrollView'));
 
     if (scrollUp) {
-      await tester.fling(scrollViewFinder, Offset(0, 500), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, 500), 10000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, Offset(0, -500), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, -500), 10000);
       await tester.pumpAndSettle();
     }
   }
 
   Future<void> clickSeePopularMovies() async {
-    final seePopularMoviesButtonFinder = find.byKey(Key('seePopularMovies'));
+    final seePopularMoviesButtonFinder = find.byKey(const Key('seePopularMovies'));
 
     await tester.ensureVisible(seePopularMoviesButtonFinder);
     await tester.tap(seePopularMoviesButtonFinder);
@@ -102,7 +102,7 @@ class HomeRobot {
   }
 
   Future<void> clickSeeTopRatedMovies() async {
-    final seeTopRatedMoviesButtonFinder = find.byKey(Key('seeTopRatedMovies'));
+    final seeTopRatedMoviesButtonFinder = find.byKey(const Key('seeTopRatedMovies'));
 
     await tester.ensureVisible(seeTopRatedMoviesButtonFinder);
     await tester.tap(seeTopRatedMoviesButtonFinder);
@@ -111,7 +111,7 @@ class HomeRobot {
   }
 
   Future<void> clickSeePopularTvs() async {
-    final seePopularTvsButtonFinder = find.byKey(Key('seePopularTvs'));
+    final seePopularTvsButtonFinder = find.byKey(const Key('seePopularTvs'));
 
     await tester.ensureVisible(seePopularTvsButtonFinder);
     await tester.tap(seePopularTvsButtonFinder);
@@ -120,7 +120,7 @@ class HomeRobot {
   }
 
   Future<void> clickSeeTopRatedTvs() async {
-    final seeTopRatedTvsButtonFinder = find.byKey(Key('seeTopRatedTvs'));
+    final seeTopRatedTvsButtonFinder = find.byKey(const Key('seeTopRatedTvs'));
 
     await tester.ensureVisible(seeTopRatedTvsButtonFinder);
     await tester.tap(seeTopRatedTvsButtonFinder);
@@ -129,7 +129,7 @@ class HomeRobot {
   }
 
   Future<void> clickMovieItem() async {
-    final movieItemFinder = find.byKey(Key('openMovieMinimalDetail'));
+    final movieItemFinder = find.byKey(const Key('openMovieMinimalDetail'));
 
     await tester.ensureVisible(movieItemFinder);
     await tester.tap(movieItemFinder);
@@ -139,7 +139,7 @@ class HomeRobot {
 
   Future<void> closeMovieMinimalDetail() async {
     final closeMovieMinimalDetailButtonFinder =
-        find.byKey(Key('closeMovieMinimalDetail'));
+        find.byKey(const Key('closeMovieMinimalDetail'));
 
     await tester.ensureVisible(closeMovieMinimalDetailButtonFinder);
     await tester.tap(closeMovieMinimalDetailButtonFinder);
@@ -148,7 +148,7 @@ class HomeRobot {
   }
 
   Future<void> clickSeeMoreMovieDetail() async {
-    final seeMoreMovieDetailButtonFinder = find.byKey(Key('goToMovieDetail'));
+    final seeMoreMovieDetailButtonFinder = find.byKey(const Key('goToMovieDetail'));
 
     await tester.ensureVisible(seeMoreMovieDetailButtonFinder);
     await tester.tap(seeMoreMovieDetailButtonFinder);
@@ -157,7 +157,7 @@ class HomeRobot {
   }
 
   Future<void> clickTvItem() async {
-    final tvItemFinder = find.byKey(Key('openTvMinimalDetail'));
+    final tvItemFinder = find.byKey(const Key('openTvMinimalDetail'));
 
     await tester.ensureVisible(tvItemFinder);
     await tester.tap(tvItemFinder);
@@ -167,7 +167,7 @@ class HomeRobot {
 
   Future<void> closeTvMinimalDetail() async {
     final closeTvMinimalDetailButtonFinder =
-        find.byKey(Key('closeTvMinimalDetail'));
+        find.byKey(const Key('closeTvMinimalDetail'));
 
     await tester.ensureVisible(closeTvMinimalDetailButtonFinder);
     await tester.tap(closeTvMinimalDetailButtonFinder);
@@ -176,7 +176,7 @@ class HomeRobot {
   }
 
   Future<void> clickSeeMoreTvDetail() async {
-    final seeMoreTvDetailButtonFinder = find.byKey(Key('goToTvDetail'));
+    final seeMoreTvDetailButtonFinder = find.byKey(const Key('goToTvDetail'));
 
     await tester.ensureVisible(seeMoreTvDetailButtonFinder);
     await tester.tap(seeMoreTvDetailButtonFinder);

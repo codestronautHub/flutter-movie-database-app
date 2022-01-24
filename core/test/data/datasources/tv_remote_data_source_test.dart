@@ -8,8 +8,8 @@ import 'package:core/data/models/tv_season_episode_response.dart';
 import 'package:core/utils/exception.dart';
 import 'package:core/utils/urls.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
+import 'package:mockito/mockito.dart';
 
 import '../../helpers/test_helper.mocks.dart';
 import '../../json_reader.dart';

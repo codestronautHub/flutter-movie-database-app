@@ -1,6 +1,7 @@
-import 'package:core/data/models/genre_model.dart';
-import 'package:core/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../domain/entities/tv_detail.dart';
+import 'genre_model.dart';
 
 class TvDetailResponse extends Equatable {
   final String? backdropPath;

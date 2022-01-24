@@ -1,5 +1,6 @@
-import 'package:core/domain/entities/tv_season_episode.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../domain/entities/tv_season_episode.dart';
 
 class TvSeasonEpisodeModel extends Equatable {
   final String airDate;

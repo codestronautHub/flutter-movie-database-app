@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:core/core.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:core/domain/entities/movie.dart';
-import 'package:core/domain/entities/tv.dart';
-import 'package:core/presentation/widgets/minimal_detail.dart';
+
+import '../../core.dart';
+import '../../domain/entities/movie.dart';
+import '../../domain/entities/tv.dart';
+import 'minimal_detail.dart';
 
 class HorizontalItemList extends StatelessWidget {
   final MdbContentType type;

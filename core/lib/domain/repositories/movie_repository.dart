@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:core/core.dart';
-import 'package:core/domain/entities/media_image.dart';
-import 'package:core/domain/entities/movie.dart';
-import 'package:core/domain/entities/movie_detail.dart';
+import '../../core.dart';
+import '../entities/media_image.dart';
+import '../entities/movie.dart';
+import '../entities/movie_detail.dart';
 
 abstract class MovieRepository {
   Future<Either<Failure, List<Movie>>> getNowPlayingMovies();

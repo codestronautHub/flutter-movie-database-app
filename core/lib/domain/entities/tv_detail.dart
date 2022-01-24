@@ -1,5 +1,6 @@
-import 'package:core/domain/entities/genre.dart';
 import 'package:equatable/equatable.dart';
+
+import 'genre.dart';
 
 class TvDetail extends Equatable {
   final String? backdropPath;

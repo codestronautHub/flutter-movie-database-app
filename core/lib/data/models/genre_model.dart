@@ -1,5 +1,6 @@
-import 'package:core/domain/entities/genre.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../domain/entities/genre.dart';
 
 class GenreModel extends Equatable {
   final int id;
@@ -11,13 +12,13 @@ class GenreModel extends Equatable {
   });
 
   factory GenreModel.fromJson(Map<String, dynamic> json) => GenreModel(
-        id: json["id"],
-        name: json["name"],
+        id: json['id'],
+        name: json['name'],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
+        'id': id,
+        'name': name,
       };
 
   Genre toEntity() => Genre(

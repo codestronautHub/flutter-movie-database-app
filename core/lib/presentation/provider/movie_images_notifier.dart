@@ -1,7 +1,8 @@
-import 'package:core/domain/entities/media_image.dart';
-import 'package:core/domain/usecases/get_movie_images.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+
+import '../../core.dart';
+import '../../domain/entities/media_image.dart';
+import '../../domain/usecases/get_movie_images.dart';
 
 class MovieImagesNotifier extends ChangeNotifier {
   final GetMovieImages getMovieImages;

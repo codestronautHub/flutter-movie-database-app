@@ -1,14 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:core/core.dart';
-import 'package:core/domain/entities/genre.dart';
-import 'package:core/domain/entities/movie.dart';
-import 'package:core/domain/entities/movie_detail.dart';
-import 'package:core/presentation/provider/movie_detail_notifier.dart';
-import 'package:core/presentation/widgets/minimal_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../core.dart';
+import '../../domain/entities/genre.dart';
+import '../../domain/entities/movie.dart';
+import '../../domain/entities/movie_detail.dart';
+import '../provider/movie_detail_notifier.dart';
+import '../widgets/minimal_detail.dart';
 
 class MovieDetailPage extends StatefulWidget {
   static const routeName = '/movie-detail';

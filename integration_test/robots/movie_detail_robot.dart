@@ -8,7 +8,7 @@ class MovieDetailRobot {
   MovieDetailRobot(this.tester);
 
   Future<void> clickMovieToWatchlistButton() async {
-    final movieToWatchlistButtonFinder = find.byKey(Key('movieToWatchlist'));
+    final movieToWatchlistButtonFinder = find.byKey(const Key('movieToWatchlist'));
 
     await tester.ensureVisible(movieToWatchlistButtonFinder);
     await tester.tap(movieToWatchlistButtonFinder);
@@ -17,13 +17,13 @@ class MovieDetailRobot {
   }
 
   Future<void> scrollThePage({bool scrollUp = false}) async {
-    final scrollViewFinder = find.byKey(Key('movieDetailScrollView'));
+    final scrollViewFinder = find.byKey(const Key('movieDetailScrollView'));
 
     if (scrollUp) {
-      await tester.fling(scrollViewFinder, Offset(0, 500), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, 500), 10000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, Offset(0, -500), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, -500), 10000);
       await tester.pumpAndSettle();
     }
   }
@@ -31,6 +31,6 @@ class MovieDetailRobot {
   Future<void> goBack() async {
     await tester.pageBack();
     await tester.pumpAndSettle();
-    sleep(Duration(seconds: 2));
+    sleep(const Duration(seconds: 2));
   }
 }
