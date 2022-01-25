@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:core/core.dart';
+
+import '../../core.dart';
 
 class SubHeading extends StatelessWidget {
   final String? valueKey;

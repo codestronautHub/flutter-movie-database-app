@@ -1,6 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:core/domain/entities/tv.dart';
 import 'package:core/domain/usecases/get_popular_tvs.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -18,7 +18,7 @@ void main() {
   final tTvs = <Tv>[];
 
   test(
-    "should get list of tv from the repository",
+    'should get list of tv from the repository',
     () async {
       // arrange
       when(mockTvRepository.getPopularTvs())

@@ -1,6 +1,7 @@
-import 'package:core/data/models/genre_model.dart';
-import 'package:core/domain/entities/movie_detail.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../domain/entities/movie_detail.dart';
+import 'genre_model.dart';
 
 class MovieDetailResponse extends Equatable {
   final String? backdropPath;
@@ -29,30 +30,30 @@ class MovieDetailResponse extends Equatable {
 
   factory MovieDetailResponse.fromJson(Map<String, dynamic> json) =>
       MovieDetailResponse(
-        backdropPath: json["backdrop_path"],
+        backdropPath: json['backdrop_path'],
         genres: List<GenreModel>.from(
-            json["genres"].map((x) => GenreModel.fromJson(x))),
-        id: json["id"],
-        overview: json["overview"],
-        posterPath: json["poster_path"],
-        releaseDate: json["release_date"],
-        runtime: json["runtime"],
-        title: json["title"],
-        voteAverage: json["vote_average"].toDouble(),
-        voteCount: json["vote_count"],
+            json['genres'].map((x) => GenreModel.fromJson(x))),
+        id: json['id'],
+        overview: json['overview'],
+        posterPath: json['poster_path'],
+        releaseDate: json['release_date'],
+        runtime: json['runtime'],
+        title: json['title'],
+        voteAverage: json['vote_average'].toDouble(),
+        voteCount: json['vote_count'],
       );
 
   Map<String, dynamic> toJson() => {
-        "backdrop_path": backdropPath,
-        "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
-        "id": id,
-        "overview": overview,
-        "poster_path": posterPath,
-        "release_date": releaseDate,
-        "runtime": runtime,
-        "title": title,
-        "vote_average": voteAverage,
-        "vote_count": voteCount,
+        'backdrop_path': backdropPath,
+        'genres': List<dynamic>.from(genres.map((x) => x.toJson())),
+        'id': id,
+        'overview': overview,
+        'poster_path': posterPath,
+        'release_date': releaseDate,
+        'runtime': runtime,
+        'title': title,
+        'vote_average': voteAverage,
+        'vote_count': voteCount,
       };
 
   MovieDetail toEntity() => MovieDetail(

@@ -1,7 +1,8 @@
-import 'package:core/domain/entities/tv.dart';
-import 'package:core/domain/usecases/get_top_rated_tvs.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+
+import '../../core.dart';
+import '../../domain/entities/tv.dart';
+import '../../domain/usecases/get_top_rated_tvs.dart';
 
 class TopRatedTvsNotifier extends ChangeNotifier {
   final GetTopRatedTvs getTopRatedTvs;

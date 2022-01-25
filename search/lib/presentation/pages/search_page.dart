@@ -4,8 +4,8 @@ import 'package:core/presentation/provider/search_filter_notifier.dart';
 import 'package:core/presentation/widgets/item_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:search/presentation/provider/movie_search_notifier.dart';
-import 'package:search/presentation/provider/tv_search_notifier.dart';
+import '../provider/movie_search_notifier.dart';
+import '../provider/tv_search_notifier.dart';
 
 class SearchPage extends StatelessWidget {
   static const routeName = '/search';

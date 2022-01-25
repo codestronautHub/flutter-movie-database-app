@@ -1,7 +1,8 @@
-import 'package:core/domain/entities/tv_season_episode.dart';
-import 'package:core/domain/usecases/get_tv_season_episodes.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+
+import '../../core.dart';
+import '../../domain/entities/tv_season_episode.dart';
+import '../../domain/usecases/get_tv_season_episodes.dart';
 
 class TvSeasonEpisodesNotifier extends ChangeNotifier {
   final GetTvSeasonEpisodes getTvSeasonEpisodes;

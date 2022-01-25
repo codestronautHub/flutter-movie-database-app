@@ -1,7 +1,8 @@
-import 'package:core/domain/entities/movie.dart';
-import 'package:core/domain/usecases/get_popular_movies.dart';
-import 'package:core/core.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../core.dart';
+import '../../domain/entities/movie.dart';
+import '../../domain/usecases/get_popular_movies.dart';
 
 class PopularMoviesNotifier extends ChangeNotifier {
   final GetPopularMovies getPopularMovies;

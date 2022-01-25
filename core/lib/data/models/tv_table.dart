@@ -1,6 +1,7 @@
-import 'package:core/domain/entities/tv.dart';
-import 'package:core/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../domain/entities/tv.dart';
+import '../../domain/entities/tv_detail.dart';
 
 class TvTable extends Equatable {
   final String? firstAirDate;
