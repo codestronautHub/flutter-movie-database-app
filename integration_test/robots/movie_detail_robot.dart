@@ -8,7 +8,8 @@ class MovieDetailRobot {
   MovieDetailRobot(this.tester);
 
   Future<void> clickMovieToWatchlistButton() async {
-    final movieToWatchlistButtonFinder = find.byKey(const Key('movieToWatchlist'));
+    final movieToWatchlistButtonFinder =
+        find.byKey(const Key('movieToWatchlist'));
 
     await tester.ensureVisible(movieToWatchlistButtonFinder);
     await tester.tap(movieToWatchlistButtonFinder);
