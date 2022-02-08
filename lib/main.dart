@@ -9,7 +9,7 @@ import 'package:core/presentation/provider/tv_list_notifier.dart';
 import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/utils.dart';
-import 'package:search/presentation/pages/search_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:core/presentation/pages/top_rated_movies_page.dart';
 import 'package:core/presentation/pages/top_rated_tvs_page.dart';
 import 'package:core/presentation/pages/tv_detail_page.dart';
@@ -18,19 +18,19 @@ import 'package:core/presentation/provider/home_notifier.dart';
 import 'package:core/presentation/provider/movie_detail_notifier.dart';
 import 'package:core/presentation/provider/movie_images_notifier.dart';
 import 'package:core/presentation/provider/movie_list_notifier.dart';
-import 'package:search/presentation/provider/movie_search_notifier.dart';
 import 'package:core/presentation/provider/popular_movies_notifier.dart';
 import 'package:core/presentation/provider/search_filter_notifier.dart';
 import 'package:core/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:core/presentation/provider/tv_detail_notifier.dart';
 import 'package:core/presentation/provider/tv_images_notifier.dart';
-import 'package:search/presentation/provider/tv_search_notifier.dart';
 import 'package:core/presentation/provider/tv_season_episodes_notifier.dart';
 import 'package:core/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:core/presentation/provider/watchlist_tv_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
+import 'package:search/presentation/pages/tv_search_page.dart';
+import 'package:search/search.dart';
 
 void main() {
   di.init();
@@ -64,9 +64,6 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieDetailNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<MovieImagesNotifier>(),
         ),
         ChangeNotifierProvider(
@@ -90,13 +87,16 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TvSeasonEpisodesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<TvImagesNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistTvNotifier>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MovieSearchBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvSearchBloc>(),
         ),
       ],
       child: MaterialApp(
@@ -134,8 +134,10 @@ class MyApp extends StatelessWidget {
                 builder: (_) => TvDetailPage(id: settings.arguments as int),
                 settings: settings,
               );
-            case SearchPage.routeName:
-              return MaterialPageRoute(builder: (_) => SearchPage());
+            case MovieSearchPage.routeName:
+              return MaterialPageRoute(builder: (_) => MovieSearchPage());
+            case TvSearchPage.routeName:
+              return MaterialPageRoute(builder: (_) => TvSearchPage());
             case WatchlistPage.routeName:
               return MaterialPageRoute(builder: (_) => WatchlistPage());
             case AboutPage.routeName:

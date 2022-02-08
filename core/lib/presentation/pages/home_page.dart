@@ -231,15 +231,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ),
                           ),
                           actions: [
-                            IconButton(
-                              key: const Key('searchButton'),
-                              icon: const Icon(Icons.search),
-                              splashRadius: 20.0,
-                              onPressed: () => Navigator.pushNamed(
-                                context,
-                                searchRoute,
-                              ),
-                            )
+                            Consumer<HomeNotifier>(
+                              builder: (context, data, child) {
+                                final state = data.state;
+                                return IconButton(
+                                  key: const Key('searchButton'),
+                                  icon: const Icon(Icons.search),
+                                  splashRadius: 20.0,
+                                  onPressed: () => Navigator.pushNamed(
+                                    context,
+                                    state == MdbContentType.movie
+                                        ? movieSearchRoute
+                                        : tvSearchRoute,
+                                  ),
+                                );
+                              },
+                            ),
                           ],
                           backgroundColor: _colorTween.value,
                           elevation: 0.0,
@@ -247,14 +254,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         body: NotificationListener<ScrollNotification>(
                           onNotification: _scrollListener,
                           child: Consumer<HomeNotifier>(
-                              builder: (context, data, child) {
-                            final state = data.state;
-                            if (state == MdbContentType.movie) {
-                              return const MainMoviePage();
-                            } else {
-                              return const MainTvPage();
-                            }
-                          }),
+                            builder: (context, data, child) {
+                              final state = data.state;
+                              if (state == MdbContentType.movie) {
+                                return const MainMoviePage();
+                              } else {
+                                return const MainTvPage();
+                              }
+                            },
+                          ),
                         ),
                       );
                     },
