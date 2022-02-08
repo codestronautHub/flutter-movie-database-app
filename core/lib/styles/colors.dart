@@ -6,9 +6,9 @@ const Color kOxfordBlue = Color(0xFF001D3D);
 
 const kColorScheme = ColorScheme(
   primary: Colors.redAccent,
-  primaryVariant: Colors.redAccent,
+  primaryContainer: Colors.redAccent,
   secondary: kSpaceGrey,
-  secondaryVariant: kSpaceGrey,
+  secondaryContainer: kSpaceGrey,
   surface: kRichBlack,
   background: kRichBlack,
   error: Colors.redAccent,

@@ -26,10 +26,10 @@ import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:search/presentation/pages/search_page.dart';
-import 'package:search/presentation/provider/movie_search_notifier.dart';
-import 'package:search/presentation/provider/tv_search_notifier.dart';
+import 'package:search/presentation/pages/tv_search_page.dart';
+import 'package:search/search.dart';
 
 import 'injection.dart' as di;
 
@@ -67,9 +67,6 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieDetailNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<MovieImagesNotifier>(),
         ),
         ChangeNotifierProvider(
@@ -93,13 +90,16 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TvSeasonEpisodesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<TvImagesNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistTvNotifier>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MovieSearchBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvSearchBloc>(),
         ),
       ],
       child: MaterialApp(
@@ -139,8 +139,10 @@ class MyApp extends StatelessWidget {
                 builder: (_) => TvDetailPage(id: settings.arguments as int),
                 settings: settings,
               );
-            case SearchPage.routeName:
-              return MaterialPageRoute(builder: (_) => SearchPage());
+            case MovieSearchPage.routeName:
+              return MaterialPageRoute(builder: (_) => const MovieSearchPage());
+            case TvSearchPage.routeName:
+              return MaterialPageRoute(builder: (_) => const TvSearchPage());
             case WatchlistPage.routeName:
               return MaterialPageRoute(builder: (_) => const WatchlistPage());
             case AboutPage.routeName:
