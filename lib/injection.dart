@@ -44,12 +44,14 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:search/domain/usecases/search_movies.dart';
 import 'package:search/domain/usecases/search_tvs.dart';
-import 'package:search/presentation/provider/movie_search_notifier.dart';
-import 'package:search/presentation/provider/tv_search_notifier.dart';
+import 'package:search/presentation/bloc/search_bloc.dart';
 
 final locator = GetIt.instance;
 
 void init() {
+  locator.registerFactory(() => MovieSearchBloc(locator()));
+  locator.registerFactory(() => TvSearchBloc(locator()));
+
   // provider
   locator.registerFactory(() => HomeNotifier());
   locator.registerFactory(() => SearchFilterNotifier());
@@ -78,11 +80,6 @@ void init() {
       getWatchListStatus: locator(),
       saveWatchlist: locator(),
       removeWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => MovieSearchNotifier(
-      searchMovies: locator(),
     ),
   );
   locator.registerFactory(
@@ -130,11 +127,6 @@ void init() {
   locator.registerFactory(
     () => TvImagesNotifier(
       getTvImages: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvSearchNotifier(
-      searchTvs: locator(),
     ),
   );
   locator.registerFactory(

@@ -7,6 +7,7 @@ const popularTvsRoute = '/popular-tvs';
 const topRatedTvsRoute = '/top-rated-tvs';
 const tvDetailRoute = '/tv-detail';
 
-const searchRoute = '/search';
+const movieSearchRoute = '/movie-search';
+const tvSearchRoute = '/tv-search';
 const watchlistRoute = '/watchlist';
 const aboutRoute = '/about';

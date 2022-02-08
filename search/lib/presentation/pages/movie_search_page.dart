@@ -1,19 +1,19 @@
+import 'package:core/core.dart';
 import 'package:core/presentation/widgets/item_card_list.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search/presentation/bloc/search_bloc.dart';
 
-class TvSearchPage extends StatelessWidget {
-  static const routeName = '/tv-search';
+class MovieSearchPage extends StatelessWidget {
+  static const routeName = '/movie-search';
 
-  const TvSearchPage({Key? key}) : super(key: key);
+  const MovieSearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Tv'),
+        title: const Text('Search Movie'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -21,12 +21,12 @@ class TvSearchPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              key: const Key('enterTvQuery'),
+              key: const Key('enterMovieQuery'),
               onChanged: (query) {
-                context.read<TvSearchBloc>().add(OnQueryChanged(query));
+                context.read<MovieSearchBloc>().add(OnQueryChanged(query));
               },
               decoration: InputDecoration(
-                hintText: 'Search tv shows',
+                hintText: 'Search movies',
                 prefixIcon: const Icon(
                   Icons.search,
                   color: Colors.white70,
@@ -42,9 +42,9 @@ class TvSearchPage extends StatelessWidget {
               textInputAction: TextInputAction.search,
               cursorColor: Colors.white,
             ),
-            BlocBuilder<TvSearchBloc, SearchState>(
+            BlocBuilder<MovieSearchBloc, SearchState>(
               builder: (context, state) {
-                if (state is TvSearchHasData) {
+                if (state is MovieSearchHasData) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Text(
@@ -60,23 +60,23 @@ class TvSearchPage extends StatelessWidget {
                 }
               },
             ),
-            BlocBuilder<TvSearchBloc, SearchState>(
+            BlocBuilder<MovieSearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is SearchLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state is TvSearchHasData) {
+                } else if (state is MovieSearchHasData) {
                   final result = state.result;
                   return Expanded(
                     child: ListView.builder(
                       itemCount: result.length,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
-                        final tv = result[index];
+                        final movie = result[index];
                         return ItemCard(
-                          type: MdbContentType.tv,
-                          tv: tv,
+                          type: MdbContentType.movie,
+                          movie: movie,
                         );
                       },
                     ),

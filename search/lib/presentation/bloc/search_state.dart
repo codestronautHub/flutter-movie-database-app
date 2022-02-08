@@ -20,10 +20,19 @@ class SearchError extends SearchState {
   List<Object?> get props => [message];
 }
 
-class SearchHasData extends SearchState {
+class MovieSearchHasData extends SearchState {
   final List<Movie> result;
 
-  SearchHasData(this.result);
+  MovieSearchHasData(this.result);
+
+  @override
+  List<Object?> get props => [result];
+}
+
+class TvSearchHasData extends SearchState {
+  final List<Tv> result;
+
+  TvSearchHasData(this.result);
 
   @override
   List<Object?> get props => [result];

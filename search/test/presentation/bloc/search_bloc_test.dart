@@ -1,26 +1,32 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/movie.dart';
+import 'package:core/domain/entities/tv.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:search/domain/usecases/search_movies.dart';
+import 'package:search/domain/usecases/search_tvs.dart';
 import 'package:search/presentation/bloc/search_bloc.dart';
 
 import 'search_bloc_test.mocks.dart';
 
-@GenerateMocks([SearchMovies])
+@GenerateMocks([SearchMovies, SearchTvs])
 void main() {
   late MockSearchMovies mockSearchMovies;
-  late SearchBloc searchBloc;
+  late MockSearchTvs mockSearchTvs;
+  late MovieSearchBloc movieSearchBloc;
+  late TvSearchBloc tvSearchBloc;
 
   setUp(() {
     mockSearchMovies = MockSearchMovies();
-    searchBloc = SearchBloc(mockSearchMovies);
+    mockSearchTvs = MockSearchTvs();
+    movieSearchBloc = MovieSearchBloc(mockSearchMovies);
+    tvSearchBloc = TvSearchBloc(mockSearchTvs);
   });
 
-  final tMovieModel = Movie(
+  final tMovie = Movie(
     backdropPath: '/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
     genreIds: const [28, 12, 878],
     id: 634649,
@@ -33,46 +39,100 @@ void main() {
     voteCount: 3427,
   );
 
-  final tMovieList = <Movie>[tMovieModel];
+  final tMovieList = <Movie>[tMovie];
 
-  const tQuery = 'spiderman';
+  const tMovieQuery = 'spiderman';
+
+  final tTv = Tv(
+    backdropPath: '/rkB4LyZHo1NHXFEDHl9vSD9r1lI.jpg',
+    firstAirDate: '2021-11-06',
+    genreIds: const [16, 10765, 10759, 18],
+    id: 94605,
+    name: 'Arcane',
+    overview:
+        'Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.',
+    posterPath: '/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg',
+    voteAverage: 9.1,
+    voteCount: 1451,
+  );
+
+  final tTvList = <Tv>[tTv];
+
+  const tTvQuery = 'Arcane';
 
   test('initial state should be empty', () {
-    expect(searchBloc.state, SearchEmpty());
+    expect(movieSearchBloc.state, SearchEmpty());
   });
 
-  blocTest<SearchBloc, SearchState>(
-    'should emit [loading, has data] when data is gotten successfully',
+  blocTest<MovieSearchBloc, SearchState>(
+    'should emit [loading, has data] when movie data is gotten successfully',
     build: () {
-      when(mockSearchMovies.execute(tQuery))
+      when(mockSearchMovies.execute(tMovieQuery))
           .thenAnswer((_) async => Right(tMovieList));
-      return searchBloc;
+      return movieSearchBloc;
     },
-    act: (bloc) => bloc.add(OnQueryChanged(tQuery)),
-    wait: const Duration(milliseconds: 100),
+    act: (bloc) => bloc.add(OnQueryChanged(tMovieQuery)),
+    wait: const Duration(milliseconds: 500),
     expect: () => [
       SearchLoading(),
-      SearchHasData(tMovieList),
+      MovieSearchHasData(tMovieList),
     ],
     verify: (bloc) {
-      verify(mockSearchMovies.execute(tQuery));
+      verify(mockSearchMovies.execute(tMovieQuery));
     },
   );
 
-  blocTest<SearchBloc, SearchState>(
-    'should emit [loading, error] when search is unsuccessful',
+  blocTest<MovieSearchBloc, SearchState>(
+    'should emit [loading, error] when search movie is unsuccessful',
     build: () {
-      when(mockSearchMovies.execute(tQuery))
+      when(mockSearchMovies.execute(tMovieQuery))
           .thenAnswer((_) async => Left(ServerFailure('Server failure')));
-      return searchBloc;
+      return movieSearchBloc;
     },
-    act: (bloc) => bloc.add(OnQueryChanged(tQuery)),
+    act: (bloc) => bloc.add(OnQueryChanged(tMovieQuery)),
+    wait: const Duration(milliseconds: 500),
     expect: () => [
       SearchLoading(),
       SearchError('Server failure'),
     ],
     verify: (bloc) {
-      verify(mockSearchMovies.execute(tQuery));
+      verify(mockSearchMovies.execute(tMovieQuery));
+    },
+  );
+
+  blocTest<TvSearchBloc, SearchState>(
+    'should emit [loading, has data] when tv data is gotten successfully',
+    build: () {
+      when(mockSearchTvs.execute(tTvQuery))
+          .thenAnswer((_) async => Right(tTvList));
+      return tvSearchBloc;
+    },
+    act: (bloc) => bloc.add(OnQueryChanged(tTvQuery)),
+    wait: const Duration(milliseconds: 500),
+    expect: () => [
+      SearchLoading(),
+      TvSearchHasData(tTvList),
+    ],
+    verify: (bloc) {
+      verify(mockSearchTvs.execute(tTvQuery));
+    },
+  );
+
+  blocTest<TvSearchBloc, SearchState>(
+    'should emit [loading, error] when search tv is unsuccessful',
+    build: () {
+      when(mockSearchTvs.execute(tTvQuery))
+          .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+      return tvSearchBloc;
+    },
+    act: (bloc) => bloc.add(OnQueryChanged(tTvQuery)),
+    wait: const Duration(milliseconds: 500),
+    expect: () => [
+      SearchLoading(),
+      SearchError('Server failure'),
+    ],
+    verify: (bloc) {
+      verify(mockSearchTvs.execute(tTvQuery));
     },
   );
 }

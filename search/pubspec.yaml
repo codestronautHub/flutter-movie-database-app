@@ -17,6 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  rxdart: ^0.27.3
 
 dev_dependencies:
   bloc_test: ^9.0.2
