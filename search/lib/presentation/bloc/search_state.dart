@@ -14,7 +14,7 @@ class SearchLoading extends SearchState {}
 class SearchError extends SearchState {
   final String message;
 
-  SearchError(this.message);
+  const SearchError(this.message);
 
   @override
   List<Object?> get props => [message];
@@ -23,7 +23,7 @@ class SearchError extends SearchState {
 class MovieSearchHasData extends SearchState {
   final List<Movie> result;
 
-  MovieSearchHasData(this.result);
+  const MovieSearchHasData(this.result);
 
   @override
   List<Object?> get props => [result];
@@ -32,7 +32,7 @@ class MovieSearchHasData extends SearchState {
 class TvSearchHasData extends SearchState {
   final List<Tv> result;
 
-  TvSearchHasData(this.result);
+  const TvSearchHasData(this.result);
 
   @override
   List<Object?> get props => [result];

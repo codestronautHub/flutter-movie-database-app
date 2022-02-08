@@ -71,7 +71,7 @@ void main() {
           .thenAnswer((_) async => Right(tMovieList));
       return movieSearchBloc;
     },
-    act: (bloc) => bloc.add(OnQueryChanged(tMovieQuery)),
+    act: (bloc) => bloc.add(const OnQueryChanged(tMovieQuery)),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       SearchLoading(),
@@ -86,14 +86,14 @@ void main() {
     'should emit [loading, error] when search movie is unsuccessful',
     build: () {
       when(mockSearchMovies.execute(tMovieQuery))
-          .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server failure')));
       return movieSearchBloc;
     },
-    act: (bloc) => bloc.add(OnQueryChanged(tMovieQuery)),
+    act: (bloc) => bloc.add(const OnQueryChanged(tMovieQuery)),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       SearchLoading(),
-      SearchError('Server failure'),
+      const SearchError('Server failure'),
     ],
     verify: (bloc) {
       verify(mockSearchMovies.execute(tMovieQuery));
@@ -107,7 +107,7 @@ void main() {
           .thenAnswer((_) async => Right(tTvList));
       return tvSearchBloc;
     },
-    act: (bloc) => bloc.add(OnQueryChanged(tTvQuery)),
+    act: (bloc) => bloc.add(const OnQueryChanged(tTvQuery)),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       SearchLoading(),
@@ -122,14 +122,14 @@ void main() {
     'should emit [loading, error] when search tv is unsuccessful',
     build: () {
       when(mockSearchTvs.execute(tTvQuery))
-          .thenAnswer((_) async => Left(ServerFailure('Server failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server failure')));
       return tvSearchBloc;
     },
-    act: (bloc) => bloc.add(OnQueryChanged(tTvQuery)),
+    act: (bloc) => bloc.add(const OnQueryChanged(tTvQuery)),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       SearchLoading(),
-      SearchError('Server failure'),
+      const SearchError('Server failure'),
     ],
     verify: (bloc) {
       verify(mockSearchTvs.execute(tTvQuery));

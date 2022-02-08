@@ -2,7 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/presentation/widgets/item_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:search/presentation/bloc/search_bloc.dart';
+import '../bloc/search_bloc.dart';
 
 class MovieSearchPage extends StatelessWidget {
   static const routeName = '/movie-search';
@@ -45,8 +45,8 @@ class MovieSearchPage extends StatelessWidget {
             BlocBuilder<MovieSearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is MovieSearchHasData) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: Text(
                       'Search result',
                       style: TextStyle(
@@ -56,7 +56,7 @@ class MovieSearchPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return SizedBox();
+                  return const SizedBox();
                 }
               },
             ),

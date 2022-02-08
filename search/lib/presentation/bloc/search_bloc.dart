@@ -1,10 +1,10 @@
 import 'package:core/domain/entities/movie.dart';
 import 'package:core/domain/entities/tv.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:search/domain/usecases/search_movies.dart';
-import 'package:search/domain/usecases/search_tvs.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/rxdart.dart';
+import '../../domain/usecases/search_movies.dart';
+import '../../domain/usecases/search_tvs.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
