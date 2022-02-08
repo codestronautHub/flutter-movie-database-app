@@ -50,17 +50,17 @@ void main() {
 
         // assert
         final expectedJsonMap = {
-          "results": [
+          'results': [
             {
-              "backdrop_path": "/path.jpg",
-              "genre_ids": [1, 2, 3, 4],
-              "id": 1,
-              "overview": "Overview",
-              "poster_path": "/path.jpg",
-              "release_date": "2022-01-01",
-              "title": "Title",
-              "vote_average": 1.0,
-              "vote_count": 1
+              'backdrop_path': '/path.jpg',
+              'genre_ids': [1, 2, 3, 4],
+              'id': 1,
+              'overview': 'Overview',
+              'poster_path': '/path.jpg',
+              'release_date': '2022-01-01',
+              'title': 'Title',
+              'vote_average': 1.0,
+              'vote_count': 1
             }
           ],
         };

@@ -1,11 +1,11 @@
-import 'package:dartz/dartz.dart';
-import 'package:core/utils/failure.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:core/domain/entities/tv.dart';
 import 'package:core/domain/usecases/get_on_the_air_tvs.dart';
 import 'package:core/domain/usecases/get_popular_tvs.dart';
 import 'package:core/domain/usecases/get_top_rated_tvs.dart';
 import 'package:core/presentation/provider/tv_list_notifier.dart';
+import 'package:core/utils/failure.dart';
+import 'package:core/utils/state_enum.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

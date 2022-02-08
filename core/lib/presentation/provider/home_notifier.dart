@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:core/core.dart';
+import '../../core.dart';
 
 class HomeNotifier extends ChangeNotifier {
   MdbContentType _state = MdbContentType.movie;

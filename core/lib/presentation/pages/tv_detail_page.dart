@@ -1,16 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:core/core.dart';
-import 'package:core/domain/entities/genre.dart';
-import 'package:core/domain/entities/tv.dart';
-import 'package:core/domain/entities/tv_detail.dart';
-import 'package:core/presentation/provider/tv_detail_notifier.dart';
-import 'package:core/presentation/provider/tv_season_episodes_notifier.dart';
-import 'package:core/presentation/widgets/minimal_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../core.dart';
+import '../../domain/entities/genre.dart';
+import '../../domain/entities/tv.dart';
+import '../../domain/entities/tv_detail.dart';
+import '../provider/tv_detail_notifier.dart';
+import '../provider/tv_season_episodes_notifier.dart';
+import '../widgets/minimal_detail.dart';
 
 class TvDetailPage extends StatefulWidget {
   static const routeName = '/tv-detail';

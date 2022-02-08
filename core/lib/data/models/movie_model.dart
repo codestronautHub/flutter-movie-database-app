@@ -1,5 +1,6 @@
-import 'package:core/domain/entities/movie.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../domain/entities/movie.dart';
 
 class MovieModel extends Equatable {
   final String? backdropPath;
@@ -25,27 +26,27 @@ class MovieModel extends Equatable {
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
-        backdropPath: json["backdrop_path"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
-        overview: json["overview"],
-        posterPath: json["poster_path"],
-        releaseDate: json["release_date"],
-        title: json["title"],
-        voteAverage: json["vote_average"].toDouble(),
-        voteCount: json["vote_count"],
+        backdropPath: json['backdrop_path'],
+        genreIds: List<int>.from(json['genre_ids'].map((x) => x)),
+        id: json['id'],
+        overview: json['overview'],
+        posterPath: json['poster_path'],
+        releaseDate: json['release_date'],
+        title: json['title'],
+        voteAverage: json['vote_average'].toDouble(),
+        voteCount: json['vote_count'],
       );
 
   Map<String, dynamic> toJson() => {
-        "backdrop_path": backdropPath,
-        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
-        "id": id,
-        "overview": overview,
-        "poster_path": posterPath,
-        "release_date": releaseDate,
-        "title": title,
-        "vote_average": voteAverage,
-        "vote_count": voteCount,
+        'backdrop_path': backdropPath,
+        'genre_ids': List<dynamic>.from(genreIds.map((x) => x)),
+        'id': id,
+        'overview': overview,
+        'poster_path': posterPath,
+        'release_date': releaseDate,
+        'title': title,
+        'vote_average': voteAverage,
+        'vote_count': voteCount,
       };
 
   Movie toEntity() => Movie(

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:core/core.dart';
-import 'package:core/domain/entities/media_image.dart';
-import 'package:core/domain/entities/tv.dart';
-import 'package:core/domain/entities/tv_detail.dart';
-import 'package:core/domain/entities/tv_season_episode.dart';
+import '../../core.dart';
+import '../entities/media_image.dart';
+import '../entities/tv.dart';
+import '../entities/tv_detail.dart';
+import '../entities/tv_season_episode.dart';
 
 abstract class TvRepository {
   Future<Either<Failure, List<Tv>>> getOnTheAirTvs();

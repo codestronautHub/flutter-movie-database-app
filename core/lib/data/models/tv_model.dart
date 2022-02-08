@@ -1,5 +1,6 @@
-import 'package:core/domain/entities/tv.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../domain/entities/tv.dart';
 
 class TvModel extends Equatable {
   final String? backdropPath;
@@ -25,27 +26,27 @@ class TvModel extends Equatable {
   });
 
   factory TvModel.fromJson(Map<String, dynamic> json) => TvModel(
-        backdropPath: json["backdrop_path"],
-        firstAirDate: json["first_air_date"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
-        name: json["name"],
-        overview: json["overview"],
-        posterPath: json["poster_path"],
-        voteAverage: json["vote_average"].toDouble(),
-        voteCount: json["vote_count"],
+        backdropPath: json['backdrop_path'],
+        firstAirDate: json['first_air_date'],
+        genreIds: List<int>.from(json['genre_ids'].map((x) => x)),
+        id: json['id'],
+        name: json['name'],
+        overview: json['overview'],
+        posterPath: json['poster_path'],
+        voteAverage: json['vote_average'].toDouble(),
+        voteCount: json['vote_count'],
       );
 
   Map<String, dynamic> toJson() => {
-        "backdrop_path": backdropPath,
-        "first_air_date": firstAirDate,
-        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
-        "id": id,
-        "name": name,
-        "overview": overview,
-        "poster_path": posterPath,
-        "vote_average": voteAverage,
-        "vote_count": voteCount,
+        'backdrop_path': backdropPath,
+        'first_air_date': firstAirDate,
+        'genre_ids': List<dynamic>.from(genreIds.map((x) => x)),
+        'id': id,
+        'name': name,
+        'overview': overview,
+        'poster_path': posterPath,
+        'vote_average': voteAverage,
+        'vote_count': voteCount,
       };
 
   Tv toEntity() => Tv(

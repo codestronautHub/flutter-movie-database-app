@@ -1,11 +1,12 @@
-import 'package:core/core.dart';
-import 'package:core/presentation/pages/main_movie_page.dart';
-import 'package:core/presentation/pages/main_tv_page.dart';
-import 'package:core/presentation/pages/watchlist_page.dart';
-import 'package:core/presentation/provider/home_notifier.dart';
-import 'package:core/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../core.dart';
+import '../../utils/routes.dart';
+import '../provider/home_notifier.dart';
+import 'main_movie_page.dart';
+import 'main_tv_page.dart';
+import 'watchlist_page.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';

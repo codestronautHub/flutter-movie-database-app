@@ -1,9 +1,10 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:core/core.dart';
-import 'package:core/presentation/provider/popular_movies_notifier.dart';
-import 'package:core/presentation/widgets/item_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../core.dart';
+import '../provider/popular_movies_notifier.dart';
+import '../widgets/item_card_list.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   static const routeName = '/popular-movies';

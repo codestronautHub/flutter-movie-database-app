@@ -1,5 +1,6 @@
-import 'package:core/domain/entities/media_image.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../domain/entities/media_image.dart';
 
 class MediaImageModel extends Equatable {
   final int id;

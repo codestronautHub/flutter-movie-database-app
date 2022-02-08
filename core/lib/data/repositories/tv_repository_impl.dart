@@ -1,15 +1,16 @@
 import 'dart:io';
 
-import 'package:core/core.dart';
-import 'package:core/data/datasources/tv_local_data_source.dart';
-import 'package:core/data/datasources/tv_remote_data_source.dart';
-import 'package:core/data/models/tv_table.dart';
-import 'package:core/domain/entities/media_image.dart';
-import 'package:core/domain/entities/tv.dart';
 import 'package:dartz/dartz.dart';
-import 'package:core/domain/entities/tv_detail.dart';
-import 'package:core/domain/entities/tv_season_episode.dart';
-import 'package:core/domain/repositories/tv_repository.dart';
+
+import '../../core.dart';
+import '../../domain/entities/media_image.dart';
+import '../../domain/entities/tv.dart';
+import '../../domain/entities/tv_detail.dart';
+import '../../domain/entities/tv_season_episode.dart';
+import '../../domain/repositories/tv_repository.dart';
+import '../datasources/tv_local_data_source.dart';
+import '../datasources/tv_remote_data_source.dart';
+import '../models/tv_table.dart';
 
 class TvRepositoryImpl implements TvRepository {
   final TvRemoteDataSource remoteDataSource;

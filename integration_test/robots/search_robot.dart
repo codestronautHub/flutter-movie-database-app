@@ -8,7 +8,7 @@ class SearchRobot {
   SearchRobot(this.tester);
 
   Future<void> openFilterDialog() async {
-    final filterButtonFinder = find.byKey(Key('openFilterDialog'));
+    final filterButtonFinder = find.byKey(const Key('openFilterDialog'));
 
     await tester.ensureVisible(filterButtonFinder);
     await tester.tap(filterButtonFinder);
@@ -17,7 +17,7 @@ class SearchRobot {
   }
 
   Future<void> selectFilterMovie() async {
-    final filterMovieRadioButtonFinder = find.byKey(Key('filterByMovie'));
+    final filterMovieRadioButtonFinder = find.byKey(const Key('filterByMovie'));
 
     await tester.ensureVisible(filterMovieRadioButtonFinder);
     await tester.tap(filterMovieRadioButtonFinder);
@@ -26,7 +26,7 @@ class SearchRobot {
   }
 
   Future<void> selectFilterTv() async {
-    final filterTvRadioButtonFinder = find.byKey(Key('filterByTv'));
+    final filterTvRadioButtonFinder = find.byKey(const Key('filterByTv'));
 
     await tester.ensureVisible(filterTvRadioButtonFinder);
     await tester.tap(filterTvRadioButtonFinder);
@@ -35,7 +35,7 @@ class SearchRobot {
   }
 
   Future<void> enterSearchQuery(String query) async {
-    final textFieldFinder = find.byKey(Key('enterSearchQuery'));
+    final textFieldFinder = find.byKey(const Key('enterSearchQuery'));
 
     await tester.ensureVisible(textFieldFinder);
     await tester.enterText(textFieldFinder, query);
@@ -47,6 +47,6 @@ class SearchRobot {
   Future<void> goBack() async {
     await tester.pageBack();
     await tester.pumpAndSettle();
-    sleep(Duration(seconds: 2));
+    sleep(const Duration(seconds: 2));
   }
 }

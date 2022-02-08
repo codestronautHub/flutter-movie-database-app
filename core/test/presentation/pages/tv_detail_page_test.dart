@@ -1,9 +1,9 @@
-import 'package:core/utils/state_enum.dart';
 import 'package:core/domain/entities/tv.dart';
 import 'package:core/domain/entities/tv_season_episode.dart';
 import 'package:core/presentation/pages/tv_detail_page.dart';
 import 'package:core/presentation/provider/tv_detail_notifier.dart';
 import 'package:core/presentation/provider/tv_season_episodes_notifier.dart';
+import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

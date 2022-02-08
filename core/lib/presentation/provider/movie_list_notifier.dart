@@ -1,9 +1,10 @@
-import 'package:core/domain/entities/movie.dart';
-import 'package:core/domain/usecases/get_now_playing_movies.dart';
-import 'package:core/domain/usecases/get_popular_movies.dart';
-import 'package:core/domain/usecases/get_top_rated_movies.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+
+import '../../core.dart';
+import '../../domain/entities/movie.dart';
+import '../../domain/usecases/get_now_playing_movies.dart';
+import '../../domain/usecases/get_popular_movies.dart';
+import '../../domain/usecases/get_top_rated_movies.dart';
 
 class MovieListNotifier extends ChangeNotifier {
   var _nowPlayingMovies = <Movie>[];
