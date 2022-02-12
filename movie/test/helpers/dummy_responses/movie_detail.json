@@ -1,0 +1,17 @@
+{
+  "backdrop_path": "/path.jpg",
+  "genres": [
+    {
+      "id": 1,
+      "name": "Genre 1"
+    }
+  ],
+  "id": 1,
+  "overview": "Overview",
+  "poster_path": "/path.jpg",
+  "release_date": "2022-01-01",
+  "runtime": 100,
+  "title": "Title",
+  "vote_average": 1.0,
+  "vote_count": 1
+}
