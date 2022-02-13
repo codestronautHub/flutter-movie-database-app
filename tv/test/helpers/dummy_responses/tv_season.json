@@ -1,0 +1,15 @@
+{
+    "episodes":[
+        {
+            "air_date": "2022-01-01",
+            "episode_number": 1,
+            "id": 1,
+            "name": "Name",
+            "overview": "Overview",
+            "season_number": 1,
+            "still_path": "/path.jpg",
+            "vote_average": 1.0,
+            "vote_count": 1
+          }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "backdrop_path": "/path.jpg",
+    "episode_run_time": [
+        100
+    ],
+    "first_air_date": "2022-01-01",
+    "genres": [
+        {
+            "id": 1,
+            "name": "Genre 1"
+        }
+    ],
+    "id": 1,
+    "name": "Name",
+    "number_of_seasons": 1,
+    "overview": "Overview",
+    "poster_path": "/path.jpg",
+    "vote_average": 1.0,
+    "vote_count": 1
+}
