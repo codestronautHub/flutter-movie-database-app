@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:core/data/models/media_image_model.dart';
 import 'package:core/utils/exception.dart';
 import 'package:core/utils/urls.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/media_image_model.dart';
 import '../models/movie_detail_response.dart';
 import '../models/movie_model.dart';
 import '../models/movie_response.dart';

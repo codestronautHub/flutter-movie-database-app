@@ -5,9 +5,9 @@ import '../../domain/entities/tv.dart';
 import '../../domain/entities/tv_detail.dart';
 import '../../domain/usecases/get_tv_detail.dart';
 import '../../domain/usecases/get_tv_recommendations.dart';
-import '../../domain/usecases/get_watchlist_status.dart';
-import '../../domain/usecases/remove_watchlist.dart';
-import '../../domain/usecases/save_watchlist.dart';
+import '../../domain/usecases/get_tv_watchlist_status.dart';
+import '../../domain/usecases/remove_watchlist_tv.dart';
+import '../../domain/usecases/save_watchlist_tv.dart';
 
 class TvDetailNotifier extends ChangeNotifier {
   static const watchlistAddSuccessMessage = 'Added to watchlist';
@@ -15,9 +15,9 @@ class TvDetailNotifier extends ChangeNotifier {
 
   final GetTvDetail getTvDetail;
   final GetTvRecommendations getTvRecommendations;
-  final GetWatchlistStatus getWatchListStatus;
-  final SaveWatchlist saveWatchlist;
-  final RemoveWatchlist removeWatchlist;
+  final GetTvWatchlistStatus getWatchListStatus;
+  final SaveWatchlistTv saveWatchlist;
+  final RemoveWatchlistTv removeWatchlist;
 
   TvDetailNotifier({
     required this.getTvDetail,
@@ -82,7 +82,7 @@ class TvDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> addToWatchlist(TvDetail tv) async {
-    final result = await saveWatchlist.executeTv(tv);
+    final result = await saveWatchlist.execute(tv);
 
     await result.fold(
       (failure) async {
@@ -97,7 +97,7 @@ class TvDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> removeFromWatchlist(TvDetail tv) async {
-    final result = await removeWatchlist.executeTv(tv);
+    final result = await removeWatchlist.execute(tv);
 
     await result.fold(
       (failure) async {
@@ -112,7 +112,7 @@ class TvDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.executeTv(id);
+    final result = await getWatchListStatus.execute(id);
     _isAddedToWatchlist = result;
     notifyListeners();
   }

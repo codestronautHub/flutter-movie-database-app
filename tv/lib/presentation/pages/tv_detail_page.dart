@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:core/domain/entities/genre.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:core/utils/urls.dart';
@@ -9,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../domain/entities/genre.dart';
 import '../../domain/entities/tv.dart';
 import '../../domain/entities/tv_detail.dart';
 import '../provider/tv_detail_notifier.dart';

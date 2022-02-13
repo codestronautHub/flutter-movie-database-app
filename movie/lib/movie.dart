@@ -1,7 +1,5 @@
 library movie;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'presentation/pages/main_movie_page.dart';
+export 'presentation/pages/movie_watchlist_page.dart';
+export 'presentation/provider/watchlist_movie_notifier.dart';

@@ -1,7 +1,5 @@
 library tv;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'presentation/pages/main_tv_page.dart';
+export 'presentation/pages/tv_watchlist_page.dart';
+export 'presentation/provider/watchlist_tv_provider.dart';

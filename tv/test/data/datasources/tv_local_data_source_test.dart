@@ -7,11 +7,11 @@ import '../../helpers/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late MockDatabaseHelper mockDatabaseHelper;
+  late MockTvDatabaseHelper mockDatabaseHelper;
   late TvLocalDataSourceImpl dataSource;
 
   setUp(() {
-    mockDatabaseHelper = MockDatabaseHelper();
+    mockDatabaseHelper = MockTvDatabaseHelper();
     dataSource = TvLocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
   });
 

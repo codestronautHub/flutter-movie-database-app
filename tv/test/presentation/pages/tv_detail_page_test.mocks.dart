@@ -13,9 +13,9 @@ import 'package:tv/domain/entities/tv_season_episode.dart' as _i15;
 import 'package:tv/domain/usecases/get_tv_detail.dart' as _i2;
 import 'package:tv/domain/usecases/get_tv_recommendations.dart' as _i3;
 import 'package:tv/domain/usecases/get_tv_season_episodes.dart' as _i8;
-import 'package:tv/domain/usecases/get_watchlist_status.dart' as _i4;
-import 'package:tv/domain/usecases/remove_watchlist.dart' as _i6;
-import 'package:tv/domain/usecases/save_watchlist.dart' as _i5;
+import 'package:tv/domain/usecases/get_tv_watchlist_status.dart' as _i4;
+import 'package:tv/domain/usecases/remove_watchlist_tv.dart' as _i6;
+import 'package:tv/domain/usecases/save_watchlist_tv.dart' as _i5;
 import 'package:tv/presentation/provider/tv_detail_notifier.dart' as _i9;
 import 'package:tv/presentation/provider/tv_season_episodes_notifier.dart'
     as _i14;
@@ -35,12 +35,13 @@ class _FakeGetTvDetail_0 extends _i1.Fake implements _i2.GetTvDetail {}
 class _FakeGetTvRecommendations_1 extends _i1.Fake
     implements _i3.GetTvRecommendations {}
 
-class _FakeGetWatchlistStatus_2 extends _i1.Fake
-    implements _i4.GetWatchlistStatus {}
+class _FakeGetTvWatchlistStatus_2 extends _i1.Fake
+    implements _i4.GetTvWatchlistStatus {}
 
-class _FakeSaveWatchlist_3 extends _i1.Fake implements _i5.SaveWatchlist {}
+class _FakeSaveWatchlistTv_3 extends _i1.Fake implements _i5.SaveWatchlistTv {}
 
-class _FakeRemoveWatchlist_4 extends _i1.Fake implements _i6.RemoveWatchlist {}
+class _FakeRemoveWatchlistTv_4 extends _i1.Fake
+    implements _i6.RemoveWatchlistTv {}
 
 class _FakeTvDetail_5 extends _i1.Fake implements _i7.TvDetail {}
 
@@ -64,17 +65,17 @@ class MockTvDetailNotifier extends _i1.Mock implements _i9.TvDetailNotifier {
       Invocation.getter(#getTvRecommendations),
       returnValue: _FakeGetTvRecommendations_1()) as _i3.GetTvRecommendations);
   @override
-  _i4.GetWatchlistStatus get getWatchListStatus =>
-      (super.noSuchMethod(Invocation.getter(#getWatchListStatus),
-          returnValue: _FakeGetWatchlistStatus_2()) as _i4.GetWatchlistStatus);
+  _i4.GetTvWatchlistStatus get getWatchListStatus => (super.noSuchMethod(
+      Invocation.getter(#getWatchListStatus),
+      returnValue: _FakeGetTvWatchlistStatus_2()) as _i4.GetTvWatchlistStatus);
   @override
-  _i5.SaveWatchlist get saveWatchlist =>
+  _i5.SaveWatchlistTv get saveWatchlist =>
       (super.noSuchMethod(Invocation.getter(#saveWatchlist),
-          returnValue: _FakeSaveWatchlist_3()) as _i5.SaveWatchlist);
+          returnValue: _FakeSaveWatchlistTv_3()) as _i5.SaveWatchlistTv);
   @override
-  _i6.RemoveWatchlist get removeWatchlist =>
+  _i6.RemoveWatchlistTv get removeWatchlist =>
       (super.noSuchMethod(Invocation.getter(#removeWatchlist),
-          returnValue: _FakeRemoveWatchlist_4()) as _i6.RemoveWatchlist);
+          returnValue: _FakeRemoveWatchlistTv_4()) as _i6.RemoveWatchlistTv);
   @override
   _i7.TvDetail get tv => (super.noSuchMethod(Invocation.getter(#tv),
       returnValue: _FakeTvDetail_5()) as _i7.TvDetail);

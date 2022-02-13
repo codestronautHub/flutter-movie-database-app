@@ -12,9 +12,9 @@ import 'package:tv/domain/entities/tv_detail.dart' as _i7;
 import 'package:tv/domain/repositories/tv_repository.dart' as _i2;
 import 'package:tv/domain/usecases/get_tv_detail.dart' as _i4;
 import 'package:tv/domain/usecases/get_tv_recommendations.dart' as _i8;
-import 'package:tv/domain/usecases/get_watchlist_status.dart' as _i10;
-import 'package:tv/domain/usecases/remove_watchlist.dart' as _i12;
-import 'package:tv/domain/usecases/save_watchlist.dart' as _i11;
+import 'package:tv/domain/usecases/get_tv_watchlist_status.dart' as _i10;
+import 'package:tv/domain/usecases/remove_watchlist_tv.dart' as _i12;
+import 'package:tv/domain/usecases/save_watchlist_tv.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -71,12 +71,12 @@ class MockGetTvRecommendations extends _i1.Mock
           as _i5.Future<_i3.Either<_i6.Failure, List<_i9.Tv>>>);
 }
 
-/// A class which mocks [GetWatchlistStatus].
+/// A class which mocks [GetTvWatchlistStatus].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetWatchlistStatus extends _i1.Mock
-    implements _i10.GetWatchlistStatus {
-  MockGetWatchlistStatus() {
+class MockGetTvWatchlistStatus extends _i1.Mock
+    implements _i10.GetTvWatchlistStatus {
+  MockGetTvWatchlistStatus() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -85,16 +85,16 @@ class MockGetWatchlistStatus extends _i1.Mock
       (super.noSuchMethod(Invocation.getter(#tvRepository),
           returnValue: _FakeTvRepository_0()) as _i2.TvRepository);
   @override
-  _i5.Future<bool> executeTv(int? id) =>
-      (super.noSuchMethod(Invocation.method(#executeTv, [id]),
+  _i5.Future<bool> execute(int? id) =>
+      (super.noSuchMethod(Invocation.method(#execute, [id]),
           returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
 }
 
-/// A class which mocks [SaveWatchlist].
+/// A class which mocks [SaveWatchlistTv].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSaveWatchlist extends _i1.Mock implements _i11.SaveWatchlist {
-  MockSaveWatchlist() {
+class MockSaveWatchlistTv extends _i1.Mock implements _i11.SaveWatchlistTv {
+  MockSaveWatchlistTv() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -103,18 +103,18 @@ class MockSaveWatchlist extends _i1.Mock implements _i11.SaveWatchlist {
       (super.noSuchMethod(Invocation.getter(#tvRepository),
           returnValue: _FakeTvRepository_0()) as _i2.TvRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, String>> executeTv(_i7.TvDetail? tv) =>
-      (super.noSuchMethod(Invocation.method(#executeTv, [tv]),
+  _i5.Future<_i3.Either<_i6.Failure, String>> execute(_i7.TvDetail? tv) =>
+      (super.noSuchMethod(Invocation.method(#execute, [tv]),
               returnValue: Future<_i3.Either<_i6.Failure, String>>.value(
                   _FakeEither_1<_i6.Failure, String>()))
           as _i5.Future<_i3.Either<_i6.Failure, String>>);
 }
 
-/// A class which mocks [RemoveWatchlist].
+/// A class which mocks [RemoveWatchlistTv].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRemoveWatchlist extends _i1.Mock implements _i12.RemoveWatchlist {
-  MockRemoveWatchlist() {
+class MockRemoveWatchlistTv extends _i1.Mock implements _i12.RemoveWatchlistTv {
+  MockRemoveWatchlistTv() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -123,8 +123,8 @@ class MockRemoveWatchlist extends _i1.Mock implements _i12.RemoveWatchlist {
       (super.noSuchMethod(Invocation.getter(#tvRepository),
           returnValue: _FakeTvRepository_0()) as _i2.TvRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, String>> executeTv(_i7.TvDetail? tv) =>
-      (super.noSuchMethod(Invocation.method(#executeTv, [tv]),
+  _i5.Future<_i3.Either<_i6.Failure, String>> execute(_i7.TvDetail? tv) =>
+      (super.noSuchMethod(Invocation.method(#execute, [tv]),
               returnValue: Future<_i3.Either<_i6.Failure, String>>.value(
                   _FakeEither_1<_i6.Failure, String>()))
           as _i5.Future<_i3.Either<_i6.Failure, String>>);

@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:core/domain/entities/media_image.dart';
 import 'package:core/utils/exception.dart';
 import 'package:core/utils/failure.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../domain/entities/media_image.dart';
 import '../../domain/entities/tv.dart';
 import '../../domain/entities/tv_detail.dart';
 import '../../domain/entities/tv_season_episode.dart';

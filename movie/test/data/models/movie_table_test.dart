@@ -1,6 +1,6 @@
-import 'package:core/domain/entities/genre.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie/data/models/movie_table.dart';
+import 'package:movie/domain/entities/genre.dart';
 import 'package:movie/domain/entities/movie.dart';
 import 'package:movie/domain/entities/movie_detail.dart';
 

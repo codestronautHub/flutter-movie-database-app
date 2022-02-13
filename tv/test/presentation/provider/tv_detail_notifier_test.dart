@@ -7,9 +7,9 @@ import 'package:mockito/mockito.dart';
 import 'package:tv/domain/entities/tv.dart';
 import 'package:tv/domain/usecases/get_tv_detail.dart';
 import 'package:tv/domain/usecases/get_tv_recommendations.dart';
-import 'package:tv/domain/usecases/get_watchlist_status.dart';
-import 'package:tv/domain/usecases/remove_watchlist.dart';
-import 'package:tv/domain/usecases/save_watchlist.dart';
+import 'package:tv/domain/usecases/get_tv_watchlist_status.dart';
+import 'package:tv/domain/usecases/remove_watchlist_tv.dart';
+import 'package:tv/domain/usecases/save_watchlist_tv.dart';
 import 'package:tv/presentation/provider/tv_detail_notifier.dart';
 
 import '../../helpers/dummy_objects.dart';
@@ -18,26 +18,26 @@ import 'tv_detail_notifier_test.mocks.dart';
 @GenerateMocks([
   GetTvDetail,
   GetTvRecommendations,
-  GetWatchlistStatus,
-  SaveWatchlist,
-  RemoveWatchlist,
+  GetTvWatchlistStatus,
+  SaveWatchlistTv,
+  RemoveWatchlistTv,
 ])
 void main() {
   late int listenerCallCount;
   late MockGetTvDetail mockGetTvDetail;
   late MockGetTvRecommendations mockGetTvRecommendations;
-  late MockGetWatchlistStatus mockGetWatchListStatus;
-  late MockSaveWatchlist mockSaveWatchlist;
-  late MockRemoveWatchlist mockRemoveWatchlist;
+  late MockGetTvWatchlistStatus mockGetWatchListStatus;
+  late MockSaveWatchlistTv mockSaveWatchlist;
+  late MockRemoveWatchlistTv mockRemoveWatchlist;
   late TvDetailNotifier provider;
 
   setUp(() {
     listenerCallCount = 0;
     mockGetTvDetail = MockGetTvDetail();
     mockGetTvRecommendations = MockGetTvRecommendations();
-    mockGetWatchListStatus = MockGetWatchlistStatus();
-    mockSaveWatchlist = MockSaveWatchlist();
-    mockRemoveWatchlist = MockRemoveWatchlist();
+    mockGetWatchListStatus = MockGetTvWatchlistStatus();
+    mockSaveWatchlist = MockSaveWatchlistTv();
+    mockRemoveWatchlist = MockRemoveWatchlistTv();
     provider = TvDetailNotifier(
       getTvDetail: mockGetTvDetail,
       getTvRecommendations: mockGetTvRecommendations,
@@ -208,7 +208,7 @@ void main() {
       'should get the watchlist status',
       () async {
         // arrange
-        when(mockGetWatchListStatus.executeTv(1)).thenAnswer((_) async => true);
+        when(mockGetWatchListStatus.execute(1)).thenAnswer((_) async => true);
 
         // act
         await provider.loadWatchlistStatus(1);
@@ -222,16 +222,16 @@ void main() {
       'should execute save watchlist when function called',
       () async {
         // arrange
-        when(mockSaveWatchlist.executeTv(testTvDetail))
+        when(mockSaveWatchlist.execute(testTvDetail))
             .thenAnswer((_) async => const Right('Success'));
-        when(mockGetWatchListStatus.executeTv(testTvDetail.id))
+        when(mockGetWatchListStatus.execute(testTvDetail.id))
             .thenAnswer((_) async => true);
 
         // act
         await provider.addToWatchlist(testTvDetail);
 
         // assert
-        verify(mockSaveWatchlist.executeTv(testTvDetail));
+        verify(mockSaveWatchlist.execute(testTvDetail));
       },
     );
 
@@ -239,16 +239,16 @@ void main() {
       'should execute remove watchlist when function called',
       () async {
         // arrange
-        when(mockRemoveWatchlist.executeTv(testTvDetail))
+        when(mockRemoveWatchlist.execute(testTvDetail))
             .thenAnswer((_) async => const Right('Removed'));
-        when(mockGetWatchListStatus.executeTv(testTvDetail.id))
+        when(mockGetWatchListStatus.execute(testTvDetail.id))
             .thenAnswer((_) async => true);
 
         // act
         await provider.removeFromWatchlist(testTvDetail);
 
         // assert
-        verify(mockRemoveWatchlist.executeTv(testTvDetail));
+        verify(mockRemoveWatchlist.execute(testTvDetail));
       },
     );
 
@@ -256,16 +256,16 @@ void main() {
       'should change watchlist status when adding watchlist success',
       () async {
         // arrange
-        when(mockSaveWatchlist.executeTv(testTvDetail))
+        when(mockSaveWatchlist.execute(testTvDetail))
             .thenAnswer((_) async => const Right('Added to watchlist'));
-        when(mockGetWatchListStatus.executeTv(testTvDetail.id))
+        when(mockGetWatchListStatus.execute(testTvDetail.id))
             .thenAnswer((_) async => true);
 
         // act
         await provider.addToWatchlist(testTvDetail);
 
         // assert
-        verify(mockGetWatchListStatus.executeTv(testTvDetail.id));
+        verify(mockGetWatchListStatus.execute(testTvDetail.id));
         expect(provider.isAddedToWatchlist, equals(true));
         expect(provider.watchlistMessage, equals('Added to watchlist'));
         expect(listenerCallCount, equals(1));
@@ -276,9 +276,9 @@ void main() {
       'should change watchlist message when adding watchlist failed',
       () async {
         // arrange
-        when(mockSaveWatchlist.executeTv(testTvDetail))
+        when(mockSaveWatchlist.execute(testTvDetail))
             .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
-        when(mockGetWatchListStatus.executeTv(testTvDetail.id))
+        when(mockGetWatchListStatus.execute(testTvDetail.id))
             .thenAnswer((_) async => true);
 
         // act

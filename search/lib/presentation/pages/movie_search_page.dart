@@ -1,7 +1,6 @@
-import 'package:core/core.dart';
-import 'package:core/presentation/widgets/item_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/presentation/widgets/item_card_list.dart';
 import '../bloc/search_bloc.dart';
 
 class MovieSearchPage extends StatelessWidget {
@@ -75,7 +74,6 @@ class MovieSearchPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final movie = result[index];
                         return ItemCard(
-                          type: MdbContentType.movie,
                           movie: movie,
                         );
                       },

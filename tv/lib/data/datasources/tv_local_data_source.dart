@@ -1,7 +1,7 @@
 import 'package:core/utils/exception.dart';
 
 import '../models/tv_table.dart';
-import 'db/database_helper.dart';
+import 'db/tv_database_helper.dart';
 
 abstract class TvLocalDataSource {
   Future<String> insertWatchlist(TvTable tv);
@@ -11,7 +11,7 @@ abstract class TvLocalDataSource {
 }
 
 class TvLocalDataSourceImpl implements TvLocalDataSource {
-  final DatabaseHelper databaseHelper;
+  final TvDatabaseHelper databaseHelper;
 
   TvLocalDataSourceImpl({required this.databaseHelper});
 

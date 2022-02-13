@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movie/presentation/pages/main_movie_page.dart';
 import 'package:provider/provider.dart';
+import 'package:tv/presentation/pages/main_tv_page.dart';
 
 import '../../core.dart';
 import '../../utils/routes.dart';
 import '../provider/home_notifier.dart';
-import 'main_movie_page.dart';
-import 'main_tv_page.dart';
+
 import 'watchlist_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -141,12 +142,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               onTap: () {
                                 Provider.of<HomeNotifier>(context,
                                         listen: false)
-                                    .setState(MdbContentType.movie);
+                                    .setState(GeneralContentType.movie);
                                 toggle();
                               },
                               leading: const Icon(Icons.movie),
                               title: const Text('Movies'),
-                              selected: data.state == MdbContentType.movie,
+                              selected: data.state == GeneralContentType.movie,
                               style: ListTileStyle.drawer,
                               iconColor: Colors.white70,
                               textColor: Colors.white70,
@@ -161,12 +162,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               onTap: () {
                                 Provider.of<HomeNotifier>(context,
                                         listen: false)
-                                    .setState(MdbContentType.tv);
+                                    .setState(GeneralContentType.tv);
                                 toggle();
                               },
                               leading: const Icon(Icons.tv),
                               title: const Text('Tv Show'),
-                              selected: data.state == MdbContentType.tv,
+                              selected: data.state == GeneralContentType.tv,
                               style: ListTileStyle.drawer,
                               iconColor: Colors.white70,
                               textColor: Colors.white70,
@@ -241,7 +242,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   splashRadius: 20.0,
                                   onPressed: () => Navigator.pushNamed(
                                     context,
-                                    state == MdbContentType.movie
+                                    state == GeneralContentType.movie
                                         ? movieSearchRoute
                                         : tvSearchRoute,
                                   ),
@@ -257,7 +258,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           child: Consumer<HomeNotifier>(
                             builder: (context, data, child) {
                               final state = data.state;
-                              if (state == MdbContentType.movie) {
+                              if (state == GeneralContentType.movie) {
                                 return const MainMoviePage();
                               } else {
                                 return const MainTvPage();

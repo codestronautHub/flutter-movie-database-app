@@ -1,6 +1,6 @@
-import 'package:core/domain/entities/genre.dart';
-import 'package:core/domain/entities/media_image.dart';
 import 'package:tv/data/models/tv_table.dart';
+import 'package:tv/domain/entities/genre.dart';
+import 'package:tv/domain/entities/media_image.dart';
 import 'package:tv/domain/entities/tv.dart';
 import 'package:tv/domain/entities/tv_detail.dart';
 import 'package:tv/domain/entities/tv_season_episode.dart';

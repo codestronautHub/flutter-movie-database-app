@@ -4,10 +4,10 @@
 
 import 'dart:async' as _i5;
 
-import 'package:core/domain/entities/media_image.dart' as _i7;
 import 'package:core/utils/failure.dart' as _i6;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:tv/domain/entities/media_image.dart' as _i7;
 import 'package:tv/domain/repositories/tv_repository.dart' as _i2;
 import 'package:tv/domain/usecases/get_tv_images.dart' as _i4;
 

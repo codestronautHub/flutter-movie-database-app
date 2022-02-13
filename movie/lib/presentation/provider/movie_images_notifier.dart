@@ -1,7 +1,7 @@
-import 'package:core/domain/entities/media_image.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/entities/media_image.dart';
 import '../../domain/usecases/get_movie_images.dart';
 
 class MovieImagesNotifier extends ChangeNotifier {

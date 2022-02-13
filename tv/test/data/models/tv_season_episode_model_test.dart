@@ -1,6 +1,6 @@
-import 'package:core/data/models/tv_season_episode_model.dart';
-import 'package:core/domain/entities/tv_season_episode.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tv/data/models/tv_season_episode_model.dart';
+import 'package:tv/domain/entities/tv_season_episode.dart';
 
 void main() {
   const tTvEpisodeModel = TvSeasonEpisodeModel(

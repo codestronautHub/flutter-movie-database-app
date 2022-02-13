@@ -6,9 +6,9 @@ import '../../domain/entities/movie.dart';
 import '../../domain/entities/movie_detail.dart';
 import '../../domain/usecases/get_movie_detail.dart';
 import '../../domain/usecases/get_movie_recommendations.dart';
-import '../../domain/usecases/get_watchlist_status.dart';
-import '../../domain/usecases/remove_watchlist.dart';
-import '../../domain/usecases/save_watchlist.dart';
+import '../../domain/usecases/get_movie_watchlist_status.dart';
+import '../../domain/usecases/remove_watchlist_movie.dart';
+import '../../domain/usecases/save_watchlist_movie.dart';
 
 class MovieDetailNotifier extends ChangeNotifier {
   static const watchlistAddSuccessMessage = 'Added to watchlist';
@@ -16,9 +16,9 @@ class MovieDetailNotifier extends ChangeNotifier {
 
   final GetMovieDetail getMovieDetail;
   final GetMovieRecommendations getMovieRecommendations;
-  final GetWatchlistStatus getWatchListStatus;
-  final SaveWatchlist saveWatchlist;
-  final RemoveWatchlist removeWatchlist;
+  final GetMovieWatchlistStatus getWatchListStatus;
+  final SaveWatchlistMovie saveWatchlist;
+  final RemoveWatchlistMovie removeWatchlist;
 
   MovieDetailNotifier({
     required this.getMovieDetail,
@@ -82,7 +82,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> addToWatchlist(MovieDetail movie) async {
-    final result = await saveWatchlist.executeMovie(movie);
+    final result = await saveWatchlist.execute(movie);
 
     await result.fold(
       (failure) async {
@@ -97,7 +97,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> removeFromWatchlist(MovieDetail movie) async {
-    final result = await removeWatchlist.executeMovie(movie);
+    final result = await removeWatchlist.execute(movie);
 
     await result.fold(
       (failure) async {
@@ -112,7 +112,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.executeMovie(id);
+    final result = await getWatchListStatus.execute(id);
     _isAddedToWatchlist = result;
     notifyListeners();
   }
