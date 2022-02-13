@@ -13,8 +13,6 @@ dependencies:
     path: about
   core:
     path: core
-  search:
-    path: search
   animate_do: ^2.1.0
   flutter_bloc: ^8.0.0
   cached_network_image: ^3.2.0
@@ -28,11 +26,18 @@ dependencies:
   get_it: ^7.2.0
   google_fonts: ^2.2.0
   http: ^0.13.4
+  movie:
+    path: movie
   intl: ^0.17.0
   path_provider: ^2.0.8
   provider: ^6.0.2
+  search:
+    path: search
   shimmer: ^2.0.0
   sqflite: ^2.0.1
+  tv:
+    path: tv
+
 
 dev_dependencies:
   bloc_test: ^9.0.2

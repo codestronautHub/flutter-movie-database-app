@@ -40,9 +40,14 @@ jobs:
     - name: Analyze
       run: flutter analyze .
 
-    # Run widget tests on core module.
-    - name: Run tests on core module
-      working-directory: ./core
+    # Run widget tests on movie module.
+    - name: Run tests on movie module
+      working-directory: ./movie
+      run: flutter test --coverage
+
+    # Run widget tests on tv module.
+    - name: Run tests on tv module
+      working-directory: ./tv
       run: flutter test --coverage
 
     # Run widget tests on search module.

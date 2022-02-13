@@ -19,9 +19,13 @@ dependencies:
     sdk: flutter
   google_fonts: ^2.2.0
   intl: ^0.17.0
+  movie:
+    path: ../movie
   provider: ^6.0.2
   shimmer: ^2.0.0
   sqflite: ^2.0.1
+  tv:
+    path: ../tv
 
 dev_dependencies:
   bloc_test: ^9.0.2

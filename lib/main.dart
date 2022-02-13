@@ -1,35 +1,34 @@
 import 'package:about/about.dart';
 import 'package:core/presentation/pages/home_page.dart';
-import 'package:core/presentation/pages/movie_detail_page.dart';
-import 'package:core/presentation/pages/popular_movies_page.dart';
-import 'package:core/presentation/pages/popular_tvs_page.dart';
-import 'package:core/presentation/pages/top_rated_movies_page.dart';
-import 'package:core/presentation/pages/top_rated_tvs_page.dart';
-import 'package:core/presentation/pages/tv_detail_page.dart';
 import 'package:core/presentation/pages/watchlist_page.dart';
 import 'package:core/presentation/provider/home_notifier.dart';
-import 'package:core/presentation/provider/movie_detail_notifier.dart';
-import 'package:core/presentation/provider/movie_images_notifier.dart';
-import 'package:core/presentation/provider/movie_list_notifier.dart';
-import 'package:core/presentation/provider/popular_movies_notifier.dart';
-import 'package:core/presentation/provider/popular_tvs_notifier.dart';
-import 'package:core/presentation/provider/search_filter_notifier.dart';
-import 'package:core/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:core/presentation/provider/top_rated_tvs_notifier.dart';
-import 'package:core/presentation/provider/tv_detail_notifier.dart';
-import 'package:core/presentation/provider/tv_images_notifier.dart';
-import 'package:core/presentation/provider/tv_list_notifier.dart';
-import 'package:core/presentation/provider/tv_season_episodes_notifier.dart';
-import 'package:core/presentation/provider/watchlist_movie_notifier.dart';
-import 'package:core/presentation/provider/watchlist_tv_provider.dart';
 import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/presentation/pages/movie_detail_page.dart';
+import 'package:movie/presentation/pages/popular_movies_page.dart';
+import 'package:movie/presentation/pages/top_rated_movies_page.dart';
+import 'package:movie/presentation/provider/movie_detail_notifier.dart';
+import 'package:movie/presentation/provider/movie_images_notifier.dart';
+import 'package:movie/presentation/provider/movie_list_notifier.dart';
+import 'package:movie/presentation/provider/popular_movies_notifier.dart';
+import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:search/presentation/pages/tv_search_page.dart';
 import 'package:search/search.dart';
+import 'package:tv/presentation/pages/popular_tvs_page.dart';
+import 'package:tv/presentation/pages/top_rated_tvs_page.dart';
+import 'package:tv/presentation/pages/tv_detail_page.dart';
+import 'package:tv/presentation/provider/popular_tvs_notifier.dart';
+import 'package:tv/presentation/provider/top_rated_tvs_notifier.dart';
+import 'package:tv/presentation/provider/tv_detail_notifier.dart';
+import 'package:tv/presentation/provider/tv_images_notifier.dart';
+import 'package:tv/presentation/provider/tv_list_notifier.dart';
+import 'package:tv/presentation/provider/tv_season_episodes_notifier.dart';
+import 'package:tv/presentation/provider/watchlist_tv_provider.dart';
 
 import 'injection.dart' as di;
 
@@ -48,9 +47,6 @@ class MyApp extends StatelessWidget {
         /// General
         ChangeNotifierProvider(
           create: (_) => di.locator<HomeNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<SearchFilterNotifier>(),
         ),
 
         /// Movie

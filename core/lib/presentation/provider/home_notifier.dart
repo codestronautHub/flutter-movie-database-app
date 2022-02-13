@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../../core.dart';
 
 class HomeNotifier extends ChangeNotifier {
-  MdbContentType _state = MdbContentType.movie;
+  GeneralContentType _state = GeneralContentType.movie;
 
-  MdbContentType get state => _state;
+  GeneralContentType get state => _state;
 
-  void setState(MdbContentType newState) {
+  void setState(GeneralContentType newState) {
     _state = newState;
     notifyListeners();
   }

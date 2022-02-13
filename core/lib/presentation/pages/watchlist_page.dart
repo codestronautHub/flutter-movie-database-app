@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movie/movie.dart';
 import 'package:provider/provider.dart';
+import 'package:tv/tv.dart';
 import '../../core.dart';
-import '../provider/watchlist_movie_notifier.dart';
-import '../provider/watchlist_tv_provider.dart';
-import '../widgets/item_card_list.dart';
 
 class WatchlistPage extends StatefulWidget {
   static const routeName = '/watchlist';
@@ -62,58 +61,10 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
             indicatorWeight: 4.0,
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            Consumer<WatchlistMovieNotifier>(
-              builder: (context, data, child) {
-                if (data.watchlistState == RequestState.loading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (data.watchlistState == RequestState.loaded) {
-                  return ListView.builder(
-                    key: const Key('movieWatchlist'),
-                    itemCount: data.watchlistMovies.length,
-                    padding: const EdgeInsets.all(16.0),
-                    itemBuilder: (context, index) {
-                      final movie = data.watchlistMovies[index];
-                      return ItemCard(
-                        type: MdbContentType.movie,
-                        movie: movie,
-                      );
-                    },
-                  );
-                } else {
-                  return Center(
-                    key: const Key('error_message'),
-                    child: Text(data.message),
-                  );
-                }
-              },
-            ),
-            Consumer<WatchlistTvNotifier>(
-              builder: (context, data, child) {
-                if (data.watchlistState == RequestState.loading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (data.watchlistState == RequestState.loaded) {
-                  return ListView.builder(
-                    key: const Key('tvWatchlist'),
-                    itemCount: data.watchlistTvs.length,
-                    padding: const EdgeInsets.all(16.0),
-                    itemBuilder: (context, index) {
-                      final tv = data.watchlistTvs[index];
-                      return ItemCard(
-                        type: MdbContentType.tv,
-                        tv: tv,
-                      );
-                    },
-                  );
-                } else {
-                  return Center(
-                    key: const Key('error_message'),
-                    child: Text(data.message),
-                  );
-                }
-              },
-            ),
+            MovieWatchlist(),
+            TvWatchlist(),
           ],
         ),
       ),
