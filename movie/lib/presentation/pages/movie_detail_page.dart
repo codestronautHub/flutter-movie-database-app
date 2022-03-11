@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:core/presentation/pages/video_player.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:core/utils/urls.dart';
@@ -12,6 +13,7 @@ import '../../domain/entities/movie.dart';
 import '../../domain/entities/movie_detail.dart';
 import '../provider/movie_detail_notifier.dart';
 import '../widgets/minimal_detail.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MovieDetailPage extends StatefulWidget {
   static const routeName = '/movie-detail';
@@ -240,6 +242,37 @@ class MovieDetailContent extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       primary:
                           isAddedToWatchlist ? Colors.grey[850] : Colors.white,
+                      minimumSize: Size(
+                        MediaQuery.of(context).size.width,
+                        42.0,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    key: const Key('watch'),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          PageTransition(
+                              child: VideoDisplay(
+                                  videoUrl:
+                                      'https://play2.choinguon.com/20220311/469_01ee53ba/index.m3u8'),
+                              type: PageTransitionType.bottomToTop));
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(width: 16.0),
+                        Text(
+                          'Watch movie',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
                       minimumSize: Size(
                         MediaQuery.of(context).size.width,
                         42.0,
