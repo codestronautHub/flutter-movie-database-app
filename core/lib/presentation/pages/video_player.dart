@@ -56,7 +56,7 @@ class _VideoDisplayState extends State<VideoDisplay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: Color.fromRGBO(10, 1, 22, 0.5),
+      backgroundColor: Color.fromARGB(248, 1, 0, 3),
       body: VideoPlayer(
           isLoop: true,
           videoPlayerController:
