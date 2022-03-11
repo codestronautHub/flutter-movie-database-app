@@ -2,7 +2,7 @@ const homeRoute = '/home';
 const popularMoviesRoute = '/popular-movies';
 const topRatedMoviesRoute = '/top-rated-movies';
 const movieDetailRoute = '/movie-detail';
-
+const moviePlayerRoute = '/movie-player';
 const popularTvsRoute = '/popular-tvs';
 const topRatedTvsRoute = '/top-rated-tvs';
 const tvDetailRoute = '/tv-detail';
