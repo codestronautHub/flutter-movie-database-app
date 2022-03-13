@@ -3,35 +3,31 @@ import 'package:equatable/equatable.dart';
 // ignore: must_be_immutable
 class Movie extends Equatable {
   int vod_id;
-  int type_id;
-  int type_id_1;
   String vod_name;
-  String vod_en;
-  String vod_class;
+  String? vod_en;
+  String? vod_class;
   String vod_pic;
-  String vod_actor;
-  String vod_blurb;
-  String vod_remarks;
-  String vod_area;
-  String vod_version;
-  String vod_year;
-  int vod_hits;
-  int vod_hits_day;
-  int vod_hits_week;
-  int vod_hits_month;
-  int vod_up;
-  int vod_down;
-  String vod_score;
-  String vod_time;
-  String vod_time_add;
-  String vod_content;
-  int vod_status;
-  String vod_letter;
-  String vod_director;
+  String? vod_actor;
+  String? vod_blurb;
+  String? vod_remarks;
+  String? vod_area;
+  String? vod_version;
+  String? vod_year;
+  int? vod_hits;
+  int? vod_hits_day;
+  int? vod_hits_week;
+  int? vod_hits_month;
+  int? vod_up;
+  int? vod_down;
+  String? vod_score;
+  String? vod_time;
+  String? vod_time_add;
+  String? vod_content;
+  int? vod_status;
+  String? vod_letter;
+  String? vod_director;
   Movie({
     required this.vod_id,
-    required this.type_id,
-    required this.type_id_1,
     required this.vod_name,
     required this.vod_en,
     required this.vod_class,
@@ -59,8 +55,6 @@ class Movie extends Equatable {
 
   Movie.watchlist({
     required this.vod_id,
-    required this.type_id,
-    required this.type_id_1,
     required this.vod_name,
     required this.vod_en,
     required this.vod_class,
@@ -89,8 +83,6 @@ class Movie extends Equatable {
   @override
   List<Object?> get props => [
         vod_id,
-        type_id,
-        type_id_1,
         vod_name,
         vod_en,
         vod_class,

@@ -69,7 +69,7 @@ class ItemCard extends StatelessWidget {
                           color: Colors.redAccent,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text(movie.vod_time_add),
+                        child: Text(movie.vod_time_add.toString()),
                       ),
                       const SizedBox(width: 16.0),
                       const Icon(
@@ -85,7 +85,7 @@ class ItemCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    movie.vod_blurb,
+                    movie.vod_blurb.toString(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),

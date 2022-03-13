@@ -5,8 +5,6 @@ import '../../domain/entities/movie_detail.dart';
 
 class MovieTable extends Equatable {
   final int vod_id;
-  final int type_id;
-  final int type_id_1;
   final String vod_name;
   final String vod_en;
   final String vod_class;
@@ -33,8 +31,6 @@ class MovieTable extends Equatable {
 
   const MovieTable({
     required this.vod_id,
-    required this.type_id,
-    required this.type_id_1,
     required this.vod_name,
     required this.vod_en,
     required this.vod_class,
@@ -62,8 +58,6 @@ class MovieTable extends Equatable {
 
   factory MovieTable.fromMap(Map<String, dynamic> map) => MovieTable(
       vod_id: map['vod_id'],
-      type_id: map['type_id'],
-      type_id_1: map['type_id_1'],
       vod_name: map['vod_name'],
       vod_en: map['vod_en'],
       vod_class: map['vod_class'],
@@ -90,8 +84,6 @@ class MovieTable extends Equatable {
 
   factory MovieTable.fromEntity(MovieDetail movie) => MovieTable(
       vod_id: movie.vod_id,
-      type_id: movie.type_id,
-      type_id_1: movie.type_id_1,
       vod_name: movie.vod_name,
       vod_en: movie.vod_en,
       vod_class: movie.vod_class,
@@ -118,8 +110,6 @@ class MovieTable extends Equatable {
 
   Map<String, dynamic> toMap() => {
         'vod_id': vod_id,
-        'type_id': type_id,
-        'type_id_1': type_id_1,
         'vod_name': vod_name,
         'vod_en': vod_en,
         'vod_class': vod_class,
@@ -147,8 +137,6 @@ class MovieTable extends Equatable {
 
   Movie toEntity() => Movie.watchlist(
       vod_id: vod_id,
-      type_id: type_id,
-      type_id_1: type_id_1,
       vod_name: vod_name,
       vod_en: vod_en,
       vod_class: vod_class,
@@ -176,8 +164,6 @@ class MovieTable extends Equatable {
   @override
   List<Object?> get props => [
         vod_id,
-        type_id,
-        type_id_1,
         vod_name,
         vod_en,
         vod_class,

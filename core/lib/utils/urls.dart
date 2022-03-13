@@ -11,7 +11,7 @@ class Urls {
   static String movieRecommendations(int id) =>
       '$baseUrl/movie/$id/recommendations?';
   static String searchMovies(String query) =>
-      '$baseUrl/search/movie?&query=$query';
+      '$baseUrl/suggest?mid=1&wd=$query';
 
   /// Tvs
   static const String onTheAirTvs = '$baseUrl/tv/on_the_air?';

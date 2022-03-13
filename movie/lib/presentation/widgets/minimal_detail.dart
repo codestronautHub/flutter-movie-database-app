@@ -116,7 +116,7 @@ class MinimalDetail extends StatelessWidget {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        movie.vod_blurb,
+                        movie.vod_blurb.toString(),
                         style: const TextStyle(
                           fontSize: 12.0,
                         ),
