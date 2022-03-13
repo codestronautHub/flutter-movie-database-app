@@ -34,6 +34,8 @@ class MinimalDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                     child: CachedNetworkImage(
                       imageUrl: movie.vod_pic,
+                      height: 170,
+                      fit: BoxFit.cover,
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(),
                       ),
@@ -100,7 +102,7 @@ class MinimalDetail extends StatelessWidget {
                               color: Colors.redAccent,
                               borderRadius: BorderRadius.circular(4.0),
                             ),
-                            child: Text(movie.vod_time_add.toString()),
+                            child: Text(movie.vod_remarks.toString()),
                           ),
                           const SizedBox(width: 16.0),
                           const Icon(
@@ -121,7 +123,7 @@ class MinimalDetail extends StatelessWidget {
                           fontSize: 12.0,
                         ),
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
+                        maxLines: 4,
                       ),
                     ],
                   ),

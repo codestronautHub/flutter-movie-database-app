@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'genre.dart';
+import 'play_url.dart';
 
 class MovieDetail extends Equatable {
   int vod_id;
@@ -28,6 +29,7 @@ class MovieDetail extends Equatable {
   int vod_status;
   String vod_letter;
   String vod_director;
+  List<PlayUrl> vod_play_url;
 
   MovieDetail({
     required this.vod_id,
@@ -56,6 +58,7 @@ class MovieDetail extends Equatable {
     required this.vod_status,
     required this.vod_letter,
     required this.vod_director,
+    required this.vod_play_url,
   });
 
   @override
@@ -85,6 +88,7 @@ class MovieDetail extends Equatable {
         vod_content,
         vod_status,
         vod_letter,
-        vod_director
+        vod_director,
+        vod_play_url,
       ];
 }

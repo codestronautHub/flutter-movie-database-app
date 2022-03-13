@@ -137,7 +137,7 @@ class MovieDetailContent extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Text(
-                          movie.vod_year,
+                          movie.vod_remarks,
                           style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w500,
@@ -255,8 +255,7 @@ class MovieDetailContent extends StatelessWidget {
                           context,
                           PageTransition(
                               child: VideoDisplay(
-                                  videoUrl:
-                                      'https://play2.choinguon.com/20220311/469_01ee53ba/index.m3u8'),
+                                  videoUrl: movie.vod_play_url[1].urls[0].url),
                               type: PageTransitionType.bottomToTop));
                     },
                     child: Row(

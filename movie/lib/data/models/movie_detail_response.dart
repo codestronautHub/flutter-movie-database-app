@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import '../../domain/entities/movie_detail.dart';
+import '../../domain/entities/play_url.dart';
 import 'genre_model.dart';
+import 'play_url_model.dart';
 
 class MovieDetailResponse extends Equatable {
   final int vod_id;
@@ -29,6 +31,7 @@ class MovieDetailResponse extends Equatable {
   final int vod_status;
   final String vod_letter;
   final String vod_director;
+  final List<PlayUrlModel> vod_play_url;
 
   const MovieDetailResponse({
     required this.vod_id,
@@ -57,6 +60,7 @@ class MovieDetailResponse extends Equatable {
     required this.vod_status,
     required this.vod_letter,
     required this.vod_director,
+    required this.vod_play_url,
   });
 
   factory MovieDetailResponse.fromJson(Map<String, dynamic> json) =>
@@ -87,6 +91,8 @@ class MovieDetailResponse extends Equatable {
         vod_status: json['vod_status'],
         vod_letter: json['vod_letter'],
         vod_director: json['vod_director'],
+        vod_play_url: List<PlayUrlModel>.from((json['vod_play_url'] as List)
+            .map((x) => PlayUrlModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -115,36 +121,39 @@ class MovieDetailResponse extends Equatable {
         'vod_content': vod_content,
         'vod_status': vod_status,
         'vod_letter': vod_letter,
-        'vod_director': vod_director
+        'vod_director': vod_director,
+        'vod_play_url': List<dynamic>.from(vod_play_url.map((x) => x.toJson())),
       };
 
   MovieDetail toEntity() => MovieDetail(
-      vod_id: vod_id,
-      type_id: type_id,
-      type_id_1: type_id_1,
-      vod_name: vod_name,
-      vod_en: vod_en,
-      vod_class: vod_class,
-      vod_pic: vod_pic,
-      vod_actor: vod_actor,
-      vod_blurb: vod_blurb,
-      vod_remarks: vod_remarks,
-      vod_area: vod_area,
-      vod_version: vod_version,
-      vod_year: vod_year,
-      vod_hits: vod_hits,
-      vod_hits_day: vod_hits_day,
-      vod_hits_week: vod_hits_week,
-      vod_hits_month: vod_hits_month,
-      vod_up: vod_up,
-      vod_down: vod_down,
-      vod_score: vod_score,
-      vod_time: vod_time,
-      vod_time_add: vod_time_add,
-      vod_content: vod_content,
-      vod_status: vod_status,
-      vod_letter: vod_letter,
-      vod_director: vod_director);
+        vod_id: vod_id,
+        type_id: type_id,
+        type_id_1: type_id_1,
+        vod_name: vod_name,
+        vod_en: vod_en,
+        vod_class: vod_class,
+        vod_pic: vod_pic,
+        vod_actor: vod_actor,
+        vod_blurb: vod_blurb,
+        vod_remarks: vod_remarks,
+        vod_area: vod_area,
+        vod_version: vod_version,
+        vod_year: vod_year,
+        vod_hits: vod_hits,
+        vod_hits_day: vod_hits_day,
+        vod_hits_week: vod_hits_week,
+        vod_hits_month: vod_hits_month,
+        vod_up: vod_up,
+        vod_down: vod_down,
+        vod_score: vod_score,
+        vod_time: vod_time,
+        vod_time_add: vod_time_add,
+        vod_content: vod_content,
+        vod_status: vod_status,
+        vod_letter: vod_letter,
+        vod_director: vod_director,
+        vod_play_url: vod_play_url.map((url) => url.toEntity()).toList(),
+      );
 
   @override
   List<Object?> get props => [
