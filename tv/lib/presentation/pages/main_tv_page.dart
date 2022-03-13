@@ -35,7 +35,7 @@ class _MainTvPageState extends State<MainTvPage> {
                 .fetchTvImages(
                     Provider.of<TvListNotifier>(context, listen: false)
                         .onTheAirTvs[0]
-                        .id),
+                        .vod_id),
           );
       Provider.of<TvListNotifier>(context, listen: false).fetchPopularTvs();
       Provider.of<TvListNotifier>(context, listen: false).fetchTopRatedTvs();
@@ -60,7 +60,7 @@ class _MainTvPageState extends State<MainTvPage> {
                       viewportFraction: 1.0,
                       onPageChanged: (index, _) {
                         Provider.of<TvImagesNotifier>(context, listen: false)
-                            .fetchTvImages(data.onTheAirTvs[index].id);
+                            .fetchTvImages(data.onTheAirTvs[index].vod_id);
                       },
                     ),
                     items: data.onTheAirTvs.map(
@@ -107,7 +107,7 @@ class _MainTvPageState extends State<MainTvPage> {
                                 blendMode: BlendMode.dstIn,
                                 child: CachedNetworkImage(
                                   height: 560.0,
-                                  imageUrl: item.backdropPath!,
+                                  imageUrl: item.vod_pic,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -147,7 +147,7 @@ class _MainTvPageState extends State<MainTvPage> {
                                               RequestState.loaded) {
                                             if (data
                                                 .tvImages.logoPaths.isEmpty) {
-                                              return Text(item.name!);
+                                              return Text(item.vod_name);
                                             }
                                             return CachedNetworkImage(
                                               width: 200.0,

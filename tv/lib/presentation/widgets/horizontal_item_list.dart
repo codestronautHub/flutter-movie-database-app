@@ -48,7 +48,7 @@ class HorizontalItemList extends StatelessWidget {
                 child: CachedNetworkImage(
                   width: 120.0,
                   fit: BoxFit.cover,
-                  imageUrl: tv.posterPath!,
+                  imageUrl: tv.vod_pic,
                   placeholder: (context, url) => Shimmer.fromColors(
                     child: Container(
                       height: 170.0,

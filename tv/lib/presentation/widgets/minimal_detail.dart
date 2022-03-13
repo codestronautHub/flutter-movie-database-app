@@ -33,7 +33,7 @@ class MinimalDetail extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: CachedNetworkImage(
-                      imageUrl: tv.posterPath!,
+                      imageUrl: tv.vod_pic,
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(),
                       ),
@@ -54,7 +54,7 @@ class MinimalDetail extends StatelessWidget {
                           Expanded(
                             flex: 4,
                             child: Text(
-                              tv.name ?? '-',
+                              tv.vod_name,
                               style: const TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
@@ -100,7 +100,7 @@ class MinimalDetail extends StatelessWidget {
                               color: Colors.redAccent,
                               borderRadius: BorderRadius.circular(4.0),
                             ),
-                            child: Text(tv.firstAirDate!.split('-')[0]),
+                            child: Text(tv.vod_remarks!),
                           ),
                           const SizedBox(width: 16.0),
                           const Icon(
@@ -109,14 +109,12 @@ class MinimalDetail extends StatelessWidget {
                             size: 18.0,
                           ),
                           const SizedBox(width: 4.0),
-                          Text(
-                            (tv.voteAverage! / 2).toStringAsFixed(1),
-                          ),
+                          Text(tv.vod_score!),
                         ],
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        tv.overview ?? '-',
+                        tv.vod_blurb!,
                         style: const TextStyle(
                           fontSize: 12.0,
                         ),
@@ -141,7 +139,7 @@ class MinimalDetail extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   TvDetailPage.routeName,
-                  arguments: tv.id,
+                  arguments: tv.vod_id,
                 );
               },
               child: Row(

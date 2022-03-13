@@ -9,17 +9,16 @@ class Urls {
   static const String topRatedMovies = '$baseUrl/recommended?mid=1&by=score';
   static String movieDetail(int id) => '$baseUrl/details?mid=1&id=$id';
   static String movieRecommendations(int id) =>
-      '$baseUrl/movie/$id/recommendations?';
+      '$baseUrl/recommended?mid=1&tid=$id';
   static String searchMovies(String query) =>
       '$baseUrl/suggest?mid=1&wd=$query';
 
   /// Tvs
-  static const String onTheAirTvs = '$baseUrl/tv/on_the_air?';
-  static const String popularTvs = '$baseUrl/tv/popular?';
-  static const String topRatedTvs = '$baseUrl/tv/top_rated?';
-  static String tvDetail(int id) => '$baseUrl/tv/$id?';
-  static String tvSeasons(int id, int seasonNumber) =>
-      '$baseUrl/tv/$id/season/$seasonNumber?';
+  static const String onTheAirTvs = '$baseUrl/recommended?mid=1&by=hits_day';
+  static const String popularTvs = '$baseUrl/recommended?mid=1&by=hits_month';
+  static const String topRatedTvs = '$baseUrl/recommended?mid=1&by=score';
+  static String tvDetail(int id) => '$baseUrl/details?mid=1&id=$id';
+  static String tvSeasons(int id) => '$baseUrl/tv/$id/season/?';
   static String tvRecommendations(int id) => '$baseUrl/tv/$id/recommendations?';
   static String searchTvs(String query) => '$baseUrl/search/tv?&query=$query';
 
