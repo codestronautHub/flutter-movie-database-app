@@ -33,12 +33,33 @@ class MovieDatabaseHelper {
   void _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE  $_movieWatchlistTable (
-        releaseDate TEXT,
-        id INTEGER PRIMARY KEY,
-        title TEXT,
-        overview TEXT,
-        posterPath TEXT,
-        voteAverage DOUBLE
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        vod_id INTEGER ,
+        type_id INTEGER,
+        type_id_1 INTEGER,
+        vod_name TEXT,
+        vod_en TEXT,
+        vod_class TEXT,
+        vod_pic TEXT,
+        vod_actor TEXT,
+        vod_blurb TEXT,
+        vod_remarks TEXT,
+        vod_area TEXT,
+        vod_version TEXT,
+        vod_year TEXT,
+        vod_hits INTEGER,
+        vod_hits_day INTEGER,
+        vod_hits_week INTEGER,
+        vod_hits_month INTEGER,
+        vod_up INTEGER,
+        vod_down INTEGER,
+        vod_score TEXT,
+        vod_time TEXT,
+        vod_time_add TEXT,
+        vod_content TEXT,
+        vod_status INTEGER,
+        vod_letter TEXT,
+        vod_director TEXT
       );
     ''');
   }
@@ -52,8 +73,8 @@ class MovieDatabaseHelper {
     final db = await database;
     return await db!.delete(
       _movieWatchlistTable,
-      where: 'id = ?',
-      whereArgs: [movie.id],
+      where: 'vod_id = ?',
+      whereArgs: [movie.vod_id],
     );
   }
 
@@ -61,7 +82,7 @@ class MovieDatabaseHelper {
     final db = await database;
     final results = await db!.query(
       _movieWatchlistTable,
-      where: 'id = ?',
+      where: 'vod_id = ?',
       whereArgs: [id],
     );
 

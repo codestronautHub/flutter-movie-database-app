@@ -1,34 +1,31 @@
 class Urls {
-  static const String baseUrl = 'https://api.themoviedb.org/3';
-  static const String apiKey = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
+  static const String baseUrl = 'https://api.nguonhpim.tv/index.php/ajax';
 
   /// Movies
-  static const String nowPlayingMovies = '$baseUrl/movie/now_playing?$apiKey';
-  static const String popularMovies = '$baseUrl/movie/popular?$apiKey';
-  static const String topRatedMovies = '$baseUrl/movie/top_rated?$apiKey';
-  static String movieDetail(int id) => '$baseUrl/movie/$id?$apiKey';
+  static const String nowPlayingMovies =
+      '$baseUrl/recommended?mid=1&by=hits_day';
+  static const String popularMovies =
+      '$baseUrl/recommended?mid=1&by=hits_month';
+  static const String topRatedMovies = '$baseUrl/recommended?mid=1&by=score';
+  static String movieDetail(int id) => '$baseUrl/details?mid=1&id=$id';
   static String movieRecommendations(int id) =>
-      '$baseUrl/movie/$id/recommendations?$apiKey';
+      '$baseUrl/movie/$id/recommendations?';
   static String searchMovies(String query) =>
-      '$baseUrl/search/movie?$apiKey&query=$query';
+      '$baseUrl/search/movie?&query=$query';
 
   /// Tvs
-  static const String onTheAirTvs = '$baseUrl/tv/on_the_air?$apiKey';
-  static const String popularTvs = '$baseUrl/tv/popular?$apiKey';
-  static const String topRatedTvs = '$baseUrl/tv/top_rated?$apiKey';
-  static String tvDetail(int id) => '$baseUrl/tv/$id?$apiKey';
+  static const String onTheAirTvs = '$baseUrl/tv/on_the_air?';
+  static const String popularTvs = '$baseUrl/tv/popular?';
+  static const String topRatedTvs = '$baseUrl/tv/top_rated?';
+  static String tvDetail(int id) => '$baseUrl/tv/$id?';
   static String tvSeasons(int id, int seasonNumber) =>
-      '$baseUrl/tv/$id/season/$seasonNumber?$apiKey';
-  static String tvRecommendations(int id) =>
-      '$baseUrl/tv/$id/recommendations?$apiKey';
-  static String searchTvs(String query) =>
-      '$baseUrl/search/tv?$apiKey&query=$query';
+      '$baseUrl/tv/$id/season/$seasonNumber?';
+  static String tvRecommendations(int id) => '$baseUrl/tv/$id/recommendations?';
+  static String searchTvs(String query) => '$baseUrl/search/tv?&query=$query';
 
   /// Image
-  static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
-  static String imageUrl(String path) => '$baseImageUrl$path';
   static String movieImages(int id) =>
-      '$baseUrl/movie/$id/images?$apiKey&language=en-US&include_image_language=en,null';
+      '$baseUrl/movie/$id/images?&language=en-US&include_image_language=en,null';
   static String tvImages(int id) =>
-      '$baseUrl/tv/$id/images?$apiKey&language=en-US&include_image_language=en,null';
+      '$baseUrl/tv/$id/images?&language=en-US&include_image_language=en,null';
 }

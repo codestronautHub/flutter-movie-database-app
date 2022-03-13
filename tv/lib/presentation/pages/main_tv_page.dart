@@ -107,7 +107,7 @@ class _MainTvPageState extends State<MainTvPage> {
                                 blendMode: BlendMode.dstIn,
                                 child: CachedNetworkImage(
                                   height: 560.0,
-                                  imageUrl: Urls.imageUrl(item.backdropPath!),
+                                  imageUrl: item.backdropPath!,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -151,9 +151,8 @@ class _MainTvPageState extends State<MainTvPage> {
                                             }
                                             return CachedNetworkImage(
                                               width: 200.0,
-                                              imageUrl: Urls.imageUrl(
-                                                data.tvImages.logoPaths[0],
-                                              ),
+                                              imageUrl:
+                                                  data.tvImages.logoPaths[0],
                                             );
                                           } else if (data.tvImagesState ==
                                               RequestState.error) {

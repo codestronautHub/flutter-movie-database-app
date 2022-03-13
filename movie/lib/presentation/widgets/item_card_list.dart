@@ -21,7 +21,7 @@ class ItemCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           MovieDetailPage.routeName,
-          arguments: movie.id,
+          arguments: movie.vod_id,
         );
       },
       child: Container(
@@ -37,9 +37,7 @@ class ItemCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: CachedNetworkImage(
-                  imageUrl: Urls.imageUrl(
-                    movie.posterPath!,
-                  ),
+                  imageUrl: movie.vod_pic,
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -54,7 +52,7 @@ class ItemCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    movie.title ?? '-',
+                    movie.vod_name,
                     overflow: TextOverflow.ellipsis,
                     style: kHeading6,
                     maxLines: 1,
@@ -71,7 +69,7 @@ class ItemCard extends StatelessWidget {
                           color: Colors.redAccent,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text(movie.releaseDate!.split('-')[0]),
+                        child: Text(movie.vod_time_add),
                       ),
                       const SizedBox(width: 16.0),
                       const Icon(
@@ -81,13 +79,13 @@ class ItemCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        (movie.voteAverage! / 2).toStringAsFixed(1),
-                      ),
+                          // (movie.voteAverage! / 2).toStringAsFixed(1),
+                          movie.vod_score.toString()),
                     ],
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    movie.overview ?? '-',
+                    movie.vod_blurb,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),

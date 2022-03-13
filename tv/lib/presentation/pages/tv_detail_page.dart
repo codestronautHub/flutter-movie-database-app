@@ -125,7 +125,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                 blendMode: BlendMode.dstIn,
                 child: CachedNetworkImage(
                   width: MediaQuery.of(context).size.width,
-                  imageUrl: Urls.imageUrl(widget.tv.backdropPath!),
+                  imageUrl: widget.tv.backdropPath!,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -473,7 +473,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                       borderRadius:
                           const BorderRadius.all(Radius.circular(4.0)),
                       child: CachedNetworkImage(
-                        imageUrl: Urls.imageUrl(recommendation.posterPath!),
+                        imageUrl: recommendation.posterPath!,
                         placeholder: (context, url) => Shimmer.fromColors(
                           child: Container(
                             height: 170.0,
@@ -552,8 +552,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                                       ),
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
-                                        imageUrl: Urls.imageUrl(
-                                            seasonEpisode.stillPath!),
+                                        imageUrl: seasonEpisode.stillPath!,
                                         placeholder: (context, url) =>
                                             const Center(
                                           child: CircularProgressIndicator(),
