@@ -229,8 +229,8 @@ class MovieDetailContent extends StatelessWidget {
                         const SizedBox(width: 16.0),
                         Text(
                           isAddedToWatchlist
-                              ? 'Added to watchlist'
-                              : 'Add to watchlist',
+                              ? 'Đã thêm vào danh sách'
+                              : 'Thêm vào danh sách',
                           style: TextStyle(
                             color: isAddedToWatchlist
                                 ? Colors.white
@@ -263,7 +263,7 @@ class MovieDetailContent extends StatelessWidget {
                       children: const [
                         SizedBox(width: 16.0),
                         Text(
-                          'Watch movie',
+                          'Xem Ngay',
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -280,7 +280,7 @@ class MovieDetailContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    movie.vod_blurb,
+                    movie.vod_content,
                     style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,
@@ -289,7 +289,6 @@ class MovieDetailContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    // 'Genres: ${_showGenres(movie.genres)}',
                     movie.type_id.toString(),
                     style: const TextStyle(
                       color: Colors.white70,

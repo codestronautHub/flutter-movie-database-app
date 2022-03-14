@@ -109,18 +109,6 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, MediaImage>> getTvImages(int id) async {
-    try {
-      final result = await remoteDataSource.getTvImages(id);
-      return Right(result.toEntity());
-    } on ServerException {
-      return const Left(ServerFailure(''));
-    } on SocketException {
-      return const Left(ConnectionFailure('Failed to connect to the network'));
-    }
-  }
-
-  @override
   Future<Either<Failure, String>> saveWatchlist(TvDetail tv) async {
     try {
       final result =

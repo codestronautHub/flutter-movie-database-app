@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../provider/movie_images_notifier.dart';
 import '../provider/movie_list_notifier.dart';
 import '../widgets/horizontal_item_list.dart';
 import '../widgets/minimal_detail.dart';
@@ -30,15 +29,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
 
     Future.microtask(() {
       Provider.of<MovieListNotifier>(context, listen: false)
-          .fetchNowPlayingMovies()
-          .whenComplete(
-            () => Provider.of<MovieImagesNotifier>(context, listen: false)
-                .fetchMovieImages(
-              Provider.of<MovieListNotifier>(context, listen: false)
-                  .nowPlayingMovies[0]
-                  .vod_id,
-            ),
-          );
+          .fetchNowPlayingMovies();
       Provider.of<MovieListNotifier>(context, listen: false)
           .fetchPopularMovies();
       Provider.of<MovieListNotifier>(context, listen: false)

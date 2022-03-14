@@ -16,7 +16,6 @@ import 'package:tv/domain/entities/url_movie.dart';
 import '../../domain/entities/tv.dart';
 import '../../domain/entities/tv_detail.dart';
 import '../provider/tv_detail_notifier.dart';
-import '../provider/tv_season_episodes_notifier.dart';
 import '../widgets/minimal_detail.dart';
 
 class TvDetailPage extends StatefulWidget {
@@ -38,8 +37,6 @@ class _TvDetailPageState extends State<TvDetailPage> {
           .fetchTvDetail(widget.id);
       Provider.of<TvDetailNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
-      Provider.of<TvSeasonEpisodesNotifier>(context, listen: false)
-          .fetchTvSeasonEpisodes(widget.id);
     });
   }
 
@@ -87,6 +84,7 @@ class _TvDetailContentState extends State<TvDetailContent>
   int _selectedIndex = 0;
   final List<int> _seasons = [];
   int pressed = -1;
+  bool isExpanded = false;
   @override
   void initState() {
     super.initState();
@@ -171,14 +169,9 @@ class _TvDetailContentState extends State<TvDetailContent>
                       const SizedBox(width: 16.0),
                       Row(
                         children: [
-                          const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 20.0,
-                          ),
                           const SizedBox(width: 4.0),
                           Text(
-                            widget.tv.vod_score,
+                            widget.tv.vod_year,
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w500,
@@ -244,8 +237,8 @@ class _TvDetailContentState extends State<TvDetailContent>
                         const SizedBox(width: 16.0),
                         Text(
                           widget.isAddedToWatchlist
-                              ? 'Added to watchlist'
-                              : 'Add to watchlist',
+                              ? 'Đã thêm vào danh sách'
+                              : 'Thêm vào danh sách',
                           style: TextStyle(
                             color: widget.isAddedToWatchlist
                                 ? Colors.white
@@ -280,7 +273,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                       children: const [
                         SizedBox(width: 16.0),
                         Text(
-                          'Watch movie',
+                          'Xem Ngay',
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -295,25 +288,33 @@ class _TvDetailContentState extends State<TvDetailContent>
                       ),
                     ),
                   ),
+                  //const SizedBox(height: 16.0),
+                  // Text(
+                  //   widget.tv.vod_content,
+                  //   style: const TextStyle(
+                  //     fontSize: 14.0,
+                  //     fontWeight: FontWeight.w400,
+                  //     letterSpacing: 1.2,
+                  //   ),
+
+                  //),
                   const SizedBox(height: 16.0),
-                  Text(
-                    widget.tv.vod_blurb,
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    widget.tv.vod_class,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
+                  Column(children: <Widget>[
+                    ConstrainedBox(
+                        constraints: isExpanded
+                            ? BoxConstraints()
+                            : BoxConstraints(maxHeight: 60.0),
+                        child: Text(
+                          widget.tv.vod_content,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        )),
+                    isExpanded
+                        ? Container()
+                        : FlatButton(
+                            child: const Text('see more...'),
+                            onPressed: () => setState(() => isExpanded = true))
+                  ])
                 ],
               ),
             ),
@@ -399,18 +400,6 @@ class _TvDetailContentState extends State<TvDetailContent>
                           const BorderRadius.all(Radius.circular(4.0)),
                       child: CachedNetworkImage(
                         imageUrl: recommendation.vod_pic,
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          child: Container(
-                            height: 170.0,
-                            width: 120.0,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                          baseColor: Colors.grey[850]!,
-                          highlightColor: Colors.grey[800]!,
-                        ),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
                         height: 180.0,

@@ -117,13 +117,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Aditya',
+                                  'Account',
                                   style: kHeading6.copyWith(
                                     fontSize: 16.0,
                                   ),
                                 ),
                                 Text(
-                                  'aditya@mail.co',
+                                  'Inguon@mail.com',
                                   style: kBodyText.copyWith(
                                     color: Colors.white70,
                                   ),
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 toggle();
                               },
                               leading: const Icon(Icons.movie),
-                              title: const Text('Movies'),
+                              title: const Text('Phim lẻ'),
                               selected: data.state == GeneralContentType.movie,
                               style: ListTileStyle.drawer,
                               iconColor: Colors.white70,
@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 toggle();
                               },
                               leading: const Icon(Icons.tv),
-                              title: const Text('Tv Show'),
+                              title: const Text('Phim bộ'),
                               selected: data.state == GeneralContentType.tv,
                               style: ListTileStyle.drawer,
                               iconColor: Colors.white70,
@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           Navigator.pushNamed(context, WatchlistPage.routeName);
                         },
                         leading: const Icon(Icons.save_alt),
-                        title: const Text('Watchlist'),
+                        title: const Text('Phim đã xem'),
                         iconColor: Colors.white70,
                         textColor: Colors.white70,
                       ),
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           Navigator.pushNamed(context, aboutRoute);
                         },
                         leading: const Icon(Icons.info_outline),
-                        title: const Text('About'),
+                        title: const Text('Giới thiệu'),
                         iconColor: Colors.white70,
                         textColor: Colors.white70,
                       ),
@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             onPressed: toggle,
                           ),
                           title: const Text(
-                            'MDB',
+                            'Nguồn Phim',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20.0,

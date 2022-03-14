@@ -32,7 +32,7 @@ class SubHeading extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: const [
-                  Text('See More'),
+                  Text('Xem thêm'),
                   Icon(Icons.arrow_forward_ios, size: 16.0)
                 ],
               ),
