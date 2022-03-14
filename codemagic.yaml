@@ -1,17 +1,6 @@
 workflows:
   my-workflow:
     scripts:
-      - name: Add provisioning profiles
-        script: |
-          set -e # exit on first failed command
-
-          PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
-          mkdir -p "$PROFILES_HOME"
-          echo ${PROVISIONING_PROFILE?} | base64 --decode > "$PROFILES_HOME/$(uuidgen).mobileprovision"
-      - name: Increment build number
-        script: agvtool new-version -all $BUILD_NUMBER
-      - name: Set up code signing settings on Xcode project
-        script: xcode-project use-profiles
       - name: Build ipa for distribution
         script: xcode-project build-ipa \
                     --workspace "${XCODE_WORKSPACE?}" \
