@@ -1,16 +1,15 @@
 // ignore_for_file: directives_ordering
 
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 
 class VideoPlayer extends StatefulWidget {
-  final VideoPlayerController videoPlayerController;
-  final bool isLoop;
+  final String url;
   const VideoPlayer({
     Key? key,
-    required this.videoPlayerController,
-    required this.isLoop,
+    required this.url,
   }) : super(key: key);
 
   @override
@@ -18,57 +17,40 @@ class VideoPlayer extends StatefulWidget {
 }
 
 class _VideoPlayerState extends State<VideoPlayer> {
-  late ChewieController chewieController;
+  late BetterPlayerController _betterPlayerController;
   @override
   void initState() {
-    chewieController = ChewieController(
-        looping: widget.isLoop,
-        aspectRatio: 16 / 9,
-        autoInitialize: true,
-        autoPlay: true,
-        videoPlayerController: widget.videoPlayerController);
     super.initState();
+    BetterPlayerDataSource betterPlayerDataSource =
+        BetterPlayerDataSource(BetterPlayerDataSourceType.network, widget.url);
+    _betterPlayerController = BetterPlayerController(
+      const BetterPlayerConfiguration(
+        autoPlay: true,
+        aspectRatio: 16 / 9,
+      ),
+      betterPlayerDataSource: betterPlayerDataSource,
+    );
   }
 
   @override
   void dispose() {
-    chewieController.dispose();
+    _betterPlayerController.dispose();
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Chewie(controller: chewieController),
-    );
-  }
-}
-
-class VideoDisplay extends StatefulWidget {
-  final String videoUrl;
-
-  const VideoDisplay({Key? key, required this.videoUrl}) : super(key: key);
-
-  @override
-  _VideoDisplayState createState() => _VideoDisplayState();
-}
-
-class _VideoDisplayState extends State<VideoDisplay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       backgroundColor: const Color.fromARGB(248, 1, 0, 3),
-      body: VideoPlayer(
-          isLoop: true,
-          videoPlayerController:
-              VideoPlayerController.network(widget.videoUrl)),
+      body: BetterPlayer(controller: _betterPlayerController),
     );
   }
 }

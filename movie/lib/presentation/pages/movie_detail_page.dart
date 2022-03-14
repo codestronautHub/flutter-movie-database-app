@@ -254,8 +254,9 @@ class MovieDetailContent extends StatelessWidget {
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: VideoDisplay(
-                                  videoUrl: movie.vod_play_url[1].urls[0].url),
+                              child: VideoPlayer(
+                                url: movie.vod_play_url[1].urls[0].url,
+                              ),
                               type: PageTransitionType.bottomToTop));
                     },
                     child: Row(

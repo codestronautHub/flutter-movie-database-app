@@ -263,9 +263,9 @@ class _TvDetailContentState extends State<TvDetailContent>
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: VideoDisplay(
-                                  videoUrl:
-                                      widget.tv.vod_play_url[1].urls[0].url),
+                              child: VideoPlayer(
+                                url: widget.tv.vod_play_url[1].urls[0].url,
+                              ),
                               type: PageTransitionType.bottomToTop));
                     },
                     child: Row(
@@ -460,8 +460,9 @@ class _TvDetailContentState extends State<TvDetailContent>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: VideoDisplay(
-                      videoUrl: widget.tv.vod_play_url[1].urls[index].url),
+                  child: VideoPlayer(
+                    url: widget.tv.vod_play_url[1].urls[index].url,
+                  ),
                   type: PageTransitionType.bottomToTop,
                   fullscreenDialog: true,
                 ),
