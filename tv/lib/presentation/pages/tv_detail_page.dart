@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tv/domain/entities/url_movie.dart';
 
 import '../../domain/entities/genre.dart';
 import '../../domain/entities/tv.dart';
@@ -82,11 +83,12 @@ class _TvDetailContentState extends State<TvDetailContent>
   late TabController _tabController;
   int _selectedIndex = 0;
   final List<int> _seasons = [];
-  int _currentSeason = 1;
+  late List<UrlMovie> _episodes = [];
 
   @override
   void initState() {
     super.initState();
+    _episodes = widget.tv.vod_play_url[1].urls;
     _tabController = TabController(length: 2, vsync: this);
     for (int i = 1; i <= 2; i++) {
       _seasons.add(i);
@@ -323,49 +325,24 @@ class _TvDetailContentState extends State<TvDetailContent>
                   padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
                   sliver: SliverToBoxAdapter(
                     child: FadeIn(
-                      duration: const Duration(milliseconds: 500),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[850],
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: DropdownButton<int>(
-                              onChanged: (value) {
-                                setState(() {
-                                  _currentSeason = value!;
-                                });
-
-                                Provider.of<TvSeasonEpisodesNotifier>(
-                                  context,
-                                  listen: false,
-                                ).fetchTvSeasonEpisodes(widget.tv.vod_id);
-                              },
-                              items: _seasons
-                                  .map(
-                                    (item) => DropdownMenuItem(
-                                      value: item,
-                                      child: Text(
-                                        'Season $item',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                              value: _currentSeason,
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                letterSpacing: 1.2,
-                              ),
-                            ),
+                        duration: const Duration(milliseconds: 500),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
-                        ),
-                      ),
-                    ),
+                          child: ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              itemCount: _episodes.length,
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  height: 50,
+                                  color: Colors.blueAccent,
+                                  child: Center(
+                                      child: Text(_episodes[index].name)),
+                                );
+                              }),
+                        )),
                   ),
                 )
               : const SliverToBoxAdapter();
@@ -391,30 +368,6 @@ class _TvDetailContentState extends State<TvDetailContent>
         }),
       ],
     );
-  }
-
-  String _showGenres(List<Genre> genres) {
-    String result = '';
-    for (var genre in genres) {
-      result += genre.name + ', ';
-    }
-
-    if (result.isEmpty) {
-      return result;
-    }
-
-    return result.substring(0, result.length - 2);
-  }
-
-  String _showEpisodeDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 
   Widget _showRecommendations() {

@@ -14,10 +14,12 @@ class Urls {
       '$baseUrl/suggest?mid=1&wd=$query';
 
   /// Tvs
-  static const String onTheAirTvs = '$baseUrl/recommended?mid=1&by=hits_day';
-  static const String popularTvs = '$baseUrl/recommended?mid=1&by=hits_month';
-  static const String topRatedTvs = '$baseUrl/recommended?mid=1&by=score';
-  static String tvDetail(int id) => '$baseUrl/details?mid=1&id=$id';
+  static const String onTheAirTvs =
+      '$baseUrl/recommended?mid=1&by=hits_day&tid=2';
+  static const String popularTvs =
+      '$baseUrl/recommended?mid=1&by=hits_month&tid=2';
+  static const String topRatedTvs = '$baseUrl/recommended?mid=1&by=score&tid=2';
+  static String tvDetail(int id) => '$baseUrl/details?mid=1&id=$id&tid=2';
   static String tvSeasons(int id) => '$baseUrl/tv/$id/season/?';
   static String tvRecommendations(int id) => '$baseUrl/tv/$id/recommendations?';
   static String searchTvs(String query) => '$baseUrl/search/tv?&query=$query';
