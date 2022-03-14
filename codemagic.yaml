@@ -16,7 +16,7 @@ workflows:
           keychain initialize
           keychain add-certificates \
               --certificate /tmp/certificate.p12 \
-              --certificate-password ${CERTIFICATE_PASSWORD?}
+              --certificate-password 'vinh123'
       - name: Increment build number
         script: agvtool new-version -all $BUILD_NUMBER
       - name: Set up code signing settings on Xcode project
