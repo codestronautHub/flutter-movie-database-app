@@ -29,7 +29,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Popular Movies'),
+        title: const Text('Phim phổ biến'),
         backgroundColor: Colors.black.withOpacity(0.6),
         elevation: 0.0,
       ),

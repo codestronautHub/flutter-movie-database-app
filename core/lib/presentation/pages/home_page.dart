@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             onPressed: toggle,
                           ),
                           title: const Text(
-                            'MDB',
+                            '3X PHIM',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20.0,

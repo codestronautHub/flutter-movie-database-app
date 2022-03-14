@@ -305,7 +305,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                 ),
                 tabs: [
                   Tab(text: 'Episodes'.toUpperCase()),
-                  Tab(text: 'More like this'.toUpperCase()),
+                  Tab(text: 'Đề xuất thêm'.toUpperCase()),
                 ],
               ),
             ),

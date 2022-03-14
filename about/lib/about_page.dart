@@ -21,7 +21,7 @@ class AboutPage extends StatelessWidget {
                   color: kRichBlack,
                   child: const Center(
                     child: Text(
-                      'MDB',
+                      '3X PHIM',
                       style: TextStyle(
                         fontSize: 64.0,
                         fontWeight: FontWeight.bold,
@@ -36,7 +36,7 @@ class AboutPage extends StatelessWidget {
                   padding: const EdgeInsets.all(32.0),
                   color: kRichBlack,
                   child: const Text(
-                    'Movie Database (MDB) is a movie and tv series catalog app developed by Aditya Rohman sebagai as a project submission for Flutter Developer Expert course on Dicoding Indonesia.',
+                    'Movie Database (3X PHIM) is a movie and tv series catalog app developed by Aditya Rohman sebagai as a project submission for Flutter Developer Expert course on Dicoding Indonesia.',
                     style: TextStyle(fontSize: 16.0),
                     textAlign: TextAlign.justify,
                   ),

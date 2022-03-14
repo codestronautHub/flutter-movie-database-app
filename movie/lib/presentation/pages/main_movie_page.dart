@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../provider/movie_images_notifier.dart';
 import '../provider/movie_list_notifier.dart';
+import '../provider/watchlist_movie_notifier.dart';
 import '../widgets/horizontal_item_list.dart';
 import '../widgets/minimal_detail.dart';
 import '../widgets/sub_heading.dart';
@@ -50,6 +51,8 @@ class _MainMoviePageState extends State<MainMoviePage> {
           .fetchTopHqMovies();
       Provider.of<MovieListNotifier>(context, listen: false)
           .fetchTopAcMovies();
+      Provider.of<WatchlistMovieNotifier>(context, listen: false)
+          .fetchWatchlistMovies();
     });
   }
 
@@ -137,7 +140,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                           ),
                                           const SizedBox(width: 4.0),
                                           Text(
-                                            'Now Playing'.toUpperCase(),
+                                            'Đang xem'.toUpperCase(),
                                             style: const TextStyle(
                                               fontSize: 16.0,
                                             ),
@@ -412,6 +415,53 @@ class _MainMoviePageState extends State<MainMoviePage> {
                   ),
                 );
               } else if (data.topAcMoviesState == RequestState.error) {
+                return const Center(child: Text('Load data failed'));
+              } else {
+                return SizedBox(
+                  height: 170.0,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Shimmer.fromColors(
+                          child: Container(
+                            height: 170.0,
+                            width: 120.0,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          baseColor: Colors.grey[850]!,
+                          highlightColor: Colors.grey[800]!,
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }
+            }),
+            SubHeading(
+              valueKey: 'seewatchingMovies',
+              text: 'Những phim đang xem',
+              onSeeMoreTapped: () => Navigator.pushNamed(
+                context,
+                TopAcMoviesPage.routeName,
+              ),
+            ),
+            Consumer<WatchlistMovieNotifier>(builder: (context, data, child) {
+              if (data.watchlistState == RequestState.loaded) {
+                return FadeIn(
+                  duration: const Duration(milliseconds: 500),
+                  child: HorizontalItemList(
+                    movies: data.watchlistMovies,
+                  ),
+                );
+              } else if (data.watchlistState == RequestState.error) {
                 return const Center(child: Text('Load data failed'));
               } else {
                 return SizedBox(
