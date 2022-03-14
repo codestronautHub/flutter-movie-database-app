@@ -251,7 +251,7 @@ class MovieDetailContent extends StatelessWidget {
                   ElevatedButton(
                     key: const Key('watch'),
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                           context,
                           PageTransition(
                               child: VideoDisplay(
@@ -260,8 +260,8 @@ class MovieDetailContent extends StatelessWidget {
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(width: 16.0),
+                      children: const [
+                        SizedBox(width: 16.0),
                         Text(
                           'Watch movie',
                           style: TextStyle(

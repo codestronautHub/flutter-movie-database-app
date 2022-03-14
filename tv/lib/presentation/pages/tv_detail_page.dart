@@ -1,15 +1,18 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:core/presentation/pages/video_player.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:core/utils/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tv/domain/entities/url_movie.dart';
 
-import '../../domain/entities/genre.dart';
 import '../../domain/entities/tv.dart';
 import '../../domain/entities/tv_detail.dart';
 import '../provider/tv_detail_notifier.dart';
@@ -83,12 +86,10 @@ class _TvDetailContentState extends State<TvDetailContent>
   late TabController _tabController;
   int _selectedIndex = 0;
   final List<int> _seasons = [];
-  late List<UrlMovie> _episodes = [];
-
+  int pressed = -1;
   @override
   void initState() {
     super.initState();
-    _episodes = widget.tv.vod_play_url[1].urls;
     _tabController = TabController(length: 2, vsync: this);
     for (int i = 1; i <= 2; i++) {
       _seasons.add(i);
@@ -263,6 +264,37 @@ class _TvDetailContentState extends State<TvDetailContent>
                       ),
                     ),
                   ),
+                  ElevatedButton(
+                    key: const Key('watch'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: VideoDisplay(
+                                  videoUrl:
+                                      widget.tv.vod_play_url[1].urls[0].url),
+                              type: PageTransitionType.bottomToTop));
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        SizedBox(width: 16.0),
+                        Text(
+                          'Watch movie',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                      minimumSize: Size(
+                        MediaQuery.of(context).size.width,
+                        42.0,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 16.0),
                   Text(
                     widget.tv.vod_blurb,
@@ -311,42 +343,6 @@ class _TvDetailContentState extends State<TvDetailContent>
             ),
           ),
         ),
-        Builder(builder: (context) {
-          _tabController.addListener(() {
-            if (!_tabController.indexIsChanging) {
-              setState(() {
-                _selectedIndex = _tabController.index;
-              });
-            }
-          });
-
-          return _selectedIndex == 0
-              ? SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-                  sliver: SliverToBoxAdapter(
-                    child: FadeIn(
-                        duration: const Duration(milliseconds: 500),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: ListView.builder(
-                              padding: const EdgeInsets.all(8),
-                              itemCount: _episodes.length,
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Container(
-                                  height: 50,
-                                  color: Colors.blueAccent,
-                                  child: Center(
-                                      child: Text(_episodes[index].name)),
-                                );
-                              }),
-                        )),
-                  ),
-                )
-              : const SliverToBoxAdapter();
-        }),
         Builder(builder: (context) {
           _tabController.addListener(() {
             if (!_tabController.indexIsChanging) {
@@ -448,110 +444,47 @@ class _TvDetailContentState extends State<TvDetailContent>
   }
 
   Widget _showSeasonEpisodes() {
-    return Consumer<TvSeasonEpisodesNotifier>(
-      builder: (context, data, child) {
-        if (data.seasonEpisodesState == RequestState.loaded) {
-          return data.seasonEpisodes.isEmpty
-              ? const SliverToBoxAdapter(
-                  child: Center(
-                    child: Text(
-                      'Comming Soon!',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                  ),
-                )
-              : SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final seasonEpisode = data.seasonEpisodes[index];
-                      return FadeInUp(
-                        from: 20,
-                        duration: const Duration(milliseconds: 500),
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 24.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(4.0),
-                                      ),
-                                      child: CachedNetworkImage(
-                                        fit: BoxFit.cover,
-                                        imageUrl: seasonEpisode.stillPath!,
-                                        placeholder: (context, url) =>
-                                            const Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 16.0),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 200.0,
-                                          child: Text(
-                                            '${seasonEpisode.episodeNumber}. ${seasonEpisode.name}',
-                                            style: const TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          DateFormat('MMM dd, yyyy').format(
-                                            DateTime.parse(
-                                                seasonEpisode.airDate),
-                                          ),
-                                          style: const TextStyle(
-                                            color: Colors.white70,
-                                            fontSize: 12.0,
-                                            letterSpacing: 1.2,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Text(
-                                  seasonEpisode.overview,
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 10.0,
-                                    letterSpacing: 1.2,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    childCount: data.seasonEpisodes.length,
-                  ),
-                );
-        }
-        if (data.seasonEpisodesState == RequestState.error) {
-          return SliverToBoxAdapter(child: Center(child: Text(data.message)));
-        } else {
-          return const SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
+    return SliverGrid(
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 100.0,
+        mainAxisSpacing: 10.0,
+        crossAxisSpacing: 10.0,
+        childAspectRatio: 2.0,
+      ),
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          // ignore: unnecessary_new
+          bool data = pressed == index;
+          return InkResponse(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color.fromARGB(255, 74, 74, 77),
+                ),
+                borderRadius: BorderRadius.circular(10),
+                color: (data) ? Colors.grey[700] : Colors.transparent,
+              ),
+              alignment: Alignment.center,
+              child: Text(widget.tv.vod_play_url[1].urls[index].name),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: VideoDisplay(
+                      videoUrl: widget.tv.vod_play_url[1].urls[index].url),
+                  type: PageTransitionType.bottomToTop,
+                  fullscreenDialog: true,
+                ),
+              );
+              setState(() {
+                pressed = index;
+              });
+            },
           );
-        }
-      },
+        },
+        childCount: widget.tv.vod_play_url[1].urls.length,
+      ),
     );
   }
 }
