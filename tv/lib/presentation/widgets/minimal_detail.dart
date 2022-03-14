@@ -34,6 +34,7 @@ class MinimalDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                     child: CachedNetworkImage(
                       imageUrl: tv.vod_pic,
+                      height: 170,
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(),
                       ),

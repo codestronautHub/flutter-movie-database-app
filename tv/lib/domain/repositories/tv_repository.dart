@@ -13,7 +13,6 @@ abstract class TvRepository {
   Future<Either<Failure, List<Tv>>> getTvRecommendations(int id);
   Future<Either<Failure, List<TvSeasonEpisode>>> getTvSeasonEpisodes(int id);
   Future<Either<Failure, List<Tv>>> searchTvs(String query);
-  Future<Either<Failure, MediaImage>> getTvImages(int id);
   Future<Either<Failure, String>> saveWatchlist(TvDetail tv);
   Future<Either<Failure, String>> removeWatchlist(TvDetail tv);
   Future<bool> isAddedToWatchlist(int id);

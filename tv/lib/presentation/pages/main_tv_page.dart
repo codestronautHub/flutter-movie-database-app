@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../provider/tv_images_notifier.dart';
 import '../provider/tv_list_notifier.dart';
 
 import '../widgets/horizontal_item_list.dart';
@@ -28,15 +27,7 @@ class _MainTvPageState extends State<MainTvPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TvListNotifier>(context, listen: false)
-          .fetchOnTheAirTvs()
-          .whenComplete(
-            () => Provider.of<TvImagesNotifier>(context, listen: false)
-                .fetchTvImages(
-                    Provider.of<TvListNotifier>(context, listen: false)
-                        .onTheAirTvs[0]
-                        .vod_id),
-          );
+      Provider.of<TvListNotifier>(context, listen: false).fetchOnTheAirTvs();
       Provider.of<TvListNotifier>(context, listen: false).fetchPopularTvs();
       Provider.of<TvListNotifier>(context, listen: false).fetchTopRatedTvs();
     });
@@ -58,10 +49,6 @@ class _MainTvPageState extends State<MainTvPage> {
                     options: CarouselOptions(
                       height: 575.0,
                       viewportFraction: 1.0,
-                      onPageChanged: (index, _) {
-                        Provider.of<TvImagesNotifier>(context, listen: false)
-                            .fetchTvImages(data.onTheAirTvs[index].vod_id);
-                      },
                     ),
                     items: data.onTheAirTvs.map(
                       (item) {
@@ -130,7 +117,7 @@ class _MainTvPageState extends State<MainTvPage> {
                                           ),
                                           const SizedBox(width: 4.0),
                                           Text(
-                                            'On The Air'.toUpperCase(),
+                                            'Now playing'.toUpperCase(),
                                             style: const TextStyle(
                                               fontSize: 16.0,
                                             ),
@@ -141,31 +128,21 @@ class _MainTvPageState extends State<MainTvPage> {
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(bottom: 16.0),
-                                      child: Consumer<TvImagesNotifier>(
-                                        builder: (context, data, child) {
-                                          if (data.tvImagesState ==
-                                              RequestState.loaded) {
-                                            if (data
-                                                .tvImages.logoPaths.isEmpty) {
-                                              return Text(item.vod_name);
-                                            }
-                                            return CachedNetworkImage(
-                                              width: 200.0,
-                                              imageUrl:
-                                                  data.tvImages.logoPaths[0],
-                                            );
-                                          } else if (data.tvImagesState ==
-                                              RequestState.error) {
-                                            return const Center(
-                                              child: Text('Load data failed'),
-                                            );
-                                          } else {
-                                            return const Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            );
-                                          }
-                                        },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Text(
+                                              item.vod_name.toUpperCase(),
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.lightBlue,
+                                              ),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -212,7 +189,7 @@ class _MainTvPageState extends State<MainTvPage> {
             }),
             SubHeading(
               valueKey: 'seePopularTvs',
-              text: 'Popular',
+              text: 'Seri phim phổ biến',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
                 PopularTvsPage.routeName,
@@ -259,7 +236,7 @@ class _MainTvPageState extends State<MainTvPage> {
             }),
             SubHeading(
               valueKey: 'seeTopRatedTvs',
-              text: 'Top Rated',
+              text: 'Seri phim được yêu thích',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
                 TopRatedTvsPage.routeName,

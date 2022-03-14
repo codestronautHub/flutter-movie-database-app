@@ -29,7 +29,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Top Rated Movies'),
+        title: const Text('Phim được yêu thích'),
         backgroundColor: Colors.black.withOpacity(0.6),
         elevation: 0.0,
       ),
