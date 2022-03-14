@@ -5,6 +5,7 @@ import '../../domain/entities/movie.dart';
 import '../../domain/usecases/get_now_playing_movies.dart';
 import '../../domain/usecases/get_popular_movies.dart';
 import '../../domain/usecases/get_top20_chinese_movies.dart';
+import '../../domain/usecases/get_top_Hq_movies.dart';
 import '../../domain/usecases/get_top_rated_movies.dart';
 
 class MovieListNotifier extends ChangeNotifier {
@@ -33,6 +34,12 @@ class MovieListNotifier extends ChangeNotifier {
   RequestState _top20ChineseMoviesState = RequestState.empty;
   RequestState get top20ChineseMoviesState => _top20ChineseMoviesState;
 
+  var _topHqMovies = <Movie>[];
+  List<Movie> get topHqMovies => _topHqMovies;
+
+  RequestState _topHqMoviesState = RequestState.empty;
+  RequestState get topHqMoviesState => _topHqMoviesState;
+
   String _message = '';
   String get message => _message;
 
@@ -40,12 +47,15 @@ class MovieListNotifier extends ChangeNotifier {
       {required this.getNowPlayingMovies,
       required this.getPopularMovies,
       required this.getTopRatedMovies,
-      required this.getTop20ChineseMovies});
+      required this.getTop20ChineseMovies,
+      required this.getTopHqMovies
+      });
 
   final GetNowPlayingMovies getNowPlayingMovies;
   final GetPopularMovies getPopularMovies;
   final GetTopRatedMovies getTopRatedMovies;
   final GetTop20ChineseMovies getTop20ChineseMovies;
+  final GetTopHqMovies getTopHqMovies;
 
   Future<void> fetchNowPlayingMovies() async {
     _nowPlayingState = RequestState.loading;
@@ -118,6 +128,25 @@ class MovieListNotifier extends ChangeNotifier {
       (moviesData) {
         _top20ChineseMoviesState = RequestState.loaded;
         _top20ChineseMovies = moviesData;
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<void> fetchTopHqMovies() async {
+    _topHqMoviesState = RequestState.loading;
+    notifyListeners();
+
+    final result = await getTopHqMovies.execute();
+    result.fold(
+      (failure) {
+        _topHqMoviesState = RequestState.error;
+        _message = failure.message;
+        notifyListeners();
+      },
+      (moviesData) {
+        _topHqMoviesState = RequestState.loaded;
+        _topHqMovies = moviesData;
         notifyListeners();
       },
     );
