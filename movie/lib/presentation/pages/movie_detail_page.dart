@@ -287,6 +287,17 @@ class MovieDetailContent extends StatelessWidget {
                       letterSpacing: 1.2,
                     ),
                   ),
+                  const SizedBox(height: 8.0),
+                  // Text(
+                  //   // 'Genres: ${_showGenres(movie.genres)}',
+                  //   movie.type_id.toString(),
+                  //   style: const TextStyle(
+                  //     color: Colors.white70,
+                  //     fontSize: 12.0,
+                  //     fontWeight: FontWeight.w500,
+                  //     letterSpacing: 1.2,
+                  //   ),
+                  // ),
                 ],
               ),
             ),

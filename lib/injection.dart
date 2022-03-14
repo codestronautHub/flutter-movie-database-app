@@ -12,6 +12,7 @@ import 'package:movie/domain/usecases/get_movie_watchlist_status.dart';
 import 'package:movie/domain/usecases/get_now_playing_movies.dart';
 import 'package:movie/domain/usecases/get_popular_movies.dart';
 import 'package:movie/domain/usecases/get_top20_chinese_movies.dart';
+import 'package:movie/domain/usecases/get_top_Ac_movies.dart';
 import 'package:movie/domain/usecases/get_top_Hq_movies.dart';
 import 'package:movie/domain/usecases/get_top_rated_movies.dart';
 import 'package:movie/domain/usecases/get_watchlist_movies.dart';
@@ -21,6 +22,7 @@ import 'package:movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:movie/presentation/provider/movie_list_notifier.dart';
 import 'package:movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:movie/presentation/provider/top20_chinese_movies_notifier.dart';
+import 'package:movie/presentation/provider/top_Ac_movies_notifier.dart';
 import 'package:movie/presentation/provider/top_Hq_movies_notifier.dart';
 import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:movie/presentation/provider/watchlist_movie_notifier.dart';
@@ -62,7 +64,8 @@ void init() {
       getPopularMovies: locator(),
       getTopRatedMovies: locator(),
       getTop20ChineseMovies: locator(),
-      getTopHqMovies: locator()
+      getTopHqMovies: locator(),
+      getTopAcMovies: locator(),
     ),
   );
   locator.registerFactory(
@@ -83,6 +86,11 @@ void init() {
   locator.registerFactory(
     () => TopHqMoviesNotifier(
       getTopHqMovies: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TopAcMoviesNotifier(
+      getTopAcMovies: locator(),
     ),
   );
   locator.registerFactory(
@@ -138,6 +146,7 @@ void init() {
   locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
   locator.registerLazySingleton(() => GetTop20ChineseMovies(locator()));
   locator.registerLazySingleton(() => GetTopHqMovies(locator()));
+  locator.registerLazySingleton(() => GetTopAcMovies(locator()));
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => SearchMovies(locator()));

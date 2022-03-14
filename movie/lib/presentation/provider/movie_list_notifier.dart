@@ -5,6 +5,7 @@ import '../../domain/entities/movie.dart';
 import '../../domain/usecases/get_now_playing_movies.dart';
 import '../../domain/usecases/get_popular_movies.dart';
 import '../../domain/usecases/get_top20_chinese_movies.dart';
+import '../../domain/usecases/get_top_Ac_movies.dart';
 import '../../domain/usecases/get_top_Hq_movies.dart';
 import '../../domain/usecases/get_top_rated_movies.dart';
 
@@ -39,6 +40,12 @@ class MovieListNotifier extends ChangeNotifier {
 
   RequestState _topHqMoviesState = RequestState.empty;
   RequestState get topHqMoviesState => _topHqMoviesState;
+  
+  var _topAcMovies = <Movie>[];
+  List<Movie> get topAcMovies => _topAcMovies;
+
+  RequestState _topAcMoviesState = RequestState.empty;
+  RequestState get topAcMoviesState => _topAcMoviesState;
 
   String _message = '';
   String get message => _message;
@@ -48,7 +55,8 @@ class MovieListNotifier extends ChangeNotifier {
       required this.getPopularMovies,
       required this.getTopRatedMovies,
       required this.getTop20ChineseMovies,
-      required this.getTopHqMovies
+      required this.getTopHqMovies,
+      required this.getTopAcMovies,
       });
 
   final GetNowPlayingMovies getNowPlayingMovies;
@@ -56,6 +64,7 @@ class MovieListNotifier extends ChangeNotifier {
   final GetTopRatedMovies getTopRatedMovies;
   final GetTop20ChineseMovies getTop20ChineseMovies;
   final GetTopHqMovies getTopHqMovies;
+  final GetTopAcMovies getTopAcMovies;
 
   Future<void> fetchNowPlayingMovies() async {
     _nowPlayingState = RequestState.loading;
@@ -147,6 +156,25 @@ class MovieListNotifier extends ChangeNotifier {
       (moviesData) {
         _topHqMoviesState = RequestState.loaded;
         _topHqMovies = moviesData;
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<void> fetchTopAcMovies() async {
+    _topAcMoviesState = RequestState.loading;
+    notifyListeners();
+
+    final result = await getTopAcMovies.execute();
+    result.fold(
+      (failure) {
+        _topAcMoviesState = RequestState.error;
+        _message = failure.message;
+        notifyListeners();
+      },
+      (moviesData) {
+        _topAcMoviesState = RequestState.loaded;
+        _topAcMovies = moviesData;
         notifyListeners();
       },
     );
