@@ -2,8 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:core/utils/state_enum.dart';
-import 'package:core/utils/urls.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -13,6 +13,7 @@ import '../widgets/minimal_detail.dart';
 import '../widgets/sub_heading.dart';
 import 'popular_movies_page.dart';
 import 'top20_chinese_movies_page.dart';
+import 'top_Hq_movies_page.dart';
 import 'top_rated_movies_page.dart';
 
 class MainMoviePage extends StatefulWidget {
@@ -36,6 +37,8 @@ class _MainMoviePageState extends State<MainMoviePage> {
           .fetchTopRatedMovies();
       Provider.of<MovieListNotifier>(context, listen: false)
           .fetchTop20ChineseMovies();
+      Provider.of<MovieListNotifier>(context, listen: false)
+          .fetchTopHqMovies();
     });
   }
 
@@ -304,6 +307,53 @@ class _MainMoviePageState extends State<MainMoviePage> {
                   ),
                 );
               } else if (data.top20ChineseMoviesState == RequestState.error) {
+                return const Center(child: Text('Load data failed'));
+              } else {
+                return SizedBox(
+                  height: 170.0,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Shimmer.fromColors(
+                          child: Container(
+                            height: 170.0,
+                            width: 120.0,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          baseColor: Colors.grey[850]!,
+                          highlightColor: Colors.grey[800]!,
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }
+            }),
+            SubHeading(
+              valueKey: 'seeTopHqMovies',
+              text: 'Top phim Hàn Quốc',
+              onSeeMoreTapped: () => Navigator.pushNamed(
+                context,
+                TopHqMoviesPage.routeName,
+              ),
+            ),
+            Consumer<MovieListNotifier>(builder: (context, data, child) {
+              if (data.topHqMoviesState == RequestState.loaded) {
+                return FadeIn(
+                  duration: const Duration(milliseconds: 500),
+                  child: HorizontalItemList(
+                    movies: data.topHqMovies,
+                  ),
+                );
+              } else if (data.topHqMoviesState == RequestState.error) {
                 return const Center(child: Text('Load data failed'));
               } else {
                 return SizedBox(
