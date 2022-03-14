@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/movie.dart';
 import '../../domain/usecases/get_now_playing_movies.dart';
 import '../../domain/usecases/get_popular_movies.dart';
+import '../../domain/usecases/get_top20_chinese_movies.dart';
 import '../../domain/usecases/get_top_rated_movies.dart';
 
 class MovieListNotifier extends ChangeNotifier {
@@ -25,18 +26,26 @@ class MovieListNotifier extends ChangeNotifier {
   RequestState _topRatedMoviesState = RequestState.empty;
   RequestState get topRatedMoviesState => _topRatedMoviesState;
 
+  //////// add top chinese movies..////
+  var _top20ChineseMovies = <Movie>[];
+  List<Movie> get top20ChineseMovies => _top20ChineseMovies;
+
+  RequestState _top20ChineseMoviesState = RequestState.empty;
+  RequestState get top20ChineseMoviesState => _top20ChineseMoviesState;
+
   String _message = '';
   String get message => _message;
 
-  MovieListNotifier({
-    required this.getNowPlayingMovies,
-    required this.getPopularMovies,
-    required this.getTopRatedMovies,
-  });
+  MovieListNotifier(
+      {required this.getNowPlayingMovies,
+      required this.getPopularMovies,
+      required this.getTopRatedMovies,
+      required this.getTop20ChineseMovies});
 
   final GetNowPlayingMovies getNowPlayingMovies;
   final GetPopularMovies getPopularMovies;
   final GetTopRatedMovies getTopRatedMovies;
+  final GetTop20ChineseMovies getTop20ChineseMovies;
 
   Future<void> fetchNowPlayingMovies() async {
     _nowPlayingState = RequestState.loading;
@@ -90,6 +99,25 @@ class MovieListNotifier extends ChangeNotifier {
       (moviesData) {
         _topRatedMoviesState = RequestState.loaded;
         _topRatedMovies = moviesData;
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<void> fetchTop20ChineseMovies() async {
+    _top20ChineseMoviesState = RequestState.loading;
+    notifyListeners();
+
+    final result = await getTop20ChineseMovies.execute();
+    result.fold(
+      (failure) {
+        _top20ChineseMoviesState = RequestState.error;
+        _message = failure.message;
+        notifyListeners();
+      },
+      (moviesData) {
+        _top20ChineseMoviesState = RequestState.loaded;
+        _top20ChineseMovies = moviesData;
         notifyListeners();
       },
     );

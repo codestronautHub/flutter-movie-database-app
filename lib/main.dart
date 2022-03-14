@@ -11,11 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/presentation/pages/movie_detail_page.dart';
 import 'package:movie/presentation/pages/popular_movies_page.dart';
+import 'package:movie/presentation/pages/top20_chinese_movies_page.dart';
 import 'package:movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:movie/presentation/provider/movie_images_notifier.dart';
 import 'package:movie/presentation/provider/movie_list_notifier.dart';
 import 'package:movie/presentation/provider/popular_movies_notifier.dart';
+import 'package:movie/presentation/provider/top20_chinese_movies_notifier.dart';
 import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:movie/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:provider/provider.dart';
@@ -70,6 +72,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TopRatedMoviesNotifier>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<Top20ChineseMoviesNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieDetailNotifier>(),
@@ -133,6 +138,9 @@ class MyApp extends StatelessWidget {
             case TopRatedMoviesPage.routeName:
               return MaterialPageRoute(
                   builder: (_) => const TopRatedMoviesPage());
+            case Top20ChineseMoviesPage.routeName:
+              return MaterialPageRoute(
+                  builder: (_) => const Top20ChineseMoviesPage());
             case MovieDetailPage.routeName:
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: settings.arguments as int),

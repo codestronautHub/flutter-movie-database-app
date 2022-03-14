@@ -13,6 +13,7 @@ import '../widgets/horizontal_item_list.dart';
 import '../widgets/minimal_detail.dart';
 import '../widgets/sub_heading.dart';
 import 'popular_movies_page.dart';
+import 'top20_chinese_movies_page.dart';
 import 'top_rated_movies_page.dart';
 
 class MainMoviePage extends StatefulWidget {
@@ -42,6 +43,8 @@ class _MainMoviePageState extends State<MainMoviePage> {
           .fetchPopularMovies();
       Provider.of<MovieListNotifier>(context, listen: false)
           .fetchTopRatedMovies();
+      Provider.of<MovieListNotifier>(context, listen: false)
+          .fetchTop20ChineseMovies();
     });
   }
 
@@ -201,7 +204,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
             }),
             SubHeading(
               valueKey: 'seePopularMovies',
-              text: 'Popular',
+              text: 'Phim phổ biến',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
                 PopularMoviesPage.routeName,
@@ -248,7 +251,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
             }),
             SubHeading(
               valueKey: 'seeTopRatedMovies',
-              text: 'Top Rated',
+              text: 'Phim được yêu thích',
               onSeeMoreTapped: () => Navigator.pushNamed(
                 context,
                 TopRatedMoviesPage.routeName,
@@ -263,6 +266,53 @@ class _MainMoviePageState extends State<MainMoviePage> {
                   ),
                 );
               } else if (data.topRatedMoviesState == RequestState.error) {
+                return const Center(child: Text('Load data failed'));
+              } else {
+                return SizedBox(
+                  height: 170.0,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Shimmer.fromColors(
+                          child: Container(
+                            height: 170.0,
+                            width: 120.0,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          baseColor: Colors.grey[850]!,
+                          highlightColor: Colors.grey[800]!,
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }
+            }),
+            SubHeading(
+              valueKey: 'seeTop20Chinese',
+              text: 'Top phim Trung Quốc',
+              onSeeMoreTapped: () => Navigator.pushNamed(
+                context,
+                Top20ChineseMoviesPage.routeName,
+              ),
+            ),
+            Consumer<MovieListNotifier>(builder: (context, data, child) {
+              if (data.top20ChineseMoviesState == RequestState.loaded) {
+                return FadeIn(
+                  duration: const Duration(milliseconds: 500),
+                  child: HorizontalItemList(
+                    movies: data.top20ChineseMovies,
+                  ),
+                );
+              } else if (data.top20ChineseMoviesState == RequestState.error) {
                 return const Center(child: Text('Load data failed'));
               } else {
                 return SizedBox(
