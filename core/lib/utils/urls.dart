@@ -1,23 +1,27 @@
 class Urls {
   static const String baseUrl = 'https://api.nguonhpim.tv/index.php/ajax';
+  static const String baseUrlSingle = '$baseUrl/recommended?mid=1&type=single';
 
-  /// Movies
+  ///single
   static const String nowPlayingMovies =
-      '$baseUrl/recommended?mid=1&by=hits_day';
+      '$baseUrlSingle&by=hits_day';
   static const String popularMovies =
-      '$baseUrl/recommended?mid=1&by=hits_month';
+      '$baseUrlSingle&by=hits_month';
   static const String topChineseMovies =
-      '$baseUrl/recommended?mid=1&by=up&tid=13';
+      '$baseUrlSingle&by=up&tid=13';
   static const String topHqMovies =
-      '$baseUrl/recommended?mid=1&by=up&tid=16';
-  static const String topRatedMovies = '$baseUrl/recommended?mid=1&by=score';
+      '$baseUrlSingle&by=up&tid=16';
+  static const String topAcMovies =
+      '$baseUrlSingle&by=up&tid=8';
+  static const String topRatedMovies =
+      '$baseUrlSingle&by=score';
   static String movieDetail(int id) => '$baseUrl/details?mid=1&id=$id';
   static String movieRecommendations(int id) =>
-      '$baseUrl/recommended?mid=1&tid=$id';
+      '$baseUrlSingle&tid=$id';
   static String searchMovies(String query) =>
-      '$baseUrl/suggest?mid=1&wd=$query';
+      '$baseUrl/suggest?mid=1&type=single&wd=$query';
 
-  /// Tvs
+  /// serial
   static const String onTheAirTvs =
       '$baseUrl/recommended?mid=1&by=hits_day&tid=2';
   static const String popularTvs =
