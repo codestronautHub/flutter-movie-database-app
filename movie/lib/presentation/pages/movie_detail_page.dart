@@ -101,7 +101,7 @@ class MovieDetailContent extends StatelessWidget {
                 blendMode: BlendMode.dstIn,
                 child: CachedNetworkImage(
                   width: MediaQuery.of(context).size.width,
-                  imageUrl: Urls.imageUrl(movie.backdropPath!),
+                  imageUrl: movie.vod_pic,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -118,7 +118,7 @@ class MovieDetailContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    movie.title,
+                    movie.vod_name,
                     style: kHeading5.copyWith(
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.2,
@@ -137,7 +137,7 @@ class MovieDetailContent extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Text(
-                          movie.releaseDate.split('-')[0],
+                          movie.vod_remarks,
                           style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w500,
@@ -154,7 +154,7 @@ class MovieDetailContent extends StatelessWidget {
                           ),
                           const SizedBox(width: 4.0),
                           Text(
-                            (movie.voteAverage / 2).toStringAsFixed(1),
+                            movie.vod_score,
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w500,
@@ -163,7 +163,7 @@ class MovieDetailContent extends StatelessWidget {
                           ),
                           const SizedBox(width: 4.0),
                           Text(
-                            '(${movie.voteAverage})',
+                            '(${movie.vod_score})',
                             style: const TextStyle(
                               fontSize: 1.0,
                               fontWeight: FontWeight.w500,
@@ -174,7 +174,7 @@ class MovieDetailContent extends StatelessWidget {
                       ),
                       const SizedBox(width: 16.0),
                       Text(
-                        _showDuration(movie.runtime),
+                        movie.vod_area,
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 16.0,
@@ -255,8 +255,7 @@ class MovieDetailContent extends StatelessWidget {
                           context,
                           PageTransition(
                               child: VideoDisplay(
-                                  videoUrl:
-                                      'https://play2.choinguon.com/20220311/469_01ee53ba/index.m3u8'),
+                                  videoUrl: movie.vod_play_url[1].urls[0].url),
                               type: PageTransitionType.bottomToTop));
                     },
                     child: Row(
@@ -281,7 +280,7 @@ class MovieDetailContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    movie.overview,
+                    movie.vod_blurb,
                     style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,
@@ -290,7 +289,8 @@ class MovieDetailContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    'Genres: ${_showGenres(movie.genres)}',
+                    // 'Genres: ${_showGenres(movie.genres)}',
+                    movie.type_id.toString(),
                     style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 12.0,
@@ -385,7 +385,7 @@ class MovieDetailContent extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(4.0)),
                       child: CachedNetworkImage(
-                        imageUrl: Urls.imageUrl(recommendation.posterPath!),
+                        imageUrl: recommendation.vod_pic,
                         placeholder: (context, url) => Shimmer.fromColors(
                           child: Container(
                             height: 170.0,

@@ -1,91 +1,174 @@
 import 'package:equatable/equatable.dart';
-
+import '../../domain/entities/play_url.dart';
 import '../../domain/entities/tv_detail.dart';
-import 'genre_model.dart';
+import 'play_url_model.dart';
 
 class TvDetailResponse extends Equatable {
-  final String? backdropPath;
-  final List<int> episodeRunTime;
-  final String firstAirDate;
-  final List<GenreModel> genres;
-  final int id;
-  final String name;
-  final int numberOfSeasons;
-  final String overview;
-  final String? posterPath;
-  final double voteAverage;
-  final int voteCount;
+  final int vod_id;
+  final String vod_name;
+  final String vod_en;
+  final String vod_class;
+  final String vod_pic;
+  final String vod_actor;
+  final String vod_blurb;
+  final String vod_remarks;
+  final String vod_area;
+  final String vod_version;
+  final String vod_year;
+  final int vod_hits;
+  final int vod_hits_day;
+  final int vod_hits_week;
+  final int vod_hits_month;
+  final int vod_up;
+  final int vod_down;
+  final String vod_score;
+  final String vod_time;
+  final String vod_time_add;
+  final String vod_content;
+  final int vod_status;
+  final String vod_letter;
+  final String vod_director;
+  final List<PlayUrlModel> vod_play_url;
 
   const TvDetailResponse({
-    required this.backdropPath,
-    required this.episodeRunTime,
-    required this.firstAirDate,
-    required this.genres,
-    required this.id,
-    required this.name,
-    required this.numberOfSeasons,
-    required this.overview,
-    required this.posterPath,
-    required this.voteAverage,
-    required this.voteCount,
+    required this.vod_id,
+    required this.vod_name,
+    required this.vod_en,
+    required this.vod_class,
+    required this.vod_pic,
+    required this.vod_actor,
+    required this.vod_blurb,
+    required this.vod_remarks,
+    required this.vod_area,
+    required this.vod_version,
+    required this.vod_year,
+    required this.vod_hits,
+    required this.vod_hits_day,
+    required this.vod_hits_week,
+    required this.vod_hits_month,
+    required this.vod_up,
+    required this.vod_down,
+    required this.vod_score,
+    required this.vod_time,
+    required this.vod_time_add,
+    required this.vod_content,
+    required this.vod_status,
+    required this.vod_letter,
+    required this.vod_director,
+    required this.vod_play_url,
   });
 
   factory TvDetailResponse.fromJson(Map<String, dynamic> json) =>
       TvDetailResponse(
-        backdropPath: json['backdrop_path'],
-        episodeRunTime: List<int>.from(json['episode_run_time'].map((x) => x)),
-        firstAirDate: json['first_air_date'],
-        genres: List<GenreModel>.from(
-            json['genres'].map((x) => GenreModel.fromJson(x))),
-        id: json['id'],
-        name: json['name'],
-        numberOfSeasons: json['number_of_seasons'],
-        overview: json['overview'],
-        posterPath: json['poster_path'],
-        voteAverage: json['vote_average'],
-        voteCount: json['vote_count'],
+        vod_id: json['vod_id'],
+        vod_name: json['vod_name'],
+        vod_en: json['vod_en'],
+        vod_class: json['vod_class'],
+        vod_pic: json['vod_pic'],
+        vod_actor: json['vod_actor'],
+        vod_blurb: json['vod_blurb'],
+        vod_remarks: json['vod_remarks'],
+        vod_area: json['vod_area'],
+        vod_version: json['vod_version'],
+        vod_year: json['vod_year'],
+        vod_hits: json['vod_hits'],
+        vod_hits_day: json['vod_hits_day'],
+        vod_hits_week: json['vod_hits_week'],
+        vod_hits_month: json['vod_hits_month'],
+        vod_up: json['vod_up'],
+        vod_down: json['vod_down'],
+        vod_score: json['vod_score'],
+        vod_time: json['vod_time'],
+        vod_time_add: json['vod_time'],
+        vod_content: json['vod_content'],
+        vod_status: json['vod_status'],
+        vod_letter: json['vod_letter'],
+        vod_director: json['vod_director'],
+        vod_play_url: List<PlayUrlModel>.from((json['vod_play_url'] as List)
+            .map((x) => PlayUrlModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        'backdrop_path': backdropPath,
-        'episode_run_time': List<dynamic>.from(episodeRunTime.map((x) => x)),
-        'first_air_date': firstAirDate,
-        'genres': List<dynamic>.from(genres.map((x) => x.toJson())),
-        'id': id,
-        'name': name,
-        'number_of_seasons': numberOfSeasons,
-        'overview': overview,
-        'poster_path': posterPath,
-        'vote_average': voteAverage,
-        'vote_count': voteCount,
+        'vod_id': vod_id,
+        'vod_name': vod_name,
+        'vod_en': vod_en,
+        'vod_class': vod_class,
+        'vod_pic': vod_pic,
+        'vod_actor': vod_actor,
+        'vod_blurb': vod_blurb,
+        'vod_remarks': vod_remarks,
+        'vod_area': vod_area,
+        'vod_version': vod_version,
+        'vod_year': vod_year,
+        'vod_hits': vod_hits,
+        'vod_hits_day': vod_hits_day,
+        'vod_hits_week': vod_hits_week,
+        'vod_hits_month': vod_hits_month,
+        'vod_up': vod_up,
+        'vod_down': vod_down,
+        'vod_score': vod_score,
+        'vod_time': vod_time,
+        'vod_time_add': vod_time_add,
+        'vod_content': vod_content,
+        'vod_status': vod_status,
+        'vod_letter': vod_letter,
+        'vod_director': vod_director,
+        'vod_play_url': List<dynamic>.from(vod_play_url.map((x) => x.toJson())),
       };
 
   TvDetail toEntity() => TvDetail(
-        backdropPath: backdropPath,
-        episodeRunTime: episodeRunTime,
-        firstAirDate: firstAirDate,
-        genres: genres.map((genre) => genre.toEntity()).toList(),
-        id: id,
-        name: name,
-        numberOfSeasons: numberOfSeasons,
-        overview: overview,
-        posterPath: posterPath,
-        voteAverage: voteAverage,
-        voteCount: voteCount,
+        vod_id: vod_id,
+        vod_name: vod_name,
+        vod_en: vod_en,
+        vod_class: vod_class,
+        vod_pic: vod_pic,
+        vod_actor: vod_actor,
+        vod_blurb: vod_blurb,
+        vod_remarks: vod_remarks,
+        vod_area: vod_area,
+        vod_version: vod_version,
+        vod_year: vod_year,
+        vod_hits: vod_hits,
+        vod_hits_day: vod_hits_day,
+        vod_hits_week: vod_hits_week,
+        vod_hits_month: vod_hits_month,
+        vod_up: vod_up,
+        vod_down: vod_down,
+        vod_score: vod_score,
+        vod_time: vod_time,
+        vod_time_add: vod_time_add,
+        vod_content: vod_content,
+        vod_status: vod_status,
+        vod_letter: vod_letter,
+        vod_director: vod_director,
+        vod_play_url: vod_play_url.map((url) => url.toEntity()).toList(),
       );
 
   @override
   List<Object?> get props => [
-        backdropPath,
-        episodeRunTime,
-        firstAirDate,
-        genres,
-        id,
-        name,
-        numberOfSeasons,
-        overview,
-        posterPath,
-        voteAverage,
-        voteCount,
+        vod_id,
+        vod_name,
+        vod_en,
+        vod_class,
+        vod_pic,
+        vod_actor,
+        vod_blurb,
+        vod_remarks,
+        vod_area,
+        vod_version,
+        vod_year,
+        vod_hits,
+        vod_hits_day,
+        vod_hits_week,
+        vod_hits_month,
+        vod_up,
+        vod_down,
+        vod_score,
+        vod_time,
+        vod_time_add,
+        vod_content,
+        vod_status,
+        vod_letter,
+        vod_director
       ];
 }

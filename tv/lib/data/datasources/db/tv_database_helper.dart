@@ -32,12 +32,33 @@ class TvDatabaseHelper {
   void _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE  $_tvWatchlistTable (
-        firstAirDate TEXT,
-        id INTEGER PRIMARY KEY,
-        name TEXT,
-        overview TEXT,
-        posterPath TEXT,
-        voteAverage DOUBLE
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        vod_id INTEGER ,
+        type_id INTEGER,
+        type_id_1 INTEGER,
+        vod_name TEXT,
+        vod_en TEXT,
+        vod_class TEXT,
+        vod_pic TEXT,
+        vod_actor TEXT,
+        vod_blurb TEXT,
+        vod_remarks TEXT,
+        vod_area TEXT,
+        vod_version TEXT,
+        vod_year TEXT,
+        vod_hits INTEGER,
+        vod_hits_day INTEGER,
+        vod_hits_week INTEGER,
+        vod_hits_month INTEGER,
+        vod_up INTEGER,
+        vod_down INTEGER,
+        vod_score TEXT,
+        vod_time TEXT,
+        vod_time_add TEXT,
+        vod_content TEXT,
+        vod_status INTEGER,
+        vod_letter TEXT,
+        vod_director TEXT
       );
     ''');
   }
@@ -51,8 +72,8 @@ class TvDatabaseHelper {
     final db = await database;
     return await db!.delete(
       _tvWatchlistTable,
-      where: 'id = ?',
-      whereArgs: [tv.id],
+      where: 'vod_id = ?',
+      whereArgs: [tv.vod_id],
     );
   }
 
@@ -60,7 +81,7 @@ class TvDatabaseHelper {
     final db = await database;
     final results = await db!.query(
       _tvWatchlistTable,
-      where: 'id = ?',
+      where: 'vod_id = ?',
       whereArgs: [id],
     );
 

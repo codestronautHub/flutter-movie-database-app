@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:about/about.dart';
 import 'package:core/presentation/pages/home_page.dart';
 import 'package:core/presentation/pages/watchlist_page.dart';
@@ -32,7 +34,17 @@ import 'package:tv/presentation/provider/watchlist_tv_provider.dart';
 
 import 'injection.dart' as di;
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 void main() {
+  HttpOverrides.global = new MyHttpOverrides();
   di.init();
   runApp(const MyApp());
 }

@@ -35,7 +35,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                 .fetchMovieImages(
               Provider.of<MovieListNotifier>(context, listen: false)
                   .nowPlayingMovies[0]
-                  .id,
+                  .vod_id,
             ),
           );
       Provider.of<MovieListNotifier>(context, listen: false)
@@ -61,10 +61,6 @@ class _MainMoviePageState extends State<MainMoviePage> {
                     options: CarouselOptions(
                       height: 575.0,
                       viewportFraction: 1.0,
-                      onPageChanged: (index, reason) {
-                        Provider.of<MovieImagesNotifier>(context, listen: false)
-                            .fetchMovieImages(data.nowPlayingMovies[index].id);
-                      },
                     ),
                     items: data.nowPlayingMovies.map(
                       (item) {
@@ -110,7 +106,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                 blendMode: BlendMode.dstIn,
                                 child: CachedNetworkImage(
                                   height: 560.0,
-                                  imageUrl: Urls.imageUrl(item.backdropPath!),
+                                  imageUrl: item.vod_pic,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -144,32 +140,21 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(bottom: 16.0),
-                                      child: Consumer<MovieImagesNotifier>(
-                                        builder: (context, data, child) {
-                                          if (data.movieImagesState ==
-                                              RequestState.loaded) {
-                                            if (data.movieImages.logoPaths
-                                                .isEmpty) {
-                                              return Text(item.title!);
-                                            }
-                                            return CachedNetworkImage(
-                                              width: 200.0,
-                                              imageUrl: Urls.imageUrl(
-                                                data.movieImages.logoPaths[0],
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Text(
+                                              item.vod_name.toUpperCase(),
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.lightBlue,
                                               ),
-                                            );
-                                          } else if (data.movieImagesState ==
-                                              RequestState.error) {
-                                            return const Center(
-                                              child: Text('Load data failed'),
-                                            );
-                                          } else {
-                                            return const Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            );
-                                          }
-                                        },
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ],

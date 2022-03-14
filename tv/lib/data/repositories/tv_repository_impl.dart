@@ -73,11 +73,9 @@ class TvRepositoryImpl implements TvRepository {
   @override
   Future<Either<Failure, List<TvSeasonEpisode>>> getTvSeasonEpisodes(
     int id,
-    int seasonNumber,
   ) async {
     try {
-      final result =
-          await remoteDataSource.getTvSeasonEpisodes(id, seasonNumber);
+      final result = await remoteDataSource.getTvSeasonEpisodes(id);
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));

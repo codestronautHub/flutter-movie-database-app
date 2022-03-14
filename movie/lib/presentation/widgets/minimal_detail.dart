@@ -33,7 +33,9 @@ class MinimalDetail extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: CachedNetworkImage(
-                      imageUrl: Urls.imageUrl(movie.posterPath!),
+                      imageUrl: movie.vod_pic,
+                      height: 170,
+                      fit: BoxFit.cover,
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(),
                       ),
@@ -54,7 +56,7 @@ class MinimalDetail extends StatelessWidget {
                           Expanded(
                             flex: 4,
                             child: Text(
-                              movie.title ?? '-',
+                              movie.vod_name,
                               style: const TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
@@ -100,7 +102,7 @@ class MinimalDetail extends StatelessWidget {
                               color: Colors.redAccent,
                               borderRadius: BorderRadius.circular(4.0),
                             ),
-                            child: Text(movie.releaseDate!.split('-')[0]),
+                            child: Text(movie.vod_remarks.toString()),
                           ),
                           const SizedBox(width: 16.0),
                           const Icon(
@@ -110,13 +112,13 @@ class MinimalDetail extends StatelessWidget {
                           ),
                           const SizedBox(width: 4.0),
                           Text(
-                            (movie.voteAverage! / 2).toStringAsFixed(1),
+                            movie.vod_score.toString(),
                           ),
                         ],
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        movie.overview ?? '-',
+                        movie.vod_blurb.toString(),
                         style: const TextStyle(
                           fontSize: 12.0,
                         ),
@@ -138,15 +140,12 @@ class MinimalDetail extends StatelessWidget {
             child: TextButton(
               key: Key(keyValue ?? '-'),
               onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  MovieDetailPage.routeName,
-                  arguments: movie.id,
-                );
+                Navigator.pushNamed(context, MovieDetailPage.routeName,
+                    arguments: movie.vod_id);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Row(
                     children: const [
                       Icon(Icons.info_outline, size: 16.0),

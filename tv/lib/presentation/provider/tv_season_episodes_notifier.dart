@@ -18,12 +18,11 @@ class TvSeasonEpisodesNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  Future<void> fetchTvSeasonEpisodes(int id, int seasonNumber) async {
+  Future<void> fetchTvSeasonEpisodes(int id) async {
     _seasonEpisodesState = RequestState.loading;
     notifyListeners();
 
-    final seasonEpisodesResult =
-        await getTvSeasonEpisodes.execute(id, seasonNumber);
+    final seasonEpisodesResult = await getTvSeasonEpisodes.execute(id);
 
     seasonEpisodesResult.fold(
       (failure) {

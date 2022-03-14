@@ -93,7 +93,7 @@ class TvDetailNotifier extends ChangeNotifier {
       },
     );
 
-    await loadWatchlistStatus(tv.id);
+    await loadWatchlistStatus(tv.vod_id);
   }
 
   Future<void> removeFromWatchlist(TvDetail tv) async {
@@ -108,7 +108,7 @@ class TvDetailNotifier extends ChangeNotifier {
       },
     );
 
-    await loadWatchlistStatus(tv.id);
+    await loadWatchlistStatus(tv.vod_id);
   }
 
   Future<void> loadWatchlistStatus(int id) async {

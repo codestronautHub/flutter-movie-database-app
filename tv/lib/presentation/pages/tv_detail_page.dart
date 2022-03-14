@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tv/domain/entities/url_movie.dart';
 
 import '../../domain/entities/genre.dart';
 import '../../domain/entities/tv.dart';
@@ -35,7 +36,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
       Provider.of<TvDetailNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
       Provider.of<TvSeasonEpisodesNotifier>(context, listen: false)
-          .fetchTvSeasonEpisodes(widget.id, 1);
+          .fetchTvSeasonEpisodes(widget.id);
     });
   }
 
@@ -50,7 +51,6 @@ class _TvDetailPageState extends State<TvDetailPage> {
             final tv = provider.tv;
             return TvDetailContent(
               tv: tv,
-              seasonNumber: tv.numberOfSeasons,
               recommendations: provider.recommendations,
               isAddedToWatchlist: provider.isAddedToWatchlist,
             );
@@ -65,13 +65,11 @@ class _TvDetailPageState extends State<TvDetailPage> {
 
 class TvDetailContent extends StatefulWidget {
   final TvDetail tv;
-  final int seasonNumber;
   final List<Tv> recommendations;
   final bool isAddedToWatchlist;
   const TvDetailContent({
     Key? key,
     required this.tv,
-    required this.seasonNumber,
     required this.recommendations,
     required this.isAddedToWatchlist,
   }) : super(key: key);
@@ -85,13 +83,14 @@ class _TvDetailContentState extends State<TvDetailContent>
   late TabController _tabController;
   int _selectedIndex = 0;
   final List<int> _seasons = [];
-  int _currentSeason = 1;
+  late List<UrlMovie> _episodes = [];
 
   @override
   void initState() {
     super.initState();
+    _episodes = widget.tv.vod_play_url[1].urls;
     _tabController = TabController(length: 2, vsync: this);
-    for (int i = 1; i <= widget.seasonNumber; i++) {
+    for (int i = 1; i <= 2; i++) {
       _seasons.add(i);
     }
   }
@@ -125,7 +124,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                 blendMode: BlendMode.dstIn,
                 child: CachedNetworkImage(
                   width: MediaQuery.of(context).size.width,
-                  imageUrl: Urls.imageUrl(widget.tv.backdropPath!),
+                  imageUrl: widget.tv.vod_pic,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -142,7 +141,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.tv.name,
+                    widget.tv.vod_name,
                     style: kHeading5.copyWith(
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.2,
@@ -161,7 +160,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Text(
-                          widget.tv.firstAirDate.split('-')[0],
+                          widget.tv.vod_remarks,
                           style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w500,
@@ -178,7 +177,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                           ),
                           const SizedBox(width: 4.0),
                           Text(
-                            (widget.tv.voteAverage / 2).toStringAsFixed(1),
+                            widget.tv.vod_score,
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w500,
@@ -187,7 +186,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                           ),
                           const SizedBox(width: 4.0),
                           Text(
-                            '(${widget.tv.voteAverage})',
+                            '(${widget.tv.vod_score})',
                             style: const TextStyle(
                               fontSize: 1.0,
                               fontWeight: FontWeight.w500,
@@ -197,25 +196,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                         ],
                       ),
                       const SizedBox(width: 16.0),
-                      Text(
-                        '${widget.tv.numberOfSeasons} Seasons',
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
                       const SizedBox(width: 16.0),
-                      Text(
-                        _showEpisodeDuration(widget.tv.episodeRunTime[0]),
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
                     ],
                   ),
                   const SizedBox(height: 16.0),
@@ -284,7 +265,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    widget.tv.overview,
+                    widget.tv.vod_blurb,
                     style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,
@@ -293,7 +274,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    'Genres: ${_showGenres(widget.tv.genres)}',
+                    widget.tv.vod_class,
                     style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 12.0,
@@ -344,52 +325,24 @@ class _TvDetailContentState extends State<TvDetailContent>
                   padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
                   sliver: SliverToBoxAdapter(
                     child: FadeIn(
-                      duration: const Duration(milliseconds: 500),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[850],
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: DropdownButton<int>(
-                              onChanged: (value) {
-                                setState(() {
-                                  _currentSeason = value!;
-                                });
-
-                                Provider.of<TvSeasonEpisodesNotifier>(
-                                  context,
-                                  listen: false,
-                                ).fetchTvSeasonEpisodes(
-                                  widget.tv.id,
-                                  _currentSeason,
-                                );
-                              },
-                              items: _seasons
-                                  .map(
-                                    (item) => DropdownMenuItem(
-                                      value: item,
-                                      child: Text(
-                                        'Season $item',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                              value: _currentSeason,
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                letterSpacing: 1.2,
-                              ),
-                            ),
+                        duration: const Duration(milliseconds: 500),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
-                        ),
-                      ),
-                    ),
+                          child: ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              itemCount: _episodes.length,
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  height: 50,
+                                  color: Colors.blueAccent,
+                                  child: Center(
+                                      child: Text(_episodes[index].name)),
+                                );
+                              }),
+                        )),
                   ),
                 )
               : const SliverToBoxAdapter();
@@ -415,30 +368,6 @@ class _TvDetailContentState extends State<TvDetailContent>
         }),
       ],
     );
-  }
-
-  String _showGenres(List<Genre> genres) {
-    String result = '';
-    for (var genre in genres) {
-      result += genre.name + ', ';
-    }
-
-    if (result.isEmpty) {
-      return result;
-    }
-
-    return result.substring(0, result.length - 2);
-  }
-
-  String _showEpisodeDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 
   Widget _showRecommendations() {
@@ -473,7 +402,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                       borderRadius:
                           const BorderRadius.all(Radius.circular(4.0)),
                       child: CachedNetworkImage(
-                        imageUrl: Urls.imageUrl(recommendation.posterPath!),
+                        imageUrl: recommendation.vod_pic,
                         placeholder: (context, url) => Shimmer.fromColors(
                           child: Container(
                             height: 170.0,
@@ -552,8 +481,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                                       ),
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
-                                        imageUrl: Urls.imageUrl(
-                                            seasonEpisode.stillPath!),
+                                        imageUrl: seasonEpisode.stillPath!,
                                         placeholder: (context, url) =>
                                             const Center(
                                           child: CircularProgressIndicator(),
