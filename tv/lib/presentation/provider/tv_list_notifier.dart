@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/tv.dart';
 import '../../domain/usecases/get_on_the_air_tvs.dart';
 import '../../domain/usecases/get_popular_tvs.dart';
+import '../../domain/usecases/get_top_Tq_tvs.dart';
 import '../../domain/usecases/get_top_rated_tvs.dart';
 
 class TvListNotifier extends ChangeNotifier {
@@ -25,17 +26,25 @@ class TvListNotifier extends ChangeNotifier {
   RequestState _topRatedTvsState = RequestState.empty;
   RequestState get topRatedTvsState => _topRatedTvsState;
 
+  List<Tv> _topTqTvs = <Tv>[];
+  List<Tv> get topTqTvs => _topTqTvs;
+
+  RequestState _topTqTvsState = RequestState.empty;
+  RequestState get topTqTvsState => _topRatedTvsState;
+
   String _message = '';
   String get message => _message;
 
   final GetOnTheAirTvs getOnTheAirTvs;
   final GetPopularTvs getPopularTvs;
   final GetTopRatedTvs getTopRatedTvs;
+  final GetTopTqTvs getTopTqTvs;
 
   TvListNotifier({
     required this.getOnTheAirTvs,
     required this.getPopularTvs,
     required this.getTopRatedTvs,
+    required this.getTopTqTvs,
   });
 
   Future<void> fetchOnTheAirTvs() async {
@@ -90,6 +99,25 @@ class TvListNotifier extends ChangeNotifier {
       (tvsData) {
         _topRatedTvsState = RequestState.loaded;
         _topRatedTvs = tvsData;
+        notifyListeners();
+      },
+    );
+  }
+
+   Future<void> fetchTopTqTvs() async {
+    _topTqTvsState = RequestState.loading;
+    notifyListeners();
+
+    final result = await getTopTqTvs.execute();
+    result.fold(
+      (failure) {
+        _topTqTvsState = RequestState.error;
+        _message = failure.message;
+        notifyListeners();
+      },
+      (tvsData) {
+        _topTqTvsState = RequestState.loaded;
+        _topTqTvs = tvsData;
         notifyListeners();
       },
     );
