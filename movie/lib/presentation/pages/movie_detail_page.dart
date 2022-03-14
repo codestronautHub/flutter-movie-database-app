@@ -310,7 +310,7 @@ class MovieDetailContent extends StatelessWidget {
               from: 20,
               duration: const Duration(milliseconds: 500),
               child: Text(
-                'More like this'.toUpperCase(),
+                'Đề xuất thêm'.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w500,
