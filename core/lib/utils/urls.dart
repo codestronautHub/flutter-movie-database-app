@@ -1,6 +1,7 @@
 class Urls {
   static const String baseUrl = 'https://api.nguonhpim.tv/index.php/ajax';
   static const String baseUrlSingle = '$baseUrl/recommended?mid=1&type=single';
+  static const String baseUrlSerial = '$baseUrl/recommended?mid=1&type=serial';
 
   ///single
   static const String nowPlayingMovies =
@@ -23,14 +24,15 @@ class Urls {
 
   /// serial
   static const String onTheAirTvs =
-      '$baseUrl/recommended?mid=1&by=hits_day&tid=2';
+      '$baseUrlSerial&by=hits_day';
   static const String popularTvs =
-      '$baseUrl/recommended?mid=1&by=hits_month&tid=2';
-  static const String topRatedTvs = '$baseUrl/recommended?mid=1&by=score&tid=2';
+      '$baseUrlSerial&by=hits_month';
+  static const String topRatedTvs = '$baseUrlSerial&by=score';
+  static const String topTqTvs = '$baseUrlSerial&by=up&tid=13';
   static String tvDetail(int id) => '$baseUrl/details?mid=1&id=$id&tid=2';
   static String tvSeasons(int id) => '$baseUrl/tv/$id/season/?';
   static String tvRecommendations(int id) =>
-      '$baseUrl/recommended?mid=1&by=score&type=serial';
+      '$baseUrlSerial&by=score';
   static String searchTvs(String query) =>
       '$baseUrl/suggest?mid=1&wd=$query&tid=2';
 }

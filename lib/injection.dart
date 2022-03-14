@@ -36,6 +36,7 @@ import 'package:tv/data/repositories/tv_repository_impl.dart';
 import 'package:tv/domain/repositories/tv_repository.dart';
 import 'package:tv/domain/usecases/get_on_the_air_tvs.dart';
 import 'package:tv/domain/usecases/get_popular_tvs.dart';
+import 'package:tv/domain/usecases/get_top_Tq_tvs.dart';
 import 'package:tv/domain/usecases/get_top_rated_tvs.dart';
 import 'package:tv/domain/usecases/get_tv_detail.dart';
 import 'package:tv/domain/usecases/get_tv_recommendations.dart';
@@ -45,6 +46,7 @@ import 'package:tv/domain/usecases/remove_watchlist_tv.dart';
 import 'package:tv/domain/usecases/save_watchlist_tv.dart';
 import 'package:tv/presentation/provider/popular_tvs_notifier.dart';
 import 'package:tv/presentation/provider/top_rated_tvs_notifier.dart';
+import 'package:tv/presentation/provider/top_tq_tvs_notifier.dart';
 import 'package:tv/presentation/provider/tv_detail_notifier.dart';
 import 'package:tv/presentation/provider/tv_list_notifier.dart';
 import 'package:tv/presentation/provider/watchlist_tv_provider.dart';
@@ -113,6 +115,7 @@ void init() {
       getOnTheAirTvs: locator(),
       getPopularTvs: locator(),
       getTopRatedTvs: locator(),
+      getTopTqTvs: locator(),
     ),
   );
   locator.registerFactory(
@@ -122,6 +125,11 @@ void init() {
   );
   locator.registerFactory(
     () => TopRatedTvsNotifier(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TopTqTvsNotifier(
       locator(),
     ),
   );
@@ -155,6 +163,7 @@ void init() {
   locator.registerLazySingleton(() => GetOnTheAirTvs(locator()));
   locator.registerLazySingleton(() => GetPopularTvs(locator()));
   locator.registerLazySingleton(() => GetTopRatedTvs(locator()));
+  locator.registerLazySingleton(() => GetTopTqTvs(locator()));
   locator.registerLazySingleton(() => GetTvDetail(locator()));
   locator.registerLazySingleton(() => GetTvRecommendations(locator()));
   locator.registerLazySingleton(() => SearchTvs(locator()));
