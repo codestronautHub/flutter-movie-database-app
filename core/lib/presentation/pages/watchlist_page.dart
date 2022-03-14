@@ -45,16 +45,16 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Watchlist'),
+          title: const Text('Danh sách xem'),
           bottom: const TabBar(
             tabs: [
               Tab(
                 key: Key('movieWatchlistTab'),
-                text: 'Move',
+                text: 'Phim lẻ',
               ),
               Tab(
                 key: Key('tvWatchlistTab'),
-                text: 'Tv',
+                text: 'Phim bộ',
               ),
             ],
             indicatorColor: Colors.redAccent,
