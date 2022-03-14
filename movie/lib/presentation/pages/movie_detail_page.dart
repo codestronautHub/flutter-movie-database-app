@@ -229,8 +229,8 @@ class MovieDetailContent extends StatelessWidget {
                         const SizedBox(width: 16.0),
                         Text(
                           isAddedToWatchlist
-                              ? 'Added to watchlist'
-                              : 'Add to watchlist',
+                              ? 'Đã thêm vào danh sách'
+                              : 'Thêm vào danh sách',
                           style: TextStyle(
                             color: isAddedToWatchlist
                                 ? Colors.white
@@ -251,7 +251,7 @@ class MovieDetailContent extends StatelessWidget {
                   ElevatedButton(
                     key: const Key('watch'),
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                           context,
                           PageTransition(
                               child: VideoDisplay(
@@ -260,10 +260,10 @@ class MovieDetailContent extends StatelessWidget {
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(width: 16.0),
+                      children: const [
+                        SizedBox(width: 16.0),
                         Text(
-                          'Watch movie',
+                          'Xem Ngay',
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -280,7 +280,7 @@ class MovieDetailContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    movie.vod_blurb,
+                    movie.vod_content,
                     style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,
@@ -327,30 +327,6 @@ class MovieDetailContent extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  String _showGenres(List<Genre> genres) {
-    String result = '';
-    for (var genre in genres) {
-      result += genre.name + ', ';
-    }
-
-    if (result.isEmpty) {
-      return result;
-    }
-
-    return result.substring(0, result.length - 2);
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 
   Widget _showRecommendations() {

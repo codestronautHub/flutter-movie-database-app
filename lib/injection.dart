@@ -7,7 +7,6 @@ import 'package:movie/data/datasources/movie_remote_data_source.dart';
 import 'package:movie/data/repositories/movie_repository_impl.dart';
 import 'package:movie/domain/repositories/movie_repository.dart';
 import 'package:movie/domain/usecases/get_movie_detail.dart';
-import 'package:movie/domain/usecases/get_movie_images.dart';
 import 'package:movie/domain/usecases/get_movie_recommendations.dart';
 import 'package:movie/domain/usecases/get_movie_watchlist_status.dart';
 import 'package:movie/domain/usecases/get_now_playing_movies.dart';
@@ -20,7 +19,6 @@ import 'package:movie/domain/usecases/get_watchlist_movies.dart';
 import 'package:movie/domain/usecases/remove_watchlist_movie.dart';
 import 'package:movie/domain/usecases/save_watchlist_movie.dart';
 import 'package:movie/presentation/provider/movie_detail_notifier.dart';
-import 'package:movie/presentation/provider/movie_images_notifier.dart';
 import 'package:movie/presentation/provider/movie_list_notifier.dart';
 import 'package:movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:movie/presentation/provider/top20_chinese_movies_notifier.dart';
@@ -40,9 +38,7 @@ import 'package:tv/domain/usecases/get_on_the_air_tvs.dart';
 import 'package:tv/domain/usecases/get_popular_tvs.dart';
 import 'package:tv/domain/usecases/get_top_rated_tvs.dart';
 import 'package:tv/domain/usecases/get_tv_detail.dart';
-import 'package:tv/domain/usecases/get_tv_images.dart';
 import 'package:tv/domain/usecases/get_tv_recommendations.dart';
-import 'package:tv/domain/usecases/get_tv_season_episodes.dart';
 import 'package:tv/domain/usecases/get_tv_watchlist_status.dart';
 import 'package:tv/domain/usecases/get_watchlist_tvs.dart';
 import 'package:tv/domain/usecases/remove_watchlist_tv.dart';
@@ -50,9 +46,7 @@ import 'package:tv/domain/usecases/save_watchlist_tv.dart';
 import 'package:tv/presentation/provider/popular_tvs_notifier.dart';
 import 'package:tv/presentation/provider/top_rated_tvs_notifier.dart';
 import 'package:tv/presentation/provider/tv_detail_notifier.dart';
-import 'package:tv/presentation/provider/tv_images_notifier.dart';
 import 'package:tv/presentation/provider/tv_list_notifier.dart';
-import 'package:tv/presentation/provider/tv_season_episodes_notifier.dart';
 import 'package:tv/presentation/provider/watchlist_tv_provider.dart';
 
 final locator = GetIt.instance;
@@ -109,11 +103,6 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => MovieImagesNotifier(
-      getMovieImages: locator(),
-    ),
-  );
-  locator.registerFactory(
     () => WatchlistMovieNotifier(
       getWatchlistMovies: locator(),
     ),
@@ -146,16 +135,6 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => TvSeasonEpisodesNotifier(
-      getTvSeasonEpisodes: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvImagesNotifier(
-      getTvImages: locator(),
-    ),
-  );
-  locator.registerFactory(
     () => WatchlistTvNotifier(
       getWatchlistTvs: locator(),
     ),
@@ -171,17 +150,14 @@ void init() {
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => SearchMovies(locator()));
-  locator.registerLazySingleton(() => GetMovieImages(locator()));
   locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
 
   locator.registerLazySingleton(() => GetOnTheAirTvs(locator()));
   locator.registerLazySingleton(() => GetPopularTvs(locator()));
   locator.registerLazySingleton(() => GetTopRatedTvs(locator()));
   locator.registerLazySingleton(() => GetTvDetail(locator()));
-  locator.registerLazySingleton(() => GetTvSeasonEpisodes(locator()));
   locator.registerLazySingleton(() => GetTvRecommendations(locator()));
   locator.registerLazySingleton(() => SearchTvs(locator()));
-  locator.registerLazySingleton(() => GetTvImages(locator()));
   locator.registerLazySingleton(() => GetWatchlistTvs(locator()));
 
   locator.registerLazySingleton(

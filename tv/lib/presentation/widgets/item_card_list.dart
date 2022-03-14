@@ -83,7 +83,7 @@ class ItemCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    tv.vod_blurb.toString(),
+                    tv.vod_class.toString(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),
