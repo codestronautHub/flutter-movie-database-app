@@ -2,6 +2,8 @@ workflows:
   my-workflow:
     scripts:
       - name: Build ipa for distribution
-        script: xcode-project build-ipa 
+        script: xcode-project build-ipa \
+                    --workspace "ios/Runner.xcworkspace" \
+                    --scheme "Runner"
     artifacts:
       - build/ios/ipa/*.ipa
