@@ -12,12 +12,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/presentation/pages/movie_detail_page.dart';
 import 'package:movie/presentation/pages/popular_movies_page.dart';
 import 'package:movie/presentation/pages/top20_chinese_movies_page.dart';
+import 'package:movie/presentation/pages/top_Ac_movies_page.dart';
 import 'package:movie/presentation/pages/top_Hq_movies_page.dart';
 import 'package:movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:movie/presentation/provider/movie_list_notifier.dart';
 import 'package:movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:movie/presentation/provider/top20_chinese_movies_notifier.dart';
+import 'package:movie/presentation/provider/top_Ac_movies_notifier.dart';
 import 'package:movie/presentation/provider/top_Hq_movies_notifier.dart';
 import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:movie/presentation/provider/watchlist_movie_notifier.dart';
@@ -79,6 +81,9 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TopHqMoviesNotifier>(),
         ),
         ChangeNotifierProvider(
+          create: (_) => di.locator<TopAcMoviesNotifier>(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => di.locator<MovieDetailNotifier>(),
         ),
         ChangeNotifierProvider(
@@ -137,6 +142,9 @@ class MyApp extends StatelessWidget {
             case TopHqMoviesPage.routeName:
               return MaterialPageRoute(
                   builder: (_) => const TopHqMoviesPage());
+            case TopAcMoviesPage.routeName:
+              return MaterialPageRoute(
+                  builder: (_) => const TopAcMoviesPage());
             case MovieDetailPage.routeName:
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: settings.arguments as int),

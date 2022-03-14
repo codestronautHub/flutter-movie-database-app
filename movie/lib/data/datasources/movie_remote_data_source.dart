@@ -14,6 +14,7 @@ abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getTopRatedMovies();
   Future<List<MovieModel>> getTop20ChineseMovies();
   Future<List<MovieModel>> getTopHqMovies();
+  Future<List<MovieModel>> getTopAcMovies();
   Future<MovieDetailResponse> getMovieDetail(int id);
   Future<List<MovieModel>> getMovieRecommendations(int id);
   Future<List<MovieModel>> searchMovies(String query);
@@ -71,6 +72,17 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
    @override
   Future<List<MovieModel>> getTopHqMovies() async {
     final response = await client.get(Uri.parse(Urls.topHqMovies));
+
+    if (response.statusCode == 200) {
+      return MovieResponse.fromJson(json.decode(response.body)).movieList;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<MovieModel>> getTopAcMovies() async {
+    final response = await client.get(Uri.parse(Urls.topAcMovies));
 
     if (response.statusCode == 200) {
       return MovieResponse.fromJson(json.decode(response.body)).movieList;
