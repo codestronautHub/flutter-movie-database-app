@@ -58,6 +58,18 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
+  Future<Either<Failure, List<Movie>>> getTop20ChineseMovies() async {
+    try {
+      final result = await remoteDataSource.getTop20ChineseMovies();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
   Future<Either<Failure, MovieDetail>> getMovieDetail(int id) async {
     try {
       final result = await remoteDataSource.getMovieDetail(id);
