@@ -4,7 +4,6 @@ import 'package:core/utils/exception.dart';
 import 'package:core/utils/failure.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../domain/entities/media_image.dart';
 import '../../domain/entities/movie.dart';
 import '../../domain/entities/movie_detail.dart';
 import '../../domain/repositories/movie_repository.dart';
@@ -110,18 +109,6 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final result = await remoteDataSource.searchMovies(query);
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
-    } on SocketException {
-      return const Left(ConnectionFailure('Failed to connect to the network'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, MediaImage>> getMovieImages(int id) async {
-    try {
-      final result = await remoteDataSource.getMovieImages(id);
-      return Right(result.toEntity());
     } on ServerException {
       return const Left(ServerFailure(''));
     } on SocketException {

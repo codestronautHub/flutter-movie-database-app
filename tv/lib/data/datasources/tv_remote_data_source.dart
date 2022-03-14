@@ -19,7 +19,6 @@ abstract class TvRemoteDataSource {
   Future<List<TvSeasonEpisodeModel>> getTvSeasonEpisodes(int id);
   Future<List<TvModel>> getTvRecommendations(int id);
   Future<List<TvModel>> searchTvs(String query);
-  Future<MediaImageModel> getTvImages(int id);
 }
 
 class TvRemoteDataSourceImpl implements TvRemoteDataSource {
@@ -105,17 +104,6 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
 
     if (response.statusCode == 200) {
       return TvResponse.fromJson(json.decode(response.body)).tvList;
-    } else {
-      throw ServerException();
-    }
-  }
-
-  @override
-  Future<MediaImageModel> getTvImages(int id) async {
-    final response = await client.get(Uri.parse(Urls.tvImages(id)));
-
-    if (response.statusCode == 200) {
-      return MediaImageModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }

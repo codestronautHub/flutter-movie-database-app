@@ -29,7 +29,7 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Top Rated Tvs'),
+        title: const Text('Seri phim được yêu thích'),
         backgroundColor: Colors.black.withOpacity(0.6),
         elevation: 0.0,
       ),
