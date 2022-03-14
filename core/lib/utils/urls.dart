@@ -21,7 +21,8 @@ class Urls {
   static const String topRatedTvs = '$baseUrl/recommended?mid=1&by=score&tid=2';
   static String tvDetail(int id) => '$baseUrl/details?mid=1&id=$id&tid=2';
   static String tvSeasons(int id) => '$baseUrl/tv/$id/season/?';
-  static String tvRecommendations(int id) => '$baseUrl/tv/$id/recommendations?';
+  static String tvRecommendations(int id) =>
+      '$baseUrl/recommended?mid=1&by=score&tid=2';
   static String searchTvs(String query) => '$baseUrl/search/tv?&query=$query';
 
   /// Image
