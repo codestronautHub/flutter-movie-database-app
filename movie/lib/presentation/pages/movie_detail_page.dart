@@ -15,6 +15,8 @@ import '../provider/movie_detail_notifier.dart';
 import '../widgets/minimal_detail.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../widgets/shrink_and_expand_text.dart';
+
 class MovieDetailPage extends StatefulWidget {
   static const routeName = '/movie-detail';
 
@@ -280,13 +282,16 @@ class MovieDetailContent extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  Text(
-                    movie.vod_content,
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 1.2,
-                    ),
+                  // Text(
+                  //   movie.vod_content,
+                  //   style: const TextStyle(
+                  //     fontSize: 14.0,
+                  //     fontWeight: FontWeight.w400,
+                  //     letterSpacing: 1.2,
+                  //   ),
+                  // ),
+                  Container(
+                    child: DescriptionTextWidget(text: movie.vod_content),
                   ),
                   const SizedBox(height: 8.0),
                   // Text(

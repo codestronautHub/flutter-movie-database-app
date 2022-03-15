@@ -17,6 +17,7 @@ import '../../domain/entities/tv.dart';
 import '../../domain/entities/tv_detail.dart';
 import '../provider/tv_detail_notifier.dart';
 import '../widgets/minimal_detail.dart';
+import '../widgets/shrink_and_expand_text.dart';
 
 class TvDetailPage extends StatefulWidget {
   static const routeName = '/tv-detail';
@@ -289,32 +290,27 @@ class _TvDetailContentState extends State<TvDetailContent>
                     ),
                   ),
                   //const SizedBox(height: 16.0),
-                  // Text(
-                  //   widget.tv.vod_content,
-                  //   style: const TextStyle(
-                  //     fontSize: 14.0,
-                  //     fontWeight: FontWeight.w400,
-                  //     letterSpacing: 1.2,
-                  //   ),
-
-                  //),
+                  Container(
+                    child: DescriptionTextWidget(text: widget.tv.vod_content),
+                  ),
                   const SizedBox(height: 16.0),
-                  Column(children: <Widget>[
-                    ConstrainedBox(
-                        constraints: isExpanded
-                            ? BoxConstraints()
-                            : BoxConstraints(maxHeight: 60.0),
-                        child: Text(
-                          widget.tv.vod_content,
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
-                        )),
-                    isExpanded
-                        ? Container()
-                        : FlatButton(
-                            child: const Text('see more...'),
-                            onPressed: () => setState(() => isExpanded = true))
-                  ])
+                  // Column(children: <Widget>[
+                  //   ConstrainedBox(
+                  //       constraints: isExpanded
+                  //           ? BoxConstraints()
+                  //           : BoxConstraints(maxHeight: 60.0),
+                  //       child: Text(
+                  //         widget.tv.vod_content,
+                  //         softWrap: true,
+                  //         overflow: TextOverflow.fade,
+                  //       )),
+                  //   isExpanded
+                  //       ? Container()
+                  //       : FlatButton(
+                  //           child: const Text('see more...'),
+                  //           onPressed: () => setState(() => isExpanded = true))
+                  // ])
+
                 ],
               ),
             ),
@@ -337,7 +333,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                   ),
                 ),
                 tabs: [
-                  Tab(text: 'Episodes'.toUpperCase()),
+                  Tab(text: 'Tập phim'.toUpperCase()),
                   Tab(text: 'Đề xuất thêm'.toUpperCase()),
                 ],
               ),
