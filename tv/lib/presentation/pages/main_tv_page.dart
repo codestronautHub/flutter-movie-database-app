@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tv/presentation/pages/top_Tq_tvs_page.dart';
+import 'package:tv/presentation/pages/top_ac_tvs_page.dart';
 import 'package:tv/presentation/pages/top_hq_tvs_page.dart';
 
 import '../provider/tv_list_notifier.dart';
@@ -34,6 +35,7 @@ class _MainTvPageState extends State<MainTvPage> {
       Provider.of<TvListNotifier>(context, listen: false).fetchTopRatedTvs();
       Provider.of<TvListNotifier>(context, listen: false).fetchTopTqTvs();
       Provider.of<TvListNotifier>(context, listen: false).fetchTopHqTvs();
+      // Provider.of<TvListNotifier>(context, listen: false).fetchTopAcTvs();
     });
   }
 
@@ -379,6 +381,53 @@ class _MainTvPageState extends State<MainTvPage> {
                 );
               }
             }),
+            // SubHeading(
+            //   valueKey: 'seeTopAcTvs',
+            //   text: 'Top seri phim Hành động',
+            //   onSeeMoreTapped: () => Navigator.pushNamed(
+            //     context,
+            //     TopAcTvsPage.routeName,
+            //   ),
+            // ),
+            // Consumer<TvListNotifier>(builder: (context, data, child) {
+            //   if (data.topAcTvsState == RequestState.loaded) {
+            //     return FadeIn(
+            //       duration: const Duration(milliseconds: 500),
+            //       child: HorizontalItemList(
+            //         tvs: data.topAcTvs,
+            //       ),
+            //     );
+            //   } else if (data.topAcTvsState == RequestState.error) {
+            //     return const Center(child: Text('Load data failed'));
+            //   } else {
+            //     return SizedBox(
+            //       height: 170.0,
+            //       child: ListView.builder(
+            //         shrinkWrap: true,
+            //         itemCount: 5,
+            //         scrollDirection: Axis.horizontal,
+            //         padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            //         itemBuilder: (context, index) {
+            //           return Padding(
+            //             padding: const EdgeInsets.only(right: 8.0),
+            //             child: Shimmer.fromColors(
+            //               child: Container(
+            //                 height: 170.0,
+            //                 width: 120.0,
+            //                 decoration: BoxDecoration(
+            //                   color: Colors.black,
+            //                   borderRadius: BorderRadius.circular(8.0),
+            //                 ),
+            //               ),
+            //               baseColor: Colors.grey[850]!,
+            //               highlightColor: Colors.grey[800]!,
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //     );
+            //   }
+            // }),
             const SizedBox(height: 50.0),
           ],
         ),

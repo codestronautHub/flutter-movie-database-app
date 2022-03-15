@@ -28,10 +28,12 @@ import 'package:search/presentation/pages/tv_search_page.dart';
 import 'package:search/search.dart';
 import 'package:tv/presentation/pages/popular_tvs_page.dart';
 import 'package:tv/presentation/pages/top_Tq_tvs_page.dart';
+import 'package:tv/presentation/pages/top_ac_tvs_page.dart';
 import 'package:tv/presentation/pages/top_hq_tvs_page.dart';
 import 'package:tv/presentation/pages/top_rated_tvs_page.dart';
 import 'package:tv/presentation/pages/tv_detail_page.dart';
 import 'package:tv/presentation/provider/popular_tvs_notifier.dart';
+import 'package:tv/presentation/provider/top_ac_tvs_notifier.dart';
 import 'package:tv/presentation/provider/top_hq_tvs_notifier.dart';
 import 'package:tv/presentation/provider/top_rated_tvs_notifier.dart';
 import 'package:tv/presentation/provider/top_tq_tvs_notifier.dart';
@@ -111,6 +113,9 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TopHqTvsNotifier>(),
         ),
         ChangeNotifierProvider(
+          create: (_) => di.locator<TopAcTvsNotifier>(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => di.locator<TvDetailNotifier>(),
         ),
         ChangeNotifierProvider(
@@ -168,6 +173,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const TopTqTvsPage());
             case TopHqTvsPage.routeName:
               return MaterialPageRoute(builder: (_) => const TopHqTvsPage());
+            case TopAcTvsPage.routeName:
+              return MaterialPageRoute(builder: (_) => const TopAcTvsPage());
             case TvDetailPage.routeName:
               return MaterialPageRoute(
                 builder: (_) => TvDetailPage(id: settings.arguments as int),

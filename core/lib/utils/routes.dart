@@ -10,6 +10,7 @@ const popularTvsRoute = '/popular-tvs';
 const topRatedTvsRoute = '/top-rated-tvs';
 const topTqTvRoute = '/top-tq-tvs';
 const topHqTvRoute = '/top-hq-tvs';
+const topAcTvRoute = '/top-ac-tvs';
 const tvDetailRoute = '/tv-detail';
 
 const movieSearchRoute = '/movie-search';
