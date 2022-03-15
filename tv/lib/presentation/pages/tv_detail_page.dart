@@ -3,6 +3,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/presentation/pages/video_player.dart';
+import 'package:core/presentation/pages/video_player_list.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:core/utils/urls.dart';
@@ -263,8 +264,10 @@ class _TvDetailContentState extends State<TvDetailContent>
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: VideoPlayer(
+                              child: VideoPlayerList(
                                 url: widget.tv.vod_play_url[1].urls[0].url,
+                                listMovie: widget.tv.vod_play_url[1].urls,
+                                tv: widget.tv,
                               ),
                               type: PageTransitionType.bottomToTop));
                     },
@@ -288,16 +291,6 @@ class _TvDetailContentState extends State<TvDetailContent>
                       ),
                     ),
                   ),
-                  //const SizedBox(height: 16.0),
-                  // Text(
-                  //   widget.tv.vod_content,
-                  //   style: const TextStyle(
-                  //     fontSize: 14.0,
-                  //     fontWeight: FontWeight.w400,
-                  //     letterSpacing: 1.2,
-                  //   ),
-
-                  //),
                   const SizedBox(height: 16.0),
                   Column(children: <Widget>[
                     ConstrainedBox(
@@ -312,7 +305,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                     isExpanded
                         ? Container()
                         : FlatButton(
-                            child: const Text('see more...'),
+                            child: const Text('xem thêm...'),
                             onPressed: () => setState(() => isExpanded = true))
                   ])
                 ],
@@ -337,7 +330,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                   ),
                 ),
                 tabs: [
-                  Tab(text: 'Episodes'.toUpperCase()),
+                  Tab(text: 'Danh sách tập'.toUpperCase()),
                   Tab(text: 'Đề xuất thêm'.toUpperCase()),
                 ],
               ),

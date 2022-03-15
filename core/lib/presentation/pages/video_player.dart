@@ -17,6 +17,7 @@ class VideoPlayer extends StatefulWidget {
 }
 
 class _VideoPlayerState extends State<VideoPlayer> {
+  GlobalKey _betterPlayerKey = GlobalKey();
   late BetterPlayerController _betterPlayerController;
   @override
   void initState() {
@@ -25,11 +26,15 @@ class _VideoPlayerState extends State<VideoPlayer> {
         BetterPlayerDataSource(BetterPlayerDataSourceType.network, widget.url);
     _betterPlayerController = BetterPlayerController(
       const BetterPlayerConfiguration(
+        controlsConfiguration: BetterPlayerControlsConfiguration(
+          controlBarColor: Colors.black12,
+        ),
         autoPlay: true,
         aspectRatio: 16 / 9,
       ),
       betterPlayerDataSource: betterPlayerDataSource,
     );
+    _betterPlayerController.setBetterPlayerGlobalKey(_betterPlayerKey);
   }
 
   @override
@@ -50,7 +55,10 @@ class _VideoPlayerState extends State<VideoPlayer> {
         ),
       ),
       backgroundColor: const Color.fromARGB(248, 1, 0, 3),
-      body: BetterPlayer(controller: _betterPlayerController),
+      body: BetterPlayer(
+        key: _betterPlayerKey,
+        controller: _betterPlayerController,
+      ),
     );
   }
 }
