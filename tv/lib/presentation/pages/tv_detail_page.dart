@@ -18,6 +18,7 @@ import '../../domain/entities/tv.dart';
 import '../../domain/entities/tv_detail.dart';
 import '../provider/tv_detail_notifier.dart';
 import '../widgets/minimal_detail.dart';
+import '../widgets/shrink_and_expand_text.dart';
 
 class TvDetailPage extends StatefulWidget {
   static const routeName = '/tv-detail';
@@ -330,7 +331,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                   ),
                 ),
                 tabs: [
-                  Tab(text: 'Danh sách tập'.toUpperCase()),
+                  Tab(text: 'Tập phim'.toUpperCase()),
                   Tab(text: 'Đề xuất thêm'.toUpperCase()),
                 ],
               ),

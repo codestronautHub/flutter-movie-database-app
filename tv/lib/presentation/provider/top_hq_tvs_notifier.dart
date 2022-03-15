@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entities/tv.dart';
 import '../../domain/usecases/get_top_Tq_tvs.dart';
+import '../../domain/usecases/get_top_hq_tvs.dart';
+import '../../domain/usecases/get_top_rated_tvs.dart';
 
-class TopTqTvsNotifier extends ChangeNotifier {
-  final GetTopTqTvs getTopTqTvs;
+class TopHqTvsNotifier extends ChangeNotifier {
+  final GetTopHqTvs getTopHqTvs;
 
-  TopTqTvsNotifier(this.getTopTqTvs);
+  TopHqTvsNotifier(this.getTopHqTvs);
 
   List<Tv> _tvs = <Tv>[];
   List<Tv> get tvs => _tvs;
@@ -18,11 +20,11 @@ class TopTqTvsNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  Future<void> fetchTopTqTvs() async {
+  Future<void> fetchTopHqTvs() async {
     _state = RequestState.loading;
     notifyListeners();
 
-    final result = await getTopTqTvs.execute();
+    final result = await getTopHqTvs.execute();
     result.fold(
       (failure) {
         _state = RequestState.error;
