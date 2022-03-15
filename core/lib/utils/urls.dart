@@ -29,6 +29,8 @@ class Urls {
       '$baseUrlSerial&by=hits_month';
   static const String topRatedTvs = '$baseUrlSerial&by=score';
   static const String topTqTvs = '$baseUrlSerial&by=up&tid=13';
+  static const String topHqTvs = '$baseUrlSerial&by=up&tid=16';
+  static const String topAcTvs = '$baseUrlSerial&by=up&tid=8';
   static String tvDetail(int id) => '$baseUrl/details?mid=1&id=$id&tid=2';
   static String tvSeasons(int id) => '$baseUrl/tv/$id/season/?';
   static String tvRecommendations(int id) =>
