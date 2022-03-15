@@ -123,7 +123,7 @@ class MinimalDetail extends StatelessWidget {
                           fontSize: 12.0,
                         ),
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 4,
+                        maxLines: 2,
                       ),
                     ],
                   ),

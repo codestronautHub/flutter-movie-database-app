@@ -10,7 +10,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About'),
+        title: const Text('Giới thiệu'),
       ),
       body: Stack(
         children: [
