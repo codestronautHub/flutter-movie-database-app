@@ -293,22 +293,25 @@ class _TvDetailContentState extends State<TvDetailContent>
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  Column(children: <Widget>[
-                    ConstrainedBox(
-                        constraints: isExpanded
-                            ? BoxConstraints()
-                            : BoxConstraints(maxHeight: 60.0),
-                        child: Text(
-                          widget.tv.vod_content,
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
-                        )),
-                    isExpanded
-                        ? Container()
-                        : FlatButton(
-                            child: const Text('xem thêm...'),
-                            onPressed: () => setState(() => isExpanded = true))
-                  ])
+                  Container(
+                    child: DescriptionTextWidget(text: widget.tv.vod_content),
+                  ),
+                  // Column(children: <Widget>[
+                  //   ConstrainedBox(
+                  //       constraints: isExpanded
+                  //           ? BoxConstraints()
+                  //           : BoxConstraints(maxHeight: 60.0),
+                  //       child: Text(
+                  //         widget.tv.vod_content,
+                  //         softWrap: true,
+                  //         overflow: TextOverflow.fade,
+                  //       )),
+                  //   isExpanded
+                  //       ? Container()
+                  //       : FlatButton(
+                  //           child: const Text('xem thêm...'),
+                  //           onPressed: () => setState(() => isExpanded = true))
+                  // ])
                 ],
               ),
             ),
