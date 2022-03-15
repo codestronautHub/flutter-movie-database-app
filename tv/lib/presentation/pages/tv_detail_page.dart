@@ -3,6 +3,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/presentation/pages/video_player.dart';
+import 'package:core/presentation/pages/video_player_list.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:core/utils/urls.dart';
@@ -264,8 +265,10 @@ class _TvDetailContentState extends State<TvDetailContent>
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: VideoPlayer(
+                              child: VideoPlayerList(
                                 url: widget.tv.vod_play_url[1].urls[0].url,
+                                listMovie: widget.tv.vod_play_url[1].urls,
+                                tv: widget.tv,
                               ),
                               type: PageTransitionType.bottomToTop));
                     },
@@ -289,28 +292,23 @@ class _TvDetailContentState extends State<TvDetailContent>
                       ),
                     ),
                   ),
-                  //const SizedBox(height: 16.0),
-                  Container(
-                    child: DescriptionTextWidget(text: widget.tv.vod_content),
-                  ),
                   const SizedBox(height: 16.0),
-                  // Column(children: <Widget>[
-                  //   ConstrainedBox(
-                  //       constraints: isExpanded
-                  //           ? BoxConstraints()
-                  //           : BoxConstraints(maxHeight: 60.0),
-                  //       child: Text(
-                  //         widget.tv.vod_content,
-                  //         softWrap: true,
-                  //         overflow: TextOverflow.fade,
-                  //       )),
-                  //   isExpanded
-                  //       ? Container()
-                  //       : FlatButton(
-                  //           child: const Text('see more...'),
-                  //           onPressed: () => setState(() => isExpanded = true))
-                  // ])
-
+                  Column(children: <Widget>[
+                    ConstrainedBox(
+                        constraints: isExpanded
+                            ? BoxConstraints()
+                            : BoxConstraints(maxHeight: 60.0),
+                        child: Text(
+                          widget.tv.vod_content,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        )),
+                    isExpanded
+                        ? Container()
+                        : FlatButton(
+                            child: const Text('xem thêm...'),
+                            onPressed: () => setState(() => isExpanded = true))
+                  ])
                 ],
               ),
             ),
